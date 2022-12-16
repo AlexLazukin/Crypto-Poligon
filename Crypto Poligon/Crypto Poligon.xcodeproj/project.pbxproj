@@ -35,6 +35,57 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		52575338294C857800ED075C /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				52575339294C859F00ED075C /* Assets */,
+				5257533A294C85AA00ED075C /* LaunchScreen */,
+				5257533B294C85B300ED075C /* Settings */,
+			);
+			path = Configurations;
+			sourceTree = "<group>";
+		};
+		52575339294C859F00ED075C /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				52685289294C77DD006FF320 /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		5257533A294C85AA00ED075C /* LaunchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				5268528B294C77DD006FF320 /* LaunchScreen.storyboard */,
+			);
+			path = LaunchScreen;
+			sourceTree = "<group>";
+		};
+		5257533B294C85B300ED075C /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				5268528E294C77DD006FF320 /* Info.plist */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		5257533C294C85CB00ED075C /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				52685284294C77D8006FF320 /* ViewController.swift */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		5257533D294C85E100ED075C /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				52685280294C77D8006FF320 /* AppDelegate.swift */,
+				52685282294C77D8006FF320 /* SceneDelegate.swift */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
 		52685274294C77D8006FF320 = {
 			isa = PBXGroup;
 			children = (
@@ -54,12 +105,9 @@
 		5268527F294C77D8006FF320 /* Crypto Poligon */ = {
 			isa = PBXGroup;
 			children = (
-				52685280294C77D8006FF320 /* AppDelegate.swift */,
-				52685282294C77D8006FF320 /* SceneDelegate.swift */,
-				52685284294C77D8006FF320 /* ViewController.swift */,
-				52685289294C77DD006FF320 /* Assets.xcassets */,
-				5268528B294C77DD006FF320 /* LaunchScreen.storyboard */,
-				5268528E294C77DD006FF320 /* Info.plist */,
+				5257533D294C85E100ED075C /* AppDelegate */,
+				5257533C294C85CB00ED075C /* Modules */,
+				52575338294C857800ED075C /* Configurations */,
 			);
 			path = "Crypto Poligon";
 			sourceTree = "<group>";
@@ -74,6 +122,7 @@
 				52685279294C77D8006FF320 /* Sources */,
 				5268527A294C77D8006FF320 /* Frameworks */,
 				5268527B294C77D8006FF320 /* Resources */,
+				52575337294C83CF00ED075C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -128,6 +177,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		52575337294C83CF00ED075C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		52685279294C77D8006FF320 /* Sources */ = {
@@ -277,7 +346,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 684F77Y3GC;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Crypto Poligon/Info.plist";
+				INFOPLIST_FILE = "Crypto Poligon/Configurations/Settings/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -305,7 +374,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 684F77Y3GC;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Crypto Poligon/Info.plist";
+				INFOPLIST_FILE = "Crypto Poligon/Configurations/Settings/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
