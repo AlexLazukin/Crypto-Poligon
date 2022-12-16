@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		52575341294C887700ED075C /* ApiSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52575340294C887700ED075C /* ApiSettings.plist */; };
+		52575347294C895600ED075C /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52575346294C895600ED075C /* RequestManager.swift */; };
+		5257534A294C8D0600ED075C /* Failure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52575349294C8D0600ED075C /* Failure.swift */; };
+		5257534E294C8E1400ED075C /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5257534D294C8E1400ED075C /* Strings.swift */; };
+		52575350294C8FDF00ED075C /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5257534F294C8FDF00ED075C /* EndPoint.swift */; };
+		52575356294CABE200ED075C /* TickersResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52575355294CABE200ED075C /* TickersResponseObject.swift */; };
+		52575358294CAC1000ED075C /* Ticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52575357294CAC1000ED075C /* Ticker.swift */; };
+		5257535A294CAE5C00ED075C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52575359294CAE5C00ED075C /* NetworkService.swift */; };
 		52685281294C77D8006FF320 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52685280294C77D8006FF320 /* AppDelegate.swift */; };
 		52685283294C77D8006FF320 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52685282294C77D8006FF320 /* SceneDelegate.swift */; };
 		52685285294C77D8006FF320 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52685284294C77D8006FF320 /* ViewController.swift */; };
@@ -15,6 +23,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		52575340294C887700ED075C /* ApiSettings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ApiSettings.plist; sourceTree = "<group>"; };
+		52575346294C895600ED075C /* RequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
+		52575349294C8D0600ED075C /* Failure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Failure.swift; sourceTree = "<group>"; };
+		5257534D294C8E1400ED075C /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		5257534F294C8FDF00ED075C /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
+		52575355294CABE200ED075C /* TickersResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickersResponseObject.swift; sourceTree = "<group>"; };
+		52575357294CAC1000ED075C /* Ticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ticker.swift; sourceTree = "<group>"; };
+		52575359294CAE5C00ED075C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		5268527D294C77D8006FF320 /* Crypto Poligon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Crypto Poligon.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		52685280294C77D8006FF320 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52685282294C77D8006FF320 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -38,6 +54,7 @@
 		52575338294C857800ED075C /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
+				5257534B294C8DF300ED075C /* Strings */,
 				52575339294C859F00ED075C /* Assets */,
 				5257533A294C85AA00ED075C /* LaunchScreen */,
 				5257533B294C85B300ED075C /* Settings */,
@@ -65,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				5268528E294C77DD006FF320 /* Info.plist */,
+				52575340294C887700ED075C /* ApiSettings.plist */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -84,6 +102,75 @@
 				52685282294C77D8006FF320 /* SceneDelegate.swift */,
 			);
 			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		52575342294C88E700ED075C /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				52575345294C893000ED075C /* NetworkService */,
+				52575344294C892400ED075C /* EndPoint */,
+				52575343294C88F800ED075C /* RequestManager */,
+				52575351294CABA500ED075C /* ResponseObject */,
+				52575348294C8CF600ED075C /* Failure */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		52575343294C88F800ED075C /* RequestManager */ = {
+			isa = PBXGroup;
+			children = (
+				52575346294C895600ED075C /* RequestManager.swift */,
+			);
+			path = RequestManager;
+			sourceTree = "<group>";
+		};
+		52575344294C892400ED075C /* EndPoint */ = {
+			isa = PBXGroup;
+			children = (
+				5257534F294C8FDF00ED075C /* EndPoint.swift */,
+			);
+			path = EndPoint;
+			sourceTree = "<group>";
+		};
+		52575345294C893000ED075C /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				52575359294CAE5C00ED075C /* NetworkService.swift */,
+			);
+			path = NetworkService;
+			sourceTree = "<group>";
+		};
+		52575348294C8CF600ED075C /* Failure */ = {
+			isa = PBXGroup;
+			children = (
+				52575349294C8D0600ED075C /* Failure.swift */,
+			);
+			path = Failure;
+			sourceTree = "<group>";
+		};
+		5257534B294C8DF300ED075C /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				5257534D294C8E1400ED075C /* Strings.swift */,
+			);
+			path = Strings;
+			sourceTree = "<group>";
+		};
+		52575351294CABA500ED075C /* ResponseObject */ = {
+			isa = PBXGroup;
+			children = (
+				52575354294CABD100ED075C /* Tickers */,
+			);
+			path = ResponseObject;
+			sourceTree = "<group>";
+		};
+		52575354294CABD100ED075C /* Tickers */ = {
+			isa = PBXGroup;
+			children = (
+				52575355294CABE200ED075C /* TickersResponseObject.swift */,
+				52575357294CAC1000ED075C /* Ticker.swift */,
+			);
+			path = Tickers;
 			sourceTree = "<group>";
 		};
 		52685274294C77D8006FF320 = {
@@ -107,6 +194,7 @@
 			children = (
 				5257533D294C85E100ED075C /* AppDelegate */,
 				5257533C294C85CB00ED075C /* Modules */,
+				52575342294C88E700ED075C /* Network */,
 				52575338294C857800ED075C /* Configurations */,
 			);
 			path = "Crypto Poligon";
@@ -171,6 +259,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52575341294C887700ED075C /* ApiSettings.plist in Resources */,
 				5268528D294C77DD006FF320 /* LaunchScreen.storyboard in Resources */,
 				5268528A294C77DD006FF320 /* Assets.xcassets in Resources */,
 			);
@@ -203,9 +292,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5257535A294CAE5C00ED075C /* NetworkService.swift in Sources */,
 				52685285294C77D8006FF320 /* ViewController.swift in Sources */,
+				52575356294CABE200ED075C /* TickersResponseObject.swift in Sources */,
 				52685281294C77D8006FF320 /* AppDelegate.swift in Sources */,
 				52685283294C77D8006FF320 /* SceneDelegate.swift in Sources */,
+				52575358294CAC1000ED075C /* Ticker.swift in Sources */,
+				5257534A294C8D0600ED075C /* Failure.swift in Sources */,
+				5257534E294C8E1400ED075C /* Strings.swift in Sources */,
+				52575350294C8FDF00ED075C /* EndPoint.swift in Sources */,
+				52575347294C895600ED075C /* RequestManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
