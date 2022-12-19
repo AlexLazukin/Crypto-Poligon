@@ -6,7 +6,7 @@
 //
 
 enum EndPoint {
-    case tickers
+    case tickers(TickersRequestObject)
 }
 
 extension EndPoint {
@@ -25,6 +25,12 @@ extension EndPoint {
     var httpMethod: String {
         switch self {
         case .tickers: return HTTPMethod.GET.rawValue
+        }
+    }
+
+    var parameters: [String: String]? {
+        switch self {
+        case let .tickers(tickersRequestObject): return tickersRequestObject.parameters()
         }
     }
 }

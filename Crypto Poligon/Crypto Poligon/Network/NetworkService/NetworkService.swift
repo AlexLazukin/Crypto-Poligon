@@ -19,6 +19,7 @@ class NetworkService {
         self.requestManager = RequestManager()
 
         decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
     }
 
     // MARK: - Public (Interfaces)

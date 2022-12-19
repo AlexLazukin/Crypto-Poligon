@@ -8,6 +8,7 @@
 enum Failure: Error {
     case invalidUrl
     case decodingError(reason: String)
+    case encodingError
     case apiError(reason: String)
     case unknown
 
@@ -17,6 +18,7 @@ enum Failure: Error {
         case .invalidUrl: return Strings.NetworkError.invalidUrl
         case let .apiError(reason): return reason
         case let .decodingError(reason): return reason
+        case .encodingError: return Strings.NetworkError.encodingFailed
         case .unknown: return Strings.NetworkError.unknown
         }
     }

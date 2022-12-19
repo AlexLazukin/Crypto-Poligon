@@ -14,6 +14,7 @@ extension Strings {
 
         // MARK: - Public (Properties)
         static let invalidUrl = "Invalid Url Address"
+        static let encodingFailed = "Encoding of parameters of json was failed"
         static let unknown = "Unknown Error"
     }
 }

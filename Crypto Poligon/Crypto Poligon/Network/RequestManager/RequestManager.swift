@@ -37,14 +37,20 @@ final class RequestManager {
 // MARK: - RequestManagerInterface
 extension RequestManager: RequestManagerInterface {
     func generateRequest(_ endPoint: EndPoint) throws -> URLRequest {
-        let scheme = apiSettings.scheme
-        let host = apiSettings.host
+        var urlComponents = URLComponents()
+        urlComponents.scheme = apiSettings.scheme
+        urlComponents.host = apiSettings.host
+
         let version = endPoint.version
         let path = endPoint.path
         let apiKey = apiSettings.apiKey
-        let stringUrl = scheme + host + "/" + version + "/" + path
 
-        guard let url = URL(string: stringUrl) else {
+        urlComponents.path = "/" + version + "/" + path
+        urlComponents.queryItems = endPoint.parameters?.reduce(into: [], { partialResult, parameter in
+            partialResult?.append(URLQueryItem(name: parameter.key, value: parameter.value))
+        })
+
+        guard let url = urlComponents.url else {
             throw Failure.invalidUrl
         }
 
