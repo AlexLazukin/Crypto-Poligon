@@ -18,12 +18,19 @@
 		5257535E294CC42200ED075C /* TickersRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5257535D294CC42200ED075C /* TickersRequestObject.swift */; };
 		52685281294C77D8006FF320 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52685280294C77D8006FF320 /* AppDelegate.swift */; };
 		52685283294C77D8006FF320 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52685282294C77D8006FF320 /* SceneDelegate.swift */; };
-		52685285294C77D8006FF320 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52685284294C77D8006FF320 /* ViewController.swift */; };
 		5268528A294C77DD006FF320 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52685289294C77DD006FF320 /* Assets.xcassets */; };
 		5268528D294C77DD006FF320 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5268528B294C77DD006FF320 /* LaunchScreen.storyboard */; };
 		52D358F829506E1700509AEF /* TickerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D358F729506E1700509AEF /* TickerType.swift */; };
 		52D358FA29506ECE00509AEF /* MarketType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D358F929506ECE00509AEF /* MarketType.swift */; };
 		52D358FF2950902E00509AEF /* TickersCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D358FE2950902E00509AEF /* TickersCoordinator.swift */; };
+		52F38FB22950B3F700FF17E8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F38FB12950B3F700FF17E8 /* Coordinator.swift */; };
+		52F38FB52950B42E00FF17E8 /* TickersAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F38FB42950B42E00FF17E8 /* TickersAssembler.swift */; };
+		52F38FB72950B44600FF17E8 /* TickersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F38FB62950B44600FF17E8 /* TickersView.swift */; };
+		52F38FB92950B45D00FF17E8 /* TickersInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F38FB82950B45D00FF17E8 /* TickersInteractor.swift */; };
+		52F38FBB2950B47700FF17E8 /* TickersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F38FBA2950B47700FF17E8 /* TickersPresenter.swift */; };
+		52F38FBD2950B49100FF17E8 /* TickersRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F38FBC2950B49100FF17E8 /* TickersRouter.swift */; };
+		52F38FBF2950B4DB00FF17E8 /* TickersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F38FBE2950B4DB00FF17E8 /* TickersViewModel.swift */; };
+		52F38FC12950B50600FF17E8 /* TickersNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F38FC02950B50600FF17E8 /* TickersNetworkService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,13 +46,20 @@
 		5268527D294C77D8006FF320 /* Crypto Poligon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Crypto Poligon.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		52685280294C77D8006FF320 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52685282294C77D8006FF320 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		52685284294C77D8006FF320 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		52685289294C77DD006FF320 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5268528C294C77DD006FF320 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5268528E294C77DD006FF320 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		52D358F729506E1700509AEF /* TickerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerType.swift; sourceTree = "<group>"; };
 		52D358F929506ECE00509AEF /* MarketType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketType.swift; sourceTree = "<group>"; };
 		52D358FE2950902E00509AEF /* TickersCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickersCoordinator.swift; sourceTree = "<group>"; };
+		52F38FB12950B3F700FF17E8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		52F38FB42950B42E00FF17E8 /* TickersAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickersAssembler.swift; sourceTree = "<group>"; };
+		52F38FB62950B44600FF17E8 /* TickersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickersView.swift; sourceTree = "<group>"; };
+		52F38FB82950B45D00FF17E8 /* TickersInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickersInteractor.swift; sourceTree = "<group>"; };
+		52F38FBA2950B47700FF17E8 /* TickersPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickersPresenter.swift; sourceTree = "<group>"; };
+		52F38FBC2950B49100FF17E8 /* TickersRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickersRouter.swift; sourceTree = "<group>"; };
+		52F38FBE2950B4DB00FF17E8 /* TickersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickersViewModel.swift; sourceTree = "<group>"; };
+		52F38FC02950B50600FF17E8 /* TickersNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickersNetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +112,7 @@
 		5257533C294C85CB00ED075C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				52685284294C77D8006FF320 /* ViewController.swift */,
+				52F38FB32950B41C00FF17E8 /* Tickers */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -146,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				52575359294CAE5C00ED075C /* NetworkService.swift */,
+				52F38FC02950B50600FF17E8 /* TickersNetworkService.swift */,
 			);
 			path = NetworkService;
 			sourceTree = "<group>";
@@ -239,9 +254,23 @@
 		52D358FD2950900700509AEF /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
+				52F38FB12950B3F700FF17E8 /* Coordinator.swift */,
 				52D358FE2950902E00509AEF /* TickersCoordinator.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		52F38FB32950B41C00FF17E8 /* Tickers */ = {
+			isa = PBXGroup;
+			children = (
+				52F38FB42950B42E00FF17E8 /* TickersAssembler.swift */,
+				52F38FB62950B44600FF17E8 /* TickersView.swift */,
+				52F38FB82950B45D00FF17E8 /* TickersInteractor.swift */,
+				52F38FBA2950B47700FF17E8 /* TickersPresenter.swift */,
+				52F38FBC2950B49100FF17E8 /* TickersRouter.swift */,
+				52F38FBE2950B4DB00FF17E8 /* TickersViewModel.swift */,
+			);
+			path = Tickers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -337,16 +366,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				5257535A294CAE5C00ED075C /* NetworkService.swift in Sources */,
-				52685285294C77D8006FF320 /* ViewController.swift in Sources */,
+				52F38FBD2950B49100FF17E8 /* TickersRouter.swift in Sources */,
+				52F38FBF2950B4DB00FF17E8 /* TickersViewModel.swift in Sources */,
 				52575356294CABE200ED075C /* TickersResponseObject.swift in Sources */,
+				52F38FB52950B42E00FF17E8 /* TickersAssembler.swift in Sources */,
 				52D358F829506E1700509AEF /* TickerType.swift in Sources */,
 				52685281294C77D8006FF320 /* AppDelegate.swift in Sources */,
 				52685283294C77D8006FF320 /* SceneDelegate.swift in Sources */,
+				52F38FBB2950B47700FF17E8 /* TickersPresenter.swift in Sources */,
+				52F38FB92950B45D00FF17E8 /* TickersInteractor.swift in Sources */,
 				52575358294CAC1000ED075C /* Ticker.swift in Sources */,
+				52F38FB22950B3F700FF17E8 /* Coordinator.swift in Sources */,
 				5257535E294CC42200ED075C /* TickersRequestObject.swift in Sources */,
+				52F38FC12950B50600FF17E8 /* TickersNetworkService.swift in Sources */,
 				52D358FF2950902E00509AEF /* TickersCoordinator.swift in Sources */,
 				5257534A294C8D0600ED075C /* Failure.swift in Sources */,
 				5257534E294C8E1400ED075C /* Strings.swift in Sources */,
+				52F38FB72950B44600FF17E8 /* TickersView.swift in Sources */,
 				52575350294C8FDF00ED075C /* EndPoint.swift in Sources */,
 				52575347294C895600ED075C /* RequestManager.swift in Sources */,
 				52D358FA29506ECE00509AEF /* MarketType.swift in Sources */,
