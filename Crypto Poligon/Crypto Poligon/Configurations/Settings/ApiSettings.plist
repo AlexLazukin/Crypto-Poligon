@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>scheme</key>
-	<string>https://</string>
+	<string>https</string>
 	<key>host</key>
 	<string>api.polygon.io</string>
 	<key>apiKey</key>

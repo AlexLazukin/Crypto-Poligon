@@ -18,7 +18,10 @@ class ViewController: UIViewController {
 
         view.backgroundColor = .systemRed
 
-        service.request(.tickers, for: TickersResponseObject.self)
+        service.request(
+            .tickers(TickersRequestObject(active: false, order: .desc)),
+            for: TickersResponseObject.self
+        )
             .receive(on: DispatchQueue.main)
             .sink { status in
                 switch status {
@@ -28,7 +31,9 @@ class ViewController: UIViewController {
                     break
                 }
             } receiveValue: { tickersResponseObject in
-                print(tickersResponseObject.results.count)
+                tickersResponseObject.results.forEach {
+                    print($0.type?.rawValue)
+                }
             }
             .store(in: &subscriptions)
     }
