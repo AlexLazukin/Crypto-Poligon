@@ -18,6 +18,7 @@ struct TickersRequestObject {
     let active: Bool
     let limit: Int
     let order: Order?
+    let sort: Sort?
 
     // MARK: - Init
     init(
@@ -29,7 +30,8 @@ struct TickersRequestObject {
         date: String? = nil,
         active: Bool = true,
         limit: Int = 20,
-        order: Order?
+        order: Order? = nil,
+        sort: Sort? = nil
     ) {
         self.ticker = ticker
         self.type = type
@@ -40,6 +42,7 @@ struct TickersRequestObject {
         self.active = active
         self.limit = limit
         self.order = order
+        self.sort = sort
     }
 
     // MARK: - Public (Interface)
@@ -54,6 +57,7 @@ struct TickersRequestObject {
         parameters["active"] = String(active)
         parameters["limit"] = String(limit)
         parameters["order"] = order?.rawValue
+        parameters["sort"] = sort?.rawValue
 
         return parameters
     }
@@ -63,5 +67,21 @@ struct TickersRequestObject {
 extension TickersRequestObject {
     enum Order: String {
         case asc, desc
+    }
+}
+
+// MARK: - Sort
+extension TickersRequestObject {
+    enum Sort: String {
+        case ticker, name, market, locale, type, cik
+        case primary = "primary_exchange"
+        case currencySymbol = "currency_symbol"
+        case currencyName = "currency_name"
+        case baseCurrencySymbol = "base_currency_symbol"
+        case baseCurrencyName = "base_currency_name"
+        case compositeFigi = "composite_figi"
+        case shareClassFigi = "share_class_figi"
+        case lastUpdatedUtc = "last_updated_utc"
+        case delistedUtc = "delisted_utc"
     }
 }
