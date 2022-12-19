@@ -23,6 +23,7 @@
 		5268528D294C77DD006FF320 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5268528B294C77DD006FF320 /* LaunchScreen.storyboard */; };
 		52D358F829506E1700509AEF /* TickerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D358F729506E1700509AEF /* TickerType.swift */; };
 		52D358FA29506ECE00509AEF /* MarketType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D358F929506ECE00509AEF /* MarketType.swift */; };
+		52D358FF2950902E00509AEF /* TickersCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D358FE2950902E00509AEF /* TickersCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		5268528E294C77DD006FF320 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		52D358F729506E1700509AEF /* TickerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerType.swift; sourceTree = "<group>"; };
 		52D358F929506ECE00509AEF /* MarketType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketType.swift; sourceTree = "<group>"; };
+		52D358FE2950902E00509AEF /* TickersCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickersCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				5257533D294C85E100ED075C /* AppDelegate */,
+				52D358FD2950900700509AEF /* Coordinator */,
 				5257533C294C85CB00ED075C /* Modules */,
 				52575342294C88E700ED075C /* Network */,
 				52575338294C857800ED075C /* Configurations */,
@@ -231,6 +234,14 @@
 				52D358F929506ECE00509AEF /* MarketType.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		52D358FD2950900700509AEF /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				52D358FE2950902E00509AEF /* TickersCoordinator.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -333,6 +344,7 @@
 				52685283294C77D8006FF320 /* SceneDelegate.swift in Sources */,
 				52575358294CAC1000ED075C /* Ticker.swift in Sources */,
 				5257535E294CC42200ED075C /* TickersRequestObject.swift in Sources */,
+				52D358FF2950902E00509AEF /* TickersCoordinator.swift in Sources */,
 				5257534A294C8D0600ED075C /* Failure.swift in Sources */,
 				5257534E294C8E1400ED075C /* Strings.swift in Sources */,
 				52575350294C8FDF00ED075C /* EndPoint.swift in Sources */,
