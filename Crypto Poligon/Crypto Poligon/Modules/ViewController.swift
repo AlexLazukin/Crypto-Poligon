@@ -19,7 +19,7 @@ class ViewController: UIViewController {
         view.backgroundColor = .systemRed
 
         service.request(
-            .tickers(TickersRequestObject(active: false, order: .desc)),
+            .tickers(TickersRequestObject(sort: .compositeFigi)),
             for: TickersResponseObject.self
         )
             .receive(on: DispatchQueue.main)
@@ -32,7 +32,7 @@ class ViewController: UIViewController {
                 }
             } receiveValue: { tickersResponseObject in
                 tickersResponseObject.results.forEach {
-                    print($0.type?.rawValue)
+                    print($0.ticker)
                 }
             }
             .store(in: &subscriptions)
