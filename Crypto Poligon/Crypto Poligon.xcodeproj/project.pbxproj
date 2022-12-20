@@ -20,6 +20,10 @@
 		52685283294C77D8006FF320 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52685282294C77D8006FF320 /* SceneDelegate.swift */; };
 		5268528A294C77DD006FF320 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52685289294C77DD006FF320 /* Assets.xcassets */; };
 		5268528D294C77DD006FF320 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5268528B294C77DD006FF320 /* LaunchScreen.storyboard */; };
+		528B340D2951C0760082F73B /* CaseIterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B340C2951C0760082F73B /* CaseIterable.swift */; };
+		528B34102951C33A0082F73B /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B340F2951C33A0082F73B /* Font.swift */; };
+		528B34122951C3C70082F73B /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 528B34112951C3C70082F73B /* Colors.xcassets */; };
+		528B34152951C4320082F73B /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B34142951C4320082F73B /* Color.swift */; };
 		52D358F829506E1700509AEF /* TickerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D358F729506E1700509AEF /* TickerType.swift */; };
 		52D358FA29506ECE00509AEF /* MarketType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D358F929506ECE00509AEF /* MarketType.swift */; };
 		52D358FF2950902E00509AEF /* TickersCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D358FE2950902E00509AEF /* TickersCoordinator.swift */; };
@@ -49,6 +53,10 @@
 		52685289294C77DD006FF320 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5268528C294C77DD006FF320 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5268528E294C77DD006FF320 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		528B340C2951C0760082F73B /* CaseIterable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaseIterable.swift; sourceTree = "<group>"; };
+		528B340F2951C33A0082F73B /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		528B34112951C3C70082F73B /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		528B34142951C4320082F73B /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		52D358F729506E1700509AEF /* TickerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerType.swift; sourceTree = "<group>"; };
 		52D358F929506ECE00509AEF /* MarketType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketType.swift; sourceTree = "<group>"; };
 		52D358FE2950902E00509AEF /* TickersCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickersCoordinator.swift; sourceTree = "<group>"; };
@@ -76,6 +84,8 @@
 		52575338294C857800ED075C /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
+				528B34132951C4240082F73B /* Colors */,
+				528B340E2951C32C0082F73B /* Fonts */,
 				5257534B294C8DF300ED075C /* Strings */,
 				52575339294C859F00ED075C /* Assets */,
 				5257533A294C85AA00ED075C /* LaunchScreen */,
@@ -88,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				52685289294C77DD006FF320 /* Assets.xcassets */,
+				528B34112951C3C70082F73B /* Colors.xcassets */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -237,9 +248,34 @@
 				52D358FD2950900700509AEF /* Coordinator */,
 				5257533C294C85CB00ED075C /* Modules */,
 				52575342294C88E700ED075C /* Network */,
+				528B340B2951C0570082F73B /* Extensions */,
 				52575338294C857800ED075C /* Configurations */,
 			);
 			path = "Crypto Poligon";
+			sourceTree = "<group>";
+		};
+		528B340B2951C0570082F73B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				528B340C2951C0760082F73B /* CaseIterable.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		528B340E2951C32C0082F73B /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				528B340F2951C33A0082F73B /* Font.swift */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		528B34132951C4240082F73B /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				528B34142951C4320082F73B /* Color.swift */,
+			);
+			path = Colors;
 			sourceTree = "<group>";
 		};
 		52D358F629506DFE00509AEF /* Models */ = {
@@ -333,6 +369,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52575341294C887700ED075C /* ApiSettings.plist in Resources */,
+				528B34122951C3C70082F73B /* Colors.xcassets in Resources */,
 				5268528D294C77DD006FF320 /* LaunchScreen.storyboard in Resources */,
 				5268528A294C77DD006FF320 /* Assets.xcassets in Resources */,
 			);
@@ -370,12 +407,15 @@
 				52F38FBF2950B4DB00FF17E8 /* TickersViewModel.swift in Sources */,
 				52575356294CABE200ED075C /* TickersResponseObject.swift in Sources */,
 				52F38FB52950B42E00FF17E8 /* TickersAssembler.swift in Sources */,
+				528B34152951C4320082F73B /* Color.swift in Sources */,
 				52D358F829506E1700509AEF /* TickerType.swift in Sources */,
 				52685281294C77D8006FF320 /* AppDelegate.swift in Sources */,
 				52685283294C77D8006FF320 /* SceneDelegate.swift in Sources */,
 				52F38FBB2950B47700FF17E8 /* TickersPresenter.swift in Sources */,
 				52F38FB92950B45D00FF17E8 /* TickersInteractor.swift in Sources */,
+				528B34102951C33A0082F73B /* Font.swift in Sources */,
 				52575358294CAC1000ED075C /* Ticker.swift in Sources */,
+				528B340D2951C0760082F73B /* CaseIterable.swift in Sources */,
 				52F38FB22950B3F700FF17E8 /* Coordinator.swift in Sources */,
 				5257535E294CC42200ED075C /* TickersRequestObject.swift in Sources */,
 				52F38FC12950B50600FF17E8 /* TickersNetworkService.swift in Sources */,

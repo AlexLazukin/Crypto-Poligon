@@ -6,6 +6,6 @@
 //
 // swiftlint:disable all
 
-enum MarketType: String, Codable {
+enum MarketType: String, Codable, CaseIterable, Equatable {
     case stocks, crypto, fx, otc
 }

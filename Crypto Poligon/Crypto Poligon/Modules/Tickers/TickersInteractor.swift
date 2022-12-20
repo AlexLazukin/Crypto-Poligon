@@ -9,9 +9,8 @@ import Combine
 
 // MARK: - TickersViewInteractorInterface
 protocol TickersViewInteractorInterface {
-    func onAppear(
-        market: MarketType
-    )
+    func reloadTickers(market: MarketType)
+    func changeMarket(market: MarketType)
 }
 
 // MARK: - TickersInteractor
@@ -54,10 +53,12 @@ final class TickersInteractor {
 
 // MARK: - TickersViewInteractorInterface
 extension TickersInteractor: TickersViewInteractorInterface {
-    func onAppear(
-        market: MarketType
-    ) {
+    func reloadTickers(market: MarketType) {
         let tickersRequestObject = TickersRequestObject(market: market)
         tickersLoader.send(tickersRequestObject)
+    }
+
+    func changeMarket(market: MarketType) {
+        presenter.changeMarket(market: market)
     }
 }

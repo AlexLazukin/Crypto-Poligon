@@ -28,8 +28,8 @@ final class TickersCoordinator: Coordinator {
 
     // MARK: - Private (Properties)
     private func showErrorAlert(_ message: String) {
-        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+        let alertController = UIAlertController(title: Strings.Alert.error, message: message, preferredStyle: .alert)
+        let cancel = UIAlertAction(title: Strings.Alert.cancel, style: .cancel)
         alertController.addAction(cancel)
         root.present(alertController, animated: true)
     }

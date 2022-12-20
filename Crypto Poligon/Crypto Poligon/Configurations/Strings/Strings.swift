@@ -18,3 +18,13 @@ extension Strings {
         static let unknown = "Unknown Error"
     }
 }
+
+// MARK: - Alert
+extension Strings {
+    final class Alert {
+
+        // MARK: - Public (Properties)
+        static let error = "Error"
+        static let cancel = "Cancel"
+    }
+}

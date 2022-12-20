@@ -12,6 +12,7 @@ import Foundation
 protocol TickersInteractorPresenterInterface {
     func updateTickers(_ tickers: [Ticker])
     func handleFailure(_ failure: Failure)
+    func changeMarket(market: MarketType)
 }
 
 // MARK: - TickersPresenter
@@ -59,5 +60,9 @@ extension TickersPresenter: TickersInteractorPresenterInterface {
 
     func handleFailure(_ failure: Failure) {
         failuresHandler.send(failure)
+    }
+
+    func changeMarket(market: MarketType) {
+        viewModel.currentMarket = market
     }
 }

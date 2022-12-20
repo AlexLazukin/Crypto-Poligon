@@ -58,6 +58,8 @@ extension RequestManager: RequestManagerInterface {
         urlRequest.httpMethod = endPoint.httpMethod
         urlRequest.setValue("Bearer " + apiKey, forHTTPHeaderField: "Authorization")
 
+        print("LOG: \(url.absoluteURL)")
+
         return urlRequest
     }
 }
