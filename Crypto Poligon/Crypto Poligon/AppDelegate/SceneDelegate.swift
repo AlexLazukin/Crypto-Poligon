@@ -23,7 +23,7 @@ extension SceneDelegate: UIWindowSceneDelegate {
         guard let windowScene = scene as? UIWindowScene else { return }
         let startCoordinator = TickersCoordinator()
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = startCoordinator.rootViewController()
+        window?.rootViewController = startCoordinator.rootViewController
         window?.makeKeyAndVisible()
     }
 

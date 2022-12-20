@@ -7,19 +7,30 @@
 
 import UIKit
 
-final class TickersCoordinator {
+final class TickersCoordinator: Coordinator {
+
+    // MARK: - Coordinator
+    var rootViewController: UIViewController {
+        root
+    }
 
     // MARK: - Private (Properties)
-    private var root: UINavigationController
+    private let root: UINavigationController
+    private var tickersAssembler: TickersCoordinatorAssemblerInterface
 
     // MARK: - Init
     init() {
-        let ticketsViewController = ViewController()
-        root = UINavigationController(rootViewController: ticketsViewController)
+        tickersAssembler = TickersAssembler()
+        root = UINavigationController(rootViewController: tickersAssembler.rootViewController)
+
+        tickersAssembler.coordinatorRouter.showErrorAlert = showErrorAlert
     }
 
-    // MARK: - Public (Properties)
-    func rootViewController() -> UIViewController {
-        root
+    // MARK: - Private (Properties)
+    private func showErrorAlert(_ message: String) {
+        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+        alertController.addAction(cancel)
+        root.present(alertController, animated: true)
     }
 }
