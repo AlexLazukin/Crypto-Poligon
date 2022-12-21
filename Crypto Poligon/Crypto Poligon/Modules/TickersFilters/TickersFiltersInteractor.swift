@@ -8,7 +8,9 @@
 import Combine
 
 // MARK: - TickersFiltersViewInteractorInterface
-protocol TickersFiltersViewInteractorInterface { }
+protocol TickersFiltersViewInteractorInterface {
+    func reloadExchangeList(market: MarketType)
+}
 
 // MARK: - TickersFiltersInteractor
 final class TickersFiltersInteractor {
@@ -16,7 +18,7 @@ final class TickersFiltersInteractor {
     // MARK: - Private (Properties)
     private var presenter: TickersFiltersInteractorPresenterInterface
     private let tickersService: TickersNetworkServiceInterface
-    private let exchangeListLoader = PassthroughSubject<Void, Never>()
+    private let exchangeListLoader = PassthroughSubject<ExchangesRequestObject, Never>()
     private var subscriptions = Set<AnyCancellable>()
 
     // MARK: - Init
@@ -30,8 +32,8 @@ final class TickersFiltersInteractor {
     // MARK: - Private (Properties)
     private func subscribeOnExchangeListLoader() {
         exchangeListLoader
-            .compactMap { [weak self] _ in
-                self?.tickersService.requestTickers(TickersRequestObject())
+            .compactMap { [weak self] exchangesRequestObject in
+                self?.tickersService.requestExchanges(exchangesRequestObject)
             }
             .switchToLatest()
             .sink { [weak self] status in
@@ -41,14 +43,18 @@ final class TickersFiltersInteractor {
                 case .finished:
                     break
                 }
-            } receiveValue: { _ in }
+            } receiveValue: { exchanges in
+                print(exchanges.count)
+            }
             .store(in: &subscriptions)
     }
 }
 
 // MARK: - TickersFiltersViewInteractorInterface
 extension TickersFiltersInteractor: TickersFiltersViewInteractorInterface {
-    func reloadExchangeList() {
-        exchangeListLoader.send()
+    func reloadExchangeList(market: MarketType) {
+        let exchangesRequestObject = ExchangesRequestObject(market: market)
+
+        exchangeListLoader.send(exchangesRequestObject)
     }
 }

@@ -7,30 +7,37 @@
 
 enum EndPoint {
     case tickers(TickersRequestObject)
+    case exchanges(ExchangesRequestObject)
 }
 
 extension EndPoint {
     var version: String {
         switch self {
-        case .tickers: return Version.v3.rawValue
+        case .tickers,
+                .exchanges:
+            return Version.v3.rawValue
         }
     }
 
     var path: String {
         switch self {
         case .tickers: return "reference/tickers"
+        case .exchanges: return "reference/exchanges"
         }
     }
 
     var httpMethod: String {
         switch self {
-        case .tickers: return HTTPMethod.GET.rawValue
+        case .tickers,
+                .exchanges:
+            return HTTPMethod.GET.rawValue
         }
     }
 
     var parameters: [String: String]? {
         switch self {
         case let .tickers(tickersRequestObject): return tickersRequestObject.parameters()
+        case let .exchanges(exchangesRequestObject): return exchangesRequestObject.parameters()
         }
     }
 }
@@ -41,8 +48,6 @@ private extension EndPoint {
         case GET
     }
 }
-
-// swiftlint:disable all
 
 // MARK: - Version
 private extension EndPoint {

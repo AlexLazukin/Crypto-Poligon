@@ -7,4 +7,15 @@
 
 import Combine
 
-final class TickersFiltersViewModel: ObservableObject { }
+final class TickersFiltersViewModel: ObservableObject {
+
+    // MARK: - Public (Properties)
+    @Published var market: MarketType
+    @Published var exchanges: [Exchange] = []
+    @Published var currentExchange: Exchange?
+
+    // MARK: - Init
+    init(market: MarketType) {
+        self.market = market
+    }
+}

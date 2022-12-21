@@ -40,8 +40,10 @@ final class TickersCoordinator: Coordinator {
         root.present(alertController, animated: true)
     }
 
-    private func showTickersFilters() {
-        let tickersFiltersAssembler: TickersFiltersCoordinatorAssemblerInterface = TickersFiltersAssembler()
+    private func showTickersFilters(market: MarketType) {
+        let tickersFiltersAssembler: TickersFiltersCoordinatorAssemblerInterface = TickersFiltersAssembler(
+            market: market
+        )
         let viewController = tickersFiltersAssembler.rootViewController
 
         root.pushViewController(viewController, animated: true)

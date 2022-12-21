@@ -13,7 +13,7 @@ protocol TickersInteractorPresenterInterface {
     func updateTickers(_ tickers: [Ticker])
     func handleFailure(_ failure: Failure)
     func changeMarket(market: MarketType)
-    func filtersTapped()
+    func filtersTapped(market: MarketType)
 }
 
 // MARK: - TickersPresenter
@@ -76,7 +76,7 @@ extension TickersPresenter: TickersInteractorPresenterInterface {
         marketUpdater.send(market)
     }
 
-    func filtersTapped() {
-        router.showTickersFiltersScreen()
+    func filtersTapped(market: MarketType) {
+        router.showTickersFiltersScreen(market: market)
     }
 }

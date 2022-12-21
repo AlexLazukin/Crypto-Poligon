@@ -27,6 +27,9 @@ struct TickersFiltersView: View {
         .toolbar {
             centerToolBar()
         }
+        .onAppear {
+            interactor.reloadExchangeList(market: viewModel.market)
+        }
     }
 
     // MARK: - Private (Interfaces)

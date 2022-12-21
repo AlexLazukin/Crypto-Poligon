@@ -156,7 +156,7 @@ struct TickersView: View {
             AnyView(
                 Button(
                     action: {
-                        interactor.filtersTapped()
+                        interactor.filtersTapped(market: viewModel.currentMarket)
                     },
                     label: {
                         Image(systemName: "ellipsis")

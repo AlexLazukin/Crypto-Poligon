@@ -8,13 +8,13 @@
 // MARK: - TickersPresenterRouterInterface
 protocol TickersPresenterRouterInterface {
     func showErrorAlert(_ text: String)
-    func showTickersFiltersScreen()
+    func showTickersFiltersScreen(market: MarketType)
 }
 
 // MARK: - TickersCoordinatorRouterInterface
 protocol TickersCoordinatorRouterInterface {
     var showErrorAlert: ((String) -> Void)? { get set }
-    var onTickersFiltersScreen: (() -> Void)? { get set }
+    var onTickersFiltersScreen: ((MarketType) -> Void)? { get set }
 }
 
 // MARK: - TickersRouter
@@ -22,7 +22,7 @@ final class TickersRouter: TickersCoordinatorRouterInterface {
 
     // MARK: - TickersCoordinatorRouterInterface
     var showErrorAlert: ((String) -> Void)?
-    var onTickersFiltersScreen: (() -> Void)?
+    var onTickersFiltersScreen: ((MarketType) -> Void)?
 }
 
 // MARK: - TickersPresenterRouterInterface
@@ -31,7 +31,7 @@ extension TickersRouter: TickersPresenterRouterInterface {
         showErrorAlert?(text)
     }
 
-    func showTickersFiltersScreen() {
-        onTickersFiltersScreen?()
+    func showTickersFiltersScreen(market: MarketType) {
+        onTickersFiltersScreen?(market)
     }
 }

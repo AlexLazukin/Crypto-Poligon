@@ -12,7 +12,7 @@ import Foundation
 protocol TickersViewInteractorInterface {
     func reloadTickers(_ tickersRequestObject: TickersRequestObject)
     func changeMarket(market: MarketType)
-    func filtersTapped()
+    func filtersTapped(market: MarketType)
 }
 
 // MARK: - TickersInteractor
@@ -65,7 +65,7 @@ extension TickersInteractor: TickersViewInteractorInterface {
         presenter.changeMarket(market: market)
     }
 
-    func filtersTapped() {
-        presenter.filtersTapped()
+    func filtersTapped(market: MarketType) {
+        presenter.filtersTapped(market: market)
     }
 }
