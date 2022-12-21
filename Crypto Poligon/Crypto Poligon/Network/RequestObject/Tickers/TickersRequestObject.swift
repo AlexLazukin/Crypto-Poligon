@@ -50,7 +50,7 @@ struct TickersRequestObject {
         var parameters: [String: String] = [:]
 
         parameters["ticker"] = ticker
-        parameters["ticker"] = type?.rawValue
+        parameters["type"] = type?.rawValue
         parameters["market"] = market?.rawValue
         parameters["cik"] = cik
         parameters["date"] = date
@@ -62,6 +62,9 @@ struct TickersRequestObject {
         return parameters
     }
 }
+
+// MARK: - Equatable
+extension TickersRequestObject: Equatable { }
 
 // MARK: - Order
 extension TickersRequestObject {

@@ -13,4 +13,6 @@ extension Color {
     static let background: Color = Color("background")
     static let row: Color = Color("row")
     static let text: Color = Color("text")
+    static let placeholder: Color = Color("placeholder")
+    static let textSecondary: Color = Color("textSecondary")
 }

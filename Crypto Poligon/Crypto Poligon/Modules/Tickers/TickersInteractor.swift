@@ -6,10 +6,11 @@
 //
 
 import Combine
+import Foundation
 
 // MARK: - TickersViewInteractorInterface
 protocol TickersViewInteractorInterface {
-    func reloadTickers(market: MarketType)
+    func reloadTickers(_ tickersRequestObject: TickersRequestObject)
     func changeMarket(market: MarketType)
 }
 
@@ -33,6 +34,8 @@ final class TickersInteractor {
     // MARK: - Private (Properties)
     private func subscribeOnTickersLoader() {
         tickersLoader
+            .debounce(for: .milliseconds(800), scheduler: DispatchQueue.main)
+            .removeDuplicates()
             .compactMap { [weak self] tickersRequestObject in
                 self?.tickersService.requestTickers(tickersRequestObject)
             }
@@ -53,8 +56,7 @@ final class TickersInteractor {
 
 // MARK: - TickersViewInteractorInterface
 extension TickersInteractor: TickersViewInteractorInterface {
-    func reloadTickers(market: MarketType) {
-        let tickersRequestObject = TickersRequestObject(market: market)
+    func reloadTickers(_ tickersRequestObject: TickersRequestObject) {
         tickersLoader.send(tickersRequestObject)
     }
 

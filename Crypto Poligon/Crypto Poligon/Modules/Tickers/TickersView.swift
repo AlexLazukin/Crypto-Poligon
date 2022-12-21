@@ -13,6 +13,9 @@ struct TickersView: View {
     @ObservedObject private var viewModel: TickersViewModel
     private var interactor: TickersViewInteractorInterface
 
+    @State private var isSearchGlassShown = true
+    @State private var isEmptyListShown = false
+
     // MARK: - Init
     init(viewModel: TickersViewModel, interactor: TickersViewInteractorInterface) {
         self.viewModel = viewModel
@@ -24,44 +27,99 @@ struct TickersView: View {
         ZStack {
             Color.background.edgesIgnoringSafeArea(.all)
 
-            tickersList()
+            scrollContent()
         }
         .toolbar {
             centerToolBar()
         }
         .onAppear {
-            interactor.reloadTickers(market: viewModel.currentMarket)
+            interactor.reloadTickers(tickersRequestObject())
+        }
+        .onReceive(viewModel.$searchText) { searchText in
+            interactor.reloadTickers(tickersRequestObject())
+
+            withAnimation(.general) {
+                isSearchGlassShown = searchText.isEmpty
+            }
+        }
+        .onReceive(viewModel.$tickers) { tickers in
+            withAnimation(.general) {
+                isEmptyListShown = tickers.isEmpty
+            }
         }
     }
 
     // MARK: - Private (Properties)
-    private func tickersList() -> some View {
+    private func scrollContent() -> some View {
         ScrollView(showsIndicators: false) {
-            LazyVStack {
-                ForEach(viewModel.tickers, id: \.ticker) { ticker in
-                    HStack {
+            searchView()
+                .padding(.vertical)
+
+            if isEmptyListShown {
+                emptyList()
+                    .transition(.appear)
+            } else {
+                tickersList()
+                    .transition(.appear)
+            }
+        }
+        .padding(.horizontal)
+    }
+
+    private func searchView() -> some View {
+        HStack(alignment: .center, spacing: 5) {
+            if isSearchGlassShown {
+                Image(systemName: "magnifyingglass")
+                    .resizable()
+                    .frame(width: 14, height: 14)
+                    .foregroundColor(.placeholder)
+            }
+
+            TextField(Strings.UIElements.search, text: $viewModel.searchText)
+                .font(.ordinary)
+                .foregroundColor(.text)
+        }
+        .padding(.horizontal)
+        .frame(height: 38)
+        .background(Color.row)
+        .cornerRadius(8)
+    }
+
+    private func emptyList() -> some View {
+        Text(Strings.Tickers.notFound)
+            .foregroundColor(.placeholder)
+            .font(.light)
+            .padding(.horizontal)
+            .multilineTextAlignment(.center)
+    }
+
+    private func tickersList() -> some View {
+        LazyVStack {
+            ForEach(viewModel.tickers, id: \.ticker) { ticker in
+                HStack {
+                    VStack(alignment: .leading, spacing: 5) {
                         Text(ticker.ticker)
-                            .frame(height: 38.0)
                             .font(.ordinary)
                             .foregroundColor(.text)
 
-                        Spacer()
+                        Text(ticker.name)
+                            .font(.light)
+                            .foregroundColor(.textSecondary)
                     }
-                    .padding(.horizontal)
+                    .multilineTextAlignment(.leading)
 
-                    Divider()
-                        .frame(height: 1)
-                        .background(Color.background)
-                        .padding(.leading)
+                    Spacer()
                 }
+                .padding(.horizontal)
+
+                Divider()
+                    .frame(height: 1)
+                    .background(Color.background)
+                    .padding(.leading)
             }
-            .background(Color.row)
-            .cornerRadius(8)
         }
-        .refreshable {
-            interactor.reloadTickers(market: viewModel.currentMarket)
-        }
-        .padding(.horizontal)
+        .background(Color.row)
+        .cornerRadius(8)
     }
 
     private func centerToolBar() -> ToolbarItem<Void, AnyView> {
@@ -70,7 +128,7 @@ struct TickersView: View {
                 Button(
                     action: {
                         interactor.changeMarket(market: viewModel.currentMarket.next())
-                        interactor.reloadTickers(market: viewModel.currentMarket)
+                        interactor.reloadTickers(tickersRequestObject())
                     },
                     label: {
                         HStack(alignment: .center, spacing: 10) {
@@ -87,5 +145,14 @@ struct TickersView: View {
                 )
             )
         }
+    }
+}
+
+private extension TickersView {
+    func tickersRequestObject() -> TickersRequestObject {
+        TickersRequestObject(
+            ticker: viewModel.searchText,
+            market: viewModel.currentMarket
+        )
     }
 }

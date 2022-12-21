@@ -28,3 +28,21 @@ extension Strings {
         static let cancel = "Cancel"
     }
 }
+
+// MARK: - UIElements
+extension Strings {
+    final class UIElements {
+
+        // MARK: - Public (Properties)
+        static let search = "Search"
+    }
+}
+
+// MARK: - Tickers
+extension Strings {
+    final class Tickers {
+
+        // MARK: - Public (Properties)
+        static let notFound = "Nothing found. Try changing the request parameters."
+    }
+}

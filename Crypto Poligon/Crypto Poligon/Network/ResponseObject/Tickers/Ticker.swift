@@ -10,4 +10,5 @@ struct Ticker: Decodable {
     // MARK: - Public (Properties)
     let ticker: String
     let type: TickerType?
+    let name: String
 }
