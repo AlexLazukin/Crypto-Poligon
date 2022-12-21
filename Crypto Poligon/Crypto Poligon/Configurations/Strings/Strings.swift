@@ -44,5 +44,6 @@ extension Strings {
 
         // MARK: - Public (Properties)
         static let notFound = "Nothing found. Try changing the request parameters."
+        static let filtersTitle = "Filters"
     }
 }

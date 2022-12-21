@@ -16,14 +16,20 @@ final class TickersCoordinator: Coordinator {
 
     // MARK: - Private (Properties)
     private let root: UINavigationController
-    private var tickersAssembler: TickersCoordinatorAssemblerInterface
 
     // MARK: - Init
     init() {
-        tickersAssembler = TickersAssembler()
-        root = UINavigationController(rootViewController: tickersAssembler.rootViewController)
+        let tickersAssembler: TickersCoordinatorAssemblerInterface = TickersAssembler()
+        var tickersRouter = tickersAssembler.coordinatorRouter
 
-        tickersAssembler.coordinatorRouter.showErrorAlert = showErrorAlert
+        let navigationController = UINavigationController(rootViewController: tickersAssembler.rootViewController)
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationController.navigationBar.topItem?.backBarButtonItem = backBarButtonItem
+        navigationController.navigationBar.tintColor = UIColor(.accent)
+        root = navigationController
+
+        tickersRouter.showErrorAlert = showErrorAlert
+        tickersRouter.onTickersFiltersScreen = showTickersFilters
     }
 
     // MARK: - Private (Properties)
@@ -32,5 +38,12 @@ final class TickersCoordinator: Coordinator {
         let cancel = UIAlertAction(title: Strings.Alert.cancel, style: .cancel)
         alertController.addAction(cancel)
         root.present(alertController, animated: true)
+    }
+
+    private func showTickersFilters() {
+        let tickersFiltersAssembler: TickersFiltersCoordinatorAssemblerInterface = TickersFiltersAssembler()
+        let viewController = tickersFiltersAssembler.rootViewController
+
+        root.pushViewController(viewController, animated: true)
     }
 }

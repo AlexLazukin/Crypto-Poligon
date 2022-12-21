@@ -15,4 +15,5 @@ extension Color {
     static let text: Color = Color("text")
     static let placeholder: Color = Color("placeholder")
     static let textSecondary: Color = Color("textSecondary")
+    static let accent: Color = Color("accent")
 }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct TickersView: View {
 
@@ -32,12 +33,16 @@ struct TickersView: View {
         .toolbar {
             centerToolBar()
         }
+        .toolbar {
+            rightToolBar()
+        }
         .onAppear {
-            interactor.reloadTickers(tickersRequestObject())
+            interactor.reloadTickers(viewModel.tickersRequestObject)
+        }
+        .onReceive(viewModel.$tickersRequestObject) { tickersRequestObject in
+            interactor.reloadTickers(tickersRequestObject)
         }
         .onReceive(viewModel.$searchText) { searchText in
-            interactor.reloadTickers(tickersRequestObject())
-
             withAnimation(.general) {
                 isSearchGlassShown = searchText.isEmpty
             }
@@ -128,7 +133,6 @@ struct TickersView: View {
                 Button(
                     action: {
                         interactor.changeMarket(market: viewModel.currentMarket.next())
-                        interactor.reloadTickers(tickersRequestObject())
                     },
                     label: {
                         HStack(alignment: .center, spacing: 10) {
@@ -146,13 +150,22 @@ struct TickersView: View {
             )
         }
     }
-}
 
-private extension TickersView {
-    func tickersRequestObject() -> TickersRequestObject {
-        TickersRequestObject(
-            ticker: viewModel.searchText,
-            market: viewModel.currentMarket
-        )
+    private func rightToolBar() -> ToolbarItem<Void, AnyView> {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            AnyView(
+                Button(
+                    action: {
+                        interactor.filtersTapped()
+                    },
+                    label: {
+                        Image(systemName: "ellipsis")
+                            .resizable()
+                            .frame(width: 16)
+                            .foregroundColor(.accent)
+                    }
+                )
+            )
+        }
     }
 }

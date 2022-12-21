@@ -13,6 +13,7 @@ protocol TickersInteractorPresenterInterface {
     func updateTickers(_ tickers: [Ticker])
     func handleFailure(_ failure: Failure)
     func changeMarket(market: MarketType)
+    func filtersTapped()
 }
 
 // MARK: - TickersPresenter
@@ -22,6 +23,7 @@ final class TickersPresenter {
     private weak var viewModel: TickersViewModel!
     private let router: TickersPresenterRouterInterface
     private let tickersUpdater = PassthroughSubject<[Ticker], Never>()
+    private let marketUpdater = PassthroughSubject<MarketType, Never>()
     private let failuresHandler = PassthroughSubject<Failure, Never>()
     private var subscriptions = Set<AnyCancellable>()
 
@@ -31,6 +33,7 @@ final class TickersPresenter {
         self.router = router
 
         subscribeOnTickersUpdater()
+        subscribeOnMarketUpdater()
         subscribeOnFailuresHandler()
     }
 
@@ -39,6 +42,13 @@ final class TickersPresenter {
         tickersUpdater
             .receive(on: DispatchQueue.main)
             .assign(to: \.tickers, on: viewModel)
+            .store(in: &subscriptions)
+    }
+
+    private func subscribeOnMarketUpdater() {
+        marketUpdater
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.currentMarket, on: viewModel)
             .store(in: &subscriptions)
     }
 
@@ -63,6 +73,10 @@ extension TickersPresenter: TickersInteractorPresenterInterface {
     }
 
     func changeMarket(market: MarketType) {
-        viewModel.currentMarket = market
+        marketUpdater.send(market)
+    }
+
+    func filtersTapped() {
+        router.showTickersFiltersScreen()
     }
 }
