@@ -29,6 +29,9 @@ struct TickersView: View {
             Color.background.edgesIgnoringSafeArea(.all)
 
             scrollContent()
+
+            ActivityIndicator()
+                .frame(width: 50, height: 50)
         }
         .toolbar {
             centerToolBar()

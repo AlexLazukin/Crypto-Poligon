@@ -38,6 +38,7 @@
 		52D358F829506E1700509AEF /* TickerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D358F729506E1700509AEF /* TickerType.swift */; };
 		52D358FA29506ECE00509AEF /* MarketType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D358F929506ECE00509AEF /* MarketType.swift */; };
 		52D358FF2950902E00509AEF /* TickersCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D358FE2950902E00509AEF /* TickersCoordinator.swift */; };
+		52E38D2A2955F2D30087908A /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E38D292955F2D30087908A /* ActivityIndicator.swift */; };
 		52F38FB22950B3F700FF17E8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F38FB12950B3F700FF17E8 /* Coordinator.swift */; };
 		52F38FB52950B42E00FF17E8 /* TickersAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F38FB42950B42E00FF17E8 /* TickersAssembler.swift */; };
 		52F38FB72950B44600FF17E8 /* TickersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F38FB62950B44600FF17E8 /* TickersView.swift */; };
@@ -82,6 +83,7 @@
 		52D358F729506E1700509AEF /* TickerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerType.swift; sourceTree = "<group>"; };
 		52D358F929506ECE00509AEF /* MarketType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketType.swift; sourceTree = "<group>"; };
 		52D358FE2950902E00509AEF /* TickersCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickersCoordinator.swift; sourceTree = "<group>"; };
+		52E38D292955F2D30087908A /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		52F38FB12950B3F700FF17E8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		52F38FB42950B42E00FF17E8 /* TickersAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickersAssembler.swift; sourceTree = "<group>"; };
 		52F38FB62950B44600FF17E8 /* TickersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickersView.swift; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 				5257533D294C85E100ED075C /* AppDelegate */,
 				52D358FD2950900700509AEF /* Coordinator */,
 				5257533C294C85CB00ED075C /* Modules */,
+				52E38D282955F2BD0087908A /* UI */,
 				52575342294C88E700ED075C /* Network */,
 				528B340B2951C0570082F73B /* Extensions */,
 				52575338294C857800ED075C /* Configurations */,
@@ -367,6 +370,14 @@
 				52D358FE2950902E00509AEF /* TickersCoordinator.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		52E38D282955F2BD0087908A /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				52E38D292955F2D30087908A /* ActivityIndicator.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 		52F38FB32950B41C00FF17E8 /* Tickers */ = {
@@ -491,6 +502,7 @@
 				5285763329534C560013E280 /* Exchange.swift in Sources */,
 				52D358F829506E1700509AEF /* TickerType.swift in Sources */,
 				52685281294C77D8006FF320 /* AppDelegate.swift in Sources */,
+				52E38D2A2955F2D30087908A /* ActivityIndicator.swift in Sources */,
 				52685283294C77D8006FF320 /* SceneDelegate.swift in Sources */,
 				52F38FBB2950B47700FF17E8 /* TickersPresenter.swift in Sources */,
 				52F38FB92950B45D00FF17E8 /* TickersInteractor.swift in Sources */,
