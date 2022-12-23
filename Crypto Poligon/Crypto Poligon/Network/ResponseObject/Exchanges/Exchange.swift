@@ -8,5 +8,7 @@
 struct Exchange: Decodable {
 
     // MARK: - Public (Properties)
+    let acronym: String?
     let name: String
+    let url: String?
 }

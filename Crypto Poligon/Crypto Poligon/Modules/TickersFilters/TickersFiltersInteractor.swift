@@ -43,8 +43,8 @@ final class TickersFiltersInteractor {
                 case .finished:
                     break
                 }
-            } receiveValue: { exchanges in
-                print(exchanges.count)
+            } receiveValue: { [weak self] exchanges in
+                self?.presenter.updateExhanges(exchanges)
             }
             .store(in: &subscriptions)
     }

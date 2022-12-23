@@ -11,7 +11,7 @@ import Foundation
 // MARK: - TickersFiltersInteractorPresenterInterface
 protocol TickersFiltersInteractorPresenterInterface {
     func handleFailure(_ failure: Failure)
-    func updateExchangeList()
+    func updateExhanges(_ exhanges: [Exchange])
 }
 
 // MARK: - TickersFiltersPresenter
@@ -21,6 +21,7 @@ final class TickersFiltersPresenter {
     private weak var viewModel: TickersFiltersViewModel!
     private let router: TickersFiltersPresenterRouterInterface
     private let failuresHandler = PassthroughSubject<Failure, Never>()
+    private let exchangesUpdater = PassthroughSubject<[Exchange], Never>()
     private var subscriptions = Set<AnyCancellable>()
 
     // MARK: - Init
@@ -29,6 +30,7 @@ final class TickersFiltersPresenter {
         self.router = router
 
         subscribeOnFailuresHandler()
+        subscribeOnExchangesUpdater()
     }
 
     // MARK: - Private (Interface)
@@ -40,6 +42,13 @@ final class TickersFiltersPresenter {
             }
             .store(in: &subscriptions)
     }
+
+    private func subscribeOnExchangesUpdater() {
+        exchangesUpdater
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.exchanges, on: viewModel)
+            .store(in: &subscriptions)
+    }
 }
 
 // MARK: - TickersFiltersInteractorPresenterInterface
@@ -48,5 +57,7 @@ extension TickersFiltersPresenter: TickersFiltersInteractorPresenterInterface {
         failuresHandler.send(failure)
     }
 
-    func updateExchangeList() { }
+    func updateExhanges(_ exhanges: [Exchange]) {
+        exchangesUpdater.send(exhanges)
+    }
 }

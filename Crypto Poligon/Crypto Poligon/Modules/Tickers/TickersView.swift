@@ -63,10 +63,20 @@ struct TickersView: View {
             if isEmptyListShown {
                 emptyList()
                     .transition(.appear)
-            } else {
-                tickersList()
-                    .transition(.appear)
             }
+
+            VStack {
+                if !isEmptyListShown {
+                    ForEach(viewModel.tickers, id: \.ticker) { ticker in
+                        ticketRow(ticker)
+                            .transition(.appear)
+                    }
+                    .padding(.top, 8)
+                }
+            }
+            .frame(maxWidth: .infinity)
+            .background(Color.row)
+            .cornerRadius(8)
         }
         .padding(.horizontal)
     }
@@ -98,37 +108,33 @@ struct TickersView: View {
             .multilineTextAlignment(.center)
     }
 
-    private func tickersList() -> some View {
-        LazyVStack {
-            ForEach(viewModel.tickers, id: \.ticker) { ticker in
-                HStack {
-                    VStack(alignment: .leading, spacing: 5) {
-                        Text(ticker.ticker)
-                            .font(.ordinary)
-                            .foregroundColor(.text)
+    private func ticketRow(_ ticker: Ticker) -> some View {
+        VStack {
+            HStack {
+                VStack(alignment: .leading, spacing: 5) {
+                    Text(ticker.ticker)
+                        .font(.ordinary)
+                        .foregroundColor(.text)
 
-                        Text(ticker.name)
-                            .font(.light)
-                            .foregroundColor(.textSecondary)
-                    }
-                    .multilineTextAlignment(.leading)
-
-                    Spacer()
+                    Text(ticker.name)
+                        .font(.light)
+                        .foregroundColor(.textSecondary)
                 }
-                .padding(.horizontal)
+                .multilineTextAlignment(.leading)
 
-                Divider()
-                    .frame(height: 1)
-                    .background(Color.background)
-                    .padding(.leading)
+                Spacer()
             }
+            .padding(.horizontal)
+
+            Divider()
+                .frame(height: 1)
+                .background(Color.background)
+                .padding(.leading)
         }
-        .background(Color.row)
-        .cornerRadius(8)
     }
 
     private func centerToolBar() -> ToolbarItem<Void, AnyView> {
-        ToolbarItem(placement: .principal) {
+        ToolbarItem(placement: .navigationBarLeading) {
             AnyView(
                 Button(
                     action: {
