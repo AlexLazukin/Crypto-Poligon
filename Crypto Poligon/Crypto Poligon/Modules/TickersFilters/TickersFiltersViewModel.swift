@@ -13,10 +13,11 @@ final class TickersFiltersViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var market: MarketType
     @Published var exchanges: [Exchange] = []
-    @Published var currentExchange: Exchange?
+    @Published var tickersFiltersModel: TickersFiltersModel
 
     // MARK: - Init
-    init(market: MarketType) {
+    init(market: MarketType, tickersFiltersModel: TickersFiltersModel) {
         self.market = market
+        self.tickersFiltersModel = tickersFiltersModel
     }
 }

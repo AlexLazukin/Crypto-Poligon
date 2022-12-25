@@ -8,8 +8,12 @@
 struct Exchange: Decodable {
 
     // MARK: - Public (Properties)
+    let id: Int
     let acronym: String?
     let name: String
     let url: String?
     let operatingMic: String?
 }
+
+// MARK: - Equatable
+extension Exchange: Equatable { }

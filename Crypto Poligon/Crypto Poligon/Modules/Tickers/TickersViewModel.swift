@@ -31,6 +31,7 @@ final class TickersViewModel: ObservableObject {
         tickersRequestObject = TickersRequestObject(ticker: "", market: .stocks)
 
         subscriptionOnChanges()
+        subscriptionOnMarketChanges()
     }
 
     // MARK: - Private (Interfaces)
@@ -44,6 +45,15 @@ final class TickersViewModel: ObservableObject {
                 )
             }
             .assign(to: \.tickersRequestObject, on: self)
+            .store(in: &subscriptions)
+    }
+
+    private func subscriptionOnMarketChanges() {
+        $currentMarket
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.tickersFiltersModel = TickersFiltersModel()
+            }
             .store(in: &subscriptions)
     }
 }

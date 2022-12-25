@@ -13,7 +13,7 @@ protocol TickersInteractorPresenterInterface {
     func updateTickers(_ tickers: [Ticker])
     func handleFailure(_ failure: Failure)
     func changeMarket(market: MarketType)
-    func filtersTapped(market: MarketType)
+    func filtersTapped(market: MarketType, tickersFiltersModel: TickersFiltersModel)
     func startLoading()
     func stopLoading()
 }
@@ -87,8 +87,11 @@ extension TickersPresenter: TickersInteractorPresenterInterface {
         marketUpdater.send(market)
     }
 
-    func filtersTapped(market: MarketType) {
-        router.showTickersFiltersScreen(market: market) { [weak self] tickersFiltersModel in
+    func filtersTapped(market: MarketType, tickersFiltersModel: TickersFiltersModel) {
+        router.showTickersFiltersScreen(
+            market: market,
+            tickersFiltersModel: tickersFiltersModel
+        ) { [weak self] tickersFiltersModel in
             self?.viewModel.tickersFiltersModel = tickersFiltersModel
         }
     }

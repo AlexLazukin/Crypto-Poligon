@@ -14,7 +14,8 @@ protocol TickersFiltersInteractorPresenterInterface {
     func updateExhanges(_ exhanges: [Exchange])
     func startLoading()
     func stopLoading()
-    func dismiss(_ exchange: Exchange)
+    func updateTickersFiltersModel(_ exchange: Exchange)
+    func dismiss(_ tickersFiltersModel: TickersFiltersModel)
 }
 
 // MARK: - TickersFiltersPresenter
@@ -26,6 +27,7 @@ final class TickersFiltersPresenter {
     private let failuresHandler = PassthroughSubject<Failure, Never>()
     private let exchangesUpdater = PassthroughSubject<[Exchange], Never>()
     private let loaderUpdater = PassthroughSubject<Bool, Never>()
+    private let tickersFiltersUpdater = PassthroughSubject<TickersFiltersModel, Never>()
     private var subscriptions = Set<AnyCancellable>()
 
     // MARK: - Init
@@ -36,6 +38,7 @@ final class TickersFiltersPresenter {
         subscribeOnFailuresHandler()
         subscribeOnExchangesUpdater()
         subscribeOnLoaderUpdater()
+        subscribeOnTickersFiltersUpdater()
     }
 
     // MARK: - Private (Interface)
@@ -61,6 +64,13 @@ final class TickersFiltersPresenter {
             .assign(to: \.isLoading, on: viewModel)
             .store(in: &subscriptions)
     }
+
+    private func subscribeOnTickersFiltersUpdater() {
+        tickersFiltersUpdater
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.tickersFiltersModel, on: viewModel)
+            .store(in: &subscriptions)
+    }
 }
 
 // MARK: - TickersFiltersInteractorPresenterInterface
@@ -81,8 +91,13 @@ extension TickersFiltersPresenter: TickersFiltersInteractorPresenterInterface {
         loaderUpdater.send(false)
     }
 
-    func dismiss(_ exchange: Exchange) {
-        let tickersFiltersModel = TickersFiltersModel(exchange: exchange)
+    func updateTickersFiltersModel(_ exchange: Exchange) {
+        var tickersFiltersModel = viewModel.tickersFiltersModel
+        tickersFiltersModel.exchange = exchange
+        tickersFiltersUpdater.send(tickersFiltersModel)
+    }
+
+    func dismiss(_ tickersFiltersModel: TickersFiltersModel) {
         router.dismiss(tickersFiltersModel)
     }
 }

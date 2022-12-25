@@ -27,8 +27,8 @@ final class TickersFiltersAssembler: TickersFiltersCoordinatorAssemblerInterface
     private var root: UIHostingController<TickersFiltersView>
 
     // MARK: - Init
-    init(market: MarketType) {
-        let viewModel = TickersFiltersViewModel(market: market)
+    init(market: MarketType, tickersFiltersModel: TickersFiltersModel) {
+        let viewModel = TickersFiltersViewModel(market: market, tickersFiltersModel: tickersFiltersModel)
         let router = TickersFiltersRouter()
         let presenter = TickersFiltersPresenter(viewModel: viewModel, router: router)
         let interactor = TickersFiltersInteractor(presenter: presenter)

@@ -8,13 +8,19 @@
 // MARK: - TickersPresenterRouterInterface
 protocol TickersPresenterRouterInterface {
     func showErrorAlert(_ text: String)
-    func showTickersFiltersScreen(market: MarketType, completion: @escaping (TickersFiltersModel) -> Void)
+    func showTickersFiltersScreen(
+        market: MarketType,
+        tickersFiltersModel: TickersFiltersModel,
+        completion: @escaping (TickersFiltersModel) -> Void
+    )
 }
 
 // MARK: - TickersCoordinatorRouterInterface
 protocol TickersCoordinatorRouterInterface {
     var showErrorAlert: ((String) -> Void)? { get set }
-    var onTickersFiltersScreen: ((MarketType, @escaping (TickersFiltersModel) -> Void) -> Void)? { get set }
+    var onTickersFiltersScreen: (
+        (MarketType, TickersFiltersModel, @escaping (TickersFiltersModel) -> Void) -> Void
+    )? { get set }
 }
 
 // MARK: - TickersRouter
@@ -22,7 +28,7 @@ final class TickersRouter: TickersCoordinatorRouterInterface {
 
     // MARK: - TickersCoordinatorRouterInterface
     var showErrorAlert: ((String) -> Void)?
-    var onTickersFiltersScreen: ((MarketType, @escaping (TickersFiltersModel) -> Void) -> Void)?
+    var onTickersFiltersScreen: ((MarketType, TickersFiltersModel, @escaping (TickersFiltersModel) -> Void) -> Void)?
 }
 
 // MARK: - TickersPresenterRouterInterface
@@ -31,7 +37,11 @@ extension TickersRouter: TickersPresenterRouterInterface {
         showErrorAlert?(text)
     }
 
-    func showTickersFiltersScreen(market: MarketType, completion: @escaping (TickersFiltersModel) -> Void) {
-        onTickersFiltersScreen?(market, completion)
+    func showTickersFiltersScreen(
+        market: MarketType,
+        tickersFiltersModel: TickersFiltersModel,
+        completion: @escaping (TickersFiltersModel) -> Void
+    ) {
+        onTickersFiltersScreen?(market, tickersFiltersModel, completion)
     }
 }

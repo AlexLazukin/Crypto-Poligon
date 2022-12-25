@@ -38,6 +38,9 @@ struct TickersFiltersView: View {
         .toolbar {
             centerToolBar()
         }
+        .toolbar {
+            trailingToolBar()
+        }
         .onAppear {
             interactor.reloadExchangeList(market: viewModel.market)
         }
@@ -57,6 +60,23 @@ struct TickersFiltersView: View {
         }
     }
 
+    private func trailingToolBar() -> ToolbarItem<Void, AnyView> {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            AnyView(
+                Button(
+                    action: {
+                        interactor.saveButtonTapped(viewModel.tickersFiltersModel)
+                    },
+                    label: {
+                        Text(Strings.Tickers.save)
+                            .font(.light)
+                            .foregroundColor(.accent)
+                    }
+                )
+            )
+        }
+    }
+
     private func scrollContent() -> some View {
         ScrollView(showsIndicators: false) {
             exchangesHeader()
@@ -73,11 +93,16 @@ struct TickersFiltersView: View {
                             },
                             label: {
                                 exchangeRow(exchange)
+                                    .padding(.top)
+                                    .background(
+                                        viewModel.tickersFiltersModel.exchange == exchange
+                                        ? Color.accent
+                                        : Color.row
+                                    )
                             }
                         )
                         .transition(.appear)
                     }
-                    .padding(.top)
                 }
             }
             .frame(maxWidth: .infinity)
@@ -89,10 +114,14 @@ struct TickersFiltersView: View {
 
     private func exchangesHeader() -> some View {
         HStack(alignment: .center) {
-            Text(Strings.Tickers.exchanges + " " + "(\(viewModel.exchanges.count))")
-                .font(.navigationTitle)
-                .foregroundColor(.text)
-                .padding(.vertical)
+            Text(
+                viewModel.exchanges.isEmpty && !viewModel.isLoading
+                ? Strings.Tickers.exchangesNotFound
+                : Strings.Tickers.exchanges + " " + "(\(viewModel.exchanges.count))"
+            )
+            .font(.navigationTitle)
+            .foregroundColor(.text)
+            .padding(.vertical)
 
             Spacer()
 
@@ -104,7 +133,7 @@ struct TickersFiltersView: View {
                         }
                     },
                     label: {
-                        Text(Strings.Tickers.seeMore)
+                        Text(isSeeMoreExchangesActive ? Strings.Tickers.collapseBack : Strings.Tickers.seeMore)
                             .multilineTextAlignment(.trailing)
                             .font(.light)
                             .foregroundColor(.accent)
@@ -138,7 +167,6 @@ struct TickersFiltersView: View {
             Divider()
                 .frame(height: 1)
                 .background(Color.background)
-                .padding(.leading)
         }
     }
 }

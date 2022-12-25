@@ -33,9 +33,14 @@ final class TickersCoordinator: Coordinator {
     }
 
     // MARK: - Private (Properties)
-    private func showTickersFilters(market: MarketType, completion: @escaping (TickersFiltersModel) -> Void) {
+    private func showTickersFilters(
+        market: MarketType,
+        tickersFiltersModel: TickersFiltersModel,
+        completion: @escaping (TickersFiltersModel) -> Void
+    ) {
         let tickersFiltersAssembler: TickersFiltersCoordinatorAssemblerInterface = TickersFiltersAssembler(
-            market: market
+            market: market,
+            tickersFiltersModel: tickersFiltersModel
         )
         let tickersFiltersViewController = tickersFiltersAssembler.rootViewController
         var tickersFiltersRouter = tickersFiltersAssembler.coordinatorRouter
