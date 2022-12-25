@@ -35,21 +35,24 @@ final class TickersInteractor {
     // MARK: - Private (Properties)
     private func subscribeOnTickersLoader() {
         tickersLoader
-            .debounce(for: .milliseconds(800), scheduler: DispatchQueue.main)
             .removeDuplicates()
+            .handleEvents(
+                receiveOutput: { [weak self] _ in
+                    self?.presenter.startLoading()
+                }
+            )
+            .debounce(for: .milliseconds(800), scheduler: DispatchQueue.main)
             .compactMap { [weak self] tickersRequestObject in
                 self?.tickersService.requestTickers(tickersRequestObject)
+                    .catch { [weak self] failure -> Just<[Ticker]> in
+                        self?.presenter.handleFailure(failure)
+                        return Just([])
+                    }
             }
             .switchToLatest()
-            .sink { [weak self] status in
-                switch status {
-                case let .failure(failure):
-                    self?.presenter.handleFailure(failure)
-                case .finished:
-                    break
-                }
-            } receiveValue: { [weak self] tickers in
+            .sink { [weak self] tickers in
                 self?.presenter.updateTickers(tickers)
+                self?.presenter.stopLoading()
             }
             .store(in: &subscriptions)
     }

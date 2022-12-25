@@ -14,6 +14,8 @@ protocol TickersInteractorPresenterInterface {
     func handleFailure(_ failure: Failure)
     func changeMarket(market: MarketType)
     func filtersTapped(market: MarketType)
+    func startLoading()
+    func stopLoading()
 }
 
 // MARK: - TickersPresenter
@@ -25,6 +27,7 @@ final class TickersPresenter {
     private let tickersUpdater = PassthroughSubject<[Ticker], Never>()
     private let marketUpdater = PassthroughSubject<MarketType, Never>()
     private let failuresHandler = PassthroughSubject<Failure, Never>()
+    private let loaderUpdater = PassthroughSubject<Bool, Never>()
     private var subscriptions = Set<AnyCancellable>()
 
     // MARK: - Init
@@ -35,6 +38,7 @@ final class TickersPresenter {
         subscribeOnTickersUpdater()
         subscribeOnMarketUpdater()
         subscribeOnFailuresHandler()
+        subscribeOnLoaderUpdater()
     }
 
     // MARK: - Private (Interface)
@@ -60,6 +64,13 @@ final class TickersPresenter {
             }
             .store(in: &subscriptions)
     }
+
+    private func subscribeOnLoaderUpdater() {
+        loaderUpdater
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.isLoading, on: viewModel)
+            .store(in: &subscriptions)
+    }
 }
 
 // MARK: - TickersInteractorPresenterInterface
@@ -78,5 +89,13 @@ extension TickersPresenter: TickersInteractorPresenterInterface {
 
     func filtersTapped(market: MarketType) {
         router.showTickersFiltersScreen(market: market)
+    }
+
+    func startLoading() {
+        loaderUpdater.send(true)
+    }
+
+    func stopLoading() {
+        loaderUpdater.send(false)
     }
 }

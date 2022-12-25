@@ -30,8 +30,10 @@ struct TickersView: View {
 
             scrollContent()
 
-            ActivityIndicator()
-                .frame(width: 50, height: 50)
+            if viewModel.isLoading {
+                ActivityIndicator()
+                    .frame(width: 50, height: 50)
+            }
         }
         .toolbar {
             centerToolBar()
@@ -63,23 +65,26 @@ struct TickersView: View {
             searchView()
                 .padding(.vertical)
 
-            if isEmptyListShown {
-                emptyList()
-                    .transition(.appear)
-            }
-
-            VStack {
-                if !isEmptyListShown {
-                    ForEach(viewModel.tickers, id: \.ticker) { ticker in
-                        ticketRow(ticker)
-                            .transition(.appear)
-                    }
-                    .padding(.top, 8)
+            Group {
+                if isEmptyListShown && !viewModel.isLoading {
+                    emptyList()
+                        .transition(.appear)
                 }
+
+                VStack {
+                    if !isEmptyListShown {
+                        ForEach(viewModel.tickers, id: \.ticker) { ticker in
+                            ticketRow(ticker)
+                                .transition(.appear)
+                        }
+                        .padding(.top, 8)
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .background(Color.row)
+                .cornerRadius(8)
             }
-            .frame(maxWidth: .infinity)
-            .background(Color.row)
-            .cornerRadius(8)
+            .isLoading(viewModel.isLoading)
         }
         .padding(.horizontal)
     }

@@ -14,7 +14,7 @@ struct ActivityIndicator: View {
 
     // MARK: - View
     var body: some View {
-        GeometryReader { (geometry: GeometryProxy) in
+        GeometryReader { geometry in
             ForEach(0..<5) { index in
                 Group {
                     Circle()
@@ -27,7 +27,7 @@ struct ActivityIndicator: View {
                 .rotationEffect(!isAnimating ? .degrees(.zero) : .degrees(360))
                 .animation(
                     Animation
-                        .timingCurve(0.5, 0.15 + Double(index) / 5, 0.25, 1, duration: 1.5)
+                        .timingCurve(0.5, 0.1 + Double(index) / 5, 0.2, 1, duration: 1)
                         .repeatForever(autoreverses: false),
                     value: isAnimating
                 )

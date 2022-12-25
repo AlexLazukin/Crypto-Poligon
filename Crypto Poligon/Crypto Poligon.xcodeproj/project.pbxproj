@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		520EAE1729578D4C007AA40B /* LockedLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520EAE1629578D4C007AA40B /* LockedLoading.swift */; };
 		52575341294C887700ED075C /* ApiSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52575340294C887700ED075C /* ApiSettings.plist */; };
 		52575347294C895600ED075C /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52575346294C895600ED075C /* RequestManager.swift */; };
 		5257534A294C8D0600ED075C /* Failure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52575349294C8D0600ED075C /* Failure.swift */; };
@@ -50,6 +51,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		520EAE1629578D4C007AA40B /* LockedLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockedLoading.swift; sourceTree = "<group>"; };
 		52575340294C887700ED075C /* ApiSettings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ApiSettings.plist; sourceTree = "<group>"; };
 		52575346294C895600ED075C /* RequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
 		52575349294C8D0600ED075C /* Failure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Failure.swift; sourceTree = "<group>"; };
@@ -105,6 +107,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		520EAE1529578D0E007AA40B /* Modificators */ = {
+			isa = PBXGroup;
+			children = (
+				520EAE1629578D4C007AA40B /* LockedLoading.swift */,
+			);
+			path = Modificators;
+			sourceTree = "<group>";
+		};
 		52575338294C857800ED075C /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
@@ -375,6 +385,7 @@
 		52E38D282955F2BD0087908A /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				520EAE1529578D0E007AA40B /* Modificators */,
 				52E38D292955F2D30087908A /* ActivityIndicator.swift */,
 			);
 			path = UI;
@@ -504,6 +515,7 @@
 				52685281294C77D8006FF320 /* AppDelegate.swift in Sources */,
 				52E38D2A2955F2D30087908A /* ActivityIndicator.swift in Sources */,
 				52685283294C77D8006FF320 /* SceneDelegate.swift in Sources */,
+				520EAE1729578D4C007AA40B /* LockedLoading.swift in Sources */,
 				52F38FBB2950B47700FF17E8 /* TickersPresenter.swift in Sources */,
 				52F38FB92950B45D00FF17E8 /* TickersInteractor.swift in Sources */,
 				528B34102951C33A0082F73B /* Font.swift in Sources */,

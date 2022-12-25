@@ -11,6 +11,7 @@ import Foundation
 final class TickersViewModel: ObservableObject {
 
     // MARK: - Public (Properties)
+    @Published var isLoading: Bool = false
     @Published var currentMarket: MarketType
     @Published var searchText: String
     @Published var tickers: [Ticker]
