@@ -35,7 +35,7 @@ final class TickersViewModel: ObservableObject {
     private func subscriptionOnChanges() {
         Publishers.CombineLatest($searchText, $currentMarket)
             .map { searchText, currentMarket in
-                TickersRequestObject(ticker: searchText, market: currentMarket)
+                TickersRequestObject(market: currentMarket, search: searchText)
             }
             .assign(to: \.tickersRequestObject, on: self)
             .store(in: &subscriptions)
