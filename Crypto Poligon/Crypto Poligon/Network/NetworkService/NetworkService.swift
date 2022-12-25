@@ -25,6 +25,13 @@ class NetworkService {
     // MARK: - Public (Interfaces)
     func request<Object: Decodable>(_ endPoint: EndPoint, for object: Object.Type) -> AnyPublisher<Object, Failure> {
         dataTaskPublisher(endPoint)
+            .tryMap { [weak self] data throws -> Data in
+                if let error = try? self?.decoder.decode(ResponseError.self, from: data) {
+                    throw Failure.apiError(reason: error.error)
+                }
+
+                return data
+            }
             .decode(type: Object.self, decoder: decoder)
             .mapError { [weak self] error in
                 self?.mapError(error) ?? .unknown
@@ -40,13 +47,8 @@ private extension NetworkService {
             let request = try requestManager.generateRequest(endPoint)
 
             return URLSession.DataTaskPublisher(request: request, session: .shared)
-                .tryMap { data, response in
-                    guard
-                        let httpResponse = response as? HTTPURLResponse,
-                        200..<300 ~= httpResponse.statusCode
-                    else {
-                        throw Failure.unknown
-                    }
+                .tryMap { data, _ in
+                    // print("Response data: \(String(describing: try? JSONSerialization.jsonObject(with: data)))")
 
                     return data
                 }
