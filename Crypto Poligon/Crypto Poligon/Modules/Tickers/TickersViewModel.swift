@@ -14,6 +14,7 @@ final class TickersViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var currentMarket: MarketType
     @Published var searchText: String
+    @Published var tickersFiltersModel: TickersFiltersModel
     @Published var tickers: [Ticker]
 
     @Published var tickersRequestObject: TickersRequestObject
@@ -26,6 +27,7 @@ final class TickersViewModel: ObservableObject {
         currentMarket = .stocks
         searchText = ""
         tickers = []
+        tickersFiltersModel = TickersFiltersModel()
         tickersRequestObject = TickersRequestObject(ticker: "", market: .stocks)
 
         subscriptionOnChanges()
@@ -33,9 +35,13 @@ final class TickersViewModel: ObservableObject {
 
     // MARK: - Private (Interfaces)
     private func subscriptionOnChanges() {
-        Publishers.CombineLatest($searchText, $currentMarket)
-            .map { searchText, currentMarket in
-                TickersRequestObject(market: currentMarket, search: searchText)
+        Publishers.CombineLatest3($searchText, $currentMarket, $tickersFiltersModel)
+            .map { searchText, currentMarket, tickersFiltersModel in
+                TickersRequestObject(
+                    market: currentMarket,
+                    exchange: tickersFiltersModel.exchange?.operatingMic,
+                    search: searchText
+                )
             }
             .assign(to: \.tickersRequestObject, on: self)
             .store(in: &subscriptions)

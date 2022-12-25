@@ -8,45 +8,18 @@
 struct TickersRequestObject {
 
     // MARK: - Public (Propeties)
-    let ticker: String?
-    let type: TickerType?
-    let market: MarketType?
-    let exchange: String?
+    var ticker: String?
+    var type: TickerType?
+    var market: MarketType?
+    var exchange: String?
     // let cusip: String // The list of possible cusip code can't be received due to legal reasons
-    let cik: String?
-    let date: String?
-    let search: String?
-    let active: Bool
-    let limit: Int
-    let order: Order?
-    let sort: Sort?
-
-    // MARK: - Init
-    init(
-        ticker: String? = nil,
-        type: TickerType? = nil,
-        market: MarketType? = nil,
-        exchange: String? = nil,
-        cik: String? = nil,
-        date: String? = nil,
-        search: String? = nil,
-        active: Bool = true,
-        limit: Int = 20,
-        order: Order? = nil,
-        sort: Sort? = nil
-    ) {
-        self.ticker = ticker
-        self.type = type
-        self.market = market
-        self.exchange = exchange
-        self.cik = cik
-        self.date = date
-        self.search = search
-        self.active = active
-        self.limit = limit
-        self.order = order
-        self.sort = sort
-    }
+    var cik: String?
+    var date: String?
+    var search: String?
+    let active: Bool = true
+    let limit: Int = 20
+    var order: Order?
+    var sort: Sort?
 
     // MARK: - Public (Interface)
     func parameters() -> [String: String] {
@@ -55,6 +28,7 @@ struct TickersRequestObject {
         parameters["ticker"] = ticker
         parameters["type"] = type?.rawValue
         parameters["market"] = market?.rawValue
+        parameters["exchange"] = exchange
         parameters["cik"] = cik
         parameters["date"] = date
         parameters["search"] = search

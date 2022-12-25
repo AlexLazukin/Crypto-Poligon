@@ -48,7 +48,7 @@ private extension NetworkService {
 
             return URLSession.DataTaskPublisher(request: request, session: .shared)
                 .tryMap { data, _ in
-                    // print("Response data: \(String(describing: try? JSONSerialization.jsonObject(with: data)))")
+                    print("Response data: \(String(describing: try? JSONSerialization.jsonObject(with: data)))")
 
                     return data
                 }

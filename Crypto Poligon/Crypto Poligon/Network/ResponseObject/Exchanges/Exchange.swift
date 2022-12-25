@@ -11,4 +11,5 @@ struct Exchange: Decodable {
     let acronym: String?
     let name: String
     let url: String?
+    let operatingMic: String?
 }

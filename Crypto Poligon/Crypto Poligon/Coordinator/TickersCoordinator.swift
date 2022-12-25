@@ -33,19 +33,27 @@ final class TickersCoordinator: Coordinator {
     }
 
     // MARK: - Private (Properties)
+    private func showTickersFilters(market: MarketType, completion: @escaping (TickersFiltersModel) -> Void) {
+        let tickersFiltersAssembler: TickersFiltersCoordinatorAssemblerInterface = TickersFiltersAssembler(
+            market: market
+        )
+        let tickersFiltersViewController = tickersFiltersAssembler.rootViewController
+        var tickersFiltersRouter = tickersFiltersAssembler.coordinatorRouter
+
+        tickersFiltersRouter.showErrorAlert = showErrorAlert
+
+        tickersFiltersRouter.dismiss = { [weak self] tickersFiltersModel in
+            completion(tickersFiltersModel)
+            self?.root.popViewController(animated: true)
+        }
+
+        root.pushViewController(tickersFiltersViewController, animated: true)
+    }
+
     private func showErrorAlert(_ message: String) {
         let alertController = UIAlertController(title: Strings.Alert.error, message: message, preferredStyle: .alert)
         let cancel = UIAlertAction(title: Strings.Alert.cancel, style: .cancel)
         alertController.addAction(cancel)
         root.present(alertController, animated: true)
-    }
-
-    private func showTickersFilters(market: MarketType) {
-        let tickersFiltersAssembler: TickersFiltersCoordinatorAssemblerInterface = TickersFiltersAssembler(
-            market: market
-        )
-        let viewController = tickersFiltersAssembler.rootViewController
-
-        root.pushViewController(viewController, animated: true)
     }
 }

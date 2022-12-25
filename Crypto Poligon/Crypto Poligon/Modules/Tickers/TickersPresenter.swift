@@ -88,7 +88,9 @@ extension TickersPresenter: TickersInteractorPresenterInterface {
     }
 
     func filtersTapped(market: MarketType) {
-        router.showTickersFiltersScreen(market: market)
+        router.showTickersFiltersScreen(market: market) { [weak self] tickersFiltersModel in
+            self?.viewModel.tickersFiltersModel = tickersFiltersModel
+        }
     }
 
     func startLoading() {

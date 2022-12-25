@@ -10,6 +10,7 @@ import Combine
 // MARK: - TickersFiltersViewInteractorInterface
 protocol TickersFiltersViewInteractorInterface {
     func reloadExchangeList(market: MarketType)
+    func exchangeButtonTapped(_ exchange: Exchange)
 }
 
 // MARK: - TickersFiltersInteractor
@@ -57,7 +58,10 @@ final class TickersFiltersInteractor {
 extension TickersFiltersInteractor: TickersFiltersViewInteractorInterface {
     func reloadExchangeList(market: MarketType) {
         let exchangesRequestObject = ExchangesRequestObject(market: market)
-
         exchangeListLoader.send(exchangesRequestObject)
+    }
+
+    func exchangeButtonTapped(_ exchange: Exchange) {
+        presenter.dismiss(exchange)
     }
 }

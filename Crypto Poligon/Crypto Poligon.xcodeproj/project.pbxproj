@@ -18,6 +18,7 @@
 		52575358294CAC1000ED075C /* Ticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52575357294CAC1000ED075C /* Ticker.swift */; };
 		5257535A294CAE5C00ED075C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52575359294CAE5C00ED075C /* NetworkService.swift */; };
 		5257535E294CC42200ED075C /* TickersRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5257535D294CC42200ED075C /* TickersRequestObject.swift */; };
+		52638BBE2958A4C800E51604 /* TickersFiltersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52638BBD2958A4C800E51604 /* TickersFiltersModel.swift */; };
 		52685281294C77D8006FF320 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52685280294C77D8006FF320 /* AppDelegate.swift */; };
 		52685283294C77D8006FF320 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52685282294C77D8006FF320 /* SceneDelegate.swift */; };
 		5268528A294C77DD006FF320 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52685289294C77DD006FF320 /* Assets.xcassets */; };
@@ -63,6 +64,7 @@
 		52575357294CAC1000ED075C /* Ticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ticker.swift; sourceTree = "<group>"; };
 		52575359294CAE5C00ED075C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		5257535D294CC42200ED075C /* TickersRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickersRequestObject.swift; sourceTree = "<group>"; };
+		52638BBD2958A4C800E51604 /* TickersFiltersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickersFiltersModel.swift; sourceTree = "<group>"; };
 		5268527D294C77D8006FF320 /* Crypto Poligon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Crypto Poligon.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		52685280294C77D8006FF320 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52685282294C77D8006FF320 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -322,6 +324,7 @@
 				528576262953381A0013E280 /* TickersFiltersPresenter.swift */,
 				52857628295339490013E280 /* TickersFiltersRouter.swift */,
 				52857622295336C30013E280 /* TickersFiltersViewModel.swift */,
+				52638BBD2958A4C800E51604 /* TickersFiltersModel.swift */,
 			);
 			path = TickersFilters;
 			sourceTree = "<group>";
@@ -520,6 +523,7 @@
 				52E38D2A2955F2D30087908A /* ActivityIndicator.swift in Sources */,
 				52685283294C77D8006FF320 /* SceneDelegate.swift in Sources */,
 				520EAE1729578D4C007AA40B /* LockedLoading.swift in Sources */,
+				52638BBE2958A4C800E51604 /* TickersFiltersModel.swift in Sources */,
 				52F38FBB2950B47700FF17E8 /* TickersPresenter.swift in Sources */,
 				52F38FB92950B45D00FF17E8 /* TickersInteractor.swift in Sources */,
 				528B34102951C33A0082F73B /* Font.swift in Sources */,

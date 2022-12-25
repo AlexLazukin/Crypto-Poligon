@@ -67,8 +67,15 @@ struct TickersFiltersView: View {
                         isSeeMoreExchangesActive ? viewModel.exchanges : Array(viewModel.exchanges.prefix(3)),
                         id: \.name
                     ) { exchange in
-                        exchangeRow(exchange)
-                            .transition(.appear)
+                        Button(
+                            action: {
+                                interactor.exchangeButtonTapped(exchange)
+                            },
+                            label: {
+                                exchangeRow(exchange)
+                            }
+                        )
+                        .transition(.appear)
                     }
                     .padding(.top)
                 }

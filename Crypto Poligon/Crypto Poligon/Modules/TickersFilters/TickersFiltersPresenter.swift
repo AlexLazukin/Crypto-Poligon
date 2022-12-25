@@ -14,6 +14,7 @@ protocol TickersFiltersInteractorPresenterInterface {
     func updateExhanges(_ exhanges: [Exchange])
     func startLoading()
     func stopLoading()
+    func dismiss(_ exchange: Exchange)
 }
 
 // MARK: - TickersFiltersPresenter
@@ -78,5 +79,10 @@ extension TickersFiltersPresenter: TickersFiltersInteractorPresenterInterface {
 
     func stopLoading() {
         loaderUpdater.send(false)
+    }
+
+    func dismiss(_ exchange: Exchange) {
+        let tickersFiltersModel = TickersFiltersModel(exchange: exchange)
+        router.dismiss(tickersFiltersModel)
     }
 }
