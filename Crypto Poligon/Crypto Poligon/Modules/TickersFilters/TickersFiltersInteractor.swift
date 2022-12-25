@@ -32,18 +32,21 @@ final class TickersFiltersInteractor {
     // MARK: - Private (Properties)
     private func subscribeOnExchangeListLoader() {
         exchangeListLoader
+            .handleEvents(
+                receiveOutput: { [weak self] _ in
+                    self?.presenter.startLoading()
+                }
+            )
             .compactMap { [weak self] exchangesRequestObject in
                 self?.tickersService.requestExchanges(exchangesRequestObject)
+                    .catch { [weak self] failure -> Just<[Exchange]> in
+                        self?.presenter.handleFailure(failure)
+                        return Just([])
+                    }
             }
             .switchToLatest()
-            .sink { [weak self] status in
-                switch status {
-                case let .failure(failure):
-                    self?.presenter.handleFailure(failure)
-                case .finished:
-                    break
-                }
-            } receiveValue: { [weak self] exchanges in
+            .sink { [weak self] exchanges in
+                self?.presenter.stopLoading()
                 self?.presenter.updateExhanges(exchanges)
             }
             .store(in: &subscriptions)

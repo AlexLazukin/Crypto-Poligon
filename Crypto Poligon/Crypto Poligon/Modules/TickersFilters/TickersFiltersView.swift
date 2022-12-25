@@ -28,6 +28,12 @@ struct TickersFiltersView: View {
             Color.background.edgesIgnoringSafeArea(.all)
 
             scrollContent()
+                .isLoading(viewModel.isLoading)
+
+            if viewModel.isLoading {
+                ActivityIndicator()
+                    .frame(width: 50, height: 50)
+            }
         }
         .toolbar {
             centerToolBar()

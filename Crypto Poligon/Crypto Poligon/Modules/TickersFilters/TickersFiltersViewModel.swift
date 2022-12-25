@@ -10,6 +10,7 @@ import Combine
 final class TickersFiltersViewModel: ObservableObject {
 
     // MARK: - Public (Properties)
+    @Published var isLoading: Bool = false
     @Published var market: MarketType
     @Published var exchanges: [Exchange] = []
     @Published var currentExchange: Exchange?
