@@ -1,58 +1,47 @@
 //
-//  TickersPresenter.swift
+//  TickersFiltersPresenter.swift
 //  Crypto Poligon
 //
-//  Created by Alexey Lazukin on 19.12.2022.
+//  Created by Alexey Lazukin on 21.12.2022.
 //
 
 import Combine
 import Foundation
 
-// MARK: - TickersInteractorPresenterInterface
-protocol TickersInteractorPresenterInterface {
-    func updateTickers(_ tickers: [Ticker])
+// MARK: - TickersFiltersInteractorPresenterInterface
+protocol TickersFiltersInteractorPresenterInterface {
     func handleFailure(_ failure: Failure)
-    func changeMarket(market: MarketType)
-    func filtersTapped(market: MarketType, tickersFiltersModel: TickersFiltersModel)
+    func updateExhanges(_ exhanges: [Exchange])
     func startLoading()
     func stopLoading()
-    func currentExchangeTapped()
+    func updateTickersFiltersModel(_ exchange: Exchange)
+    func dismiss(_ tickersFiltersModel: TickersFiltersModel)
 }
 
-// MARK: - TickersPresenter
-final class TickersPresenter {
+// MARK: - TickersFiltersPresenter
+final class TickersFiltersPresenter {
 
     // MARK: - Private (Properties)
-    private weak var viewModel: TickersViewModel!
-    private let router: TickersPresenterRouterInterface
-    private let tickersUpdater = PassthroughSubject<[Ticker], Never>()
-    private let marketUpdater = PassthroughSubject<MarketType, Never>()
+    private weak var viewModel: TickersFiltersViewModel!
+    private let router: TickersFiltersPresenterRouterInterface
     private let failuresHandler = PassthroughSubject<Failure, Never>()
+    private let exchangesUpdater = PassthroughSubject<[Exchange], Never>()
     private let loaderUpdater = PassthroughSubject<Bool, Never>()
     private let tickersFiltersUpdater = PassthroughSubject<TickersFiltersModel, Never>()
     private var subscriptions = Set<AnyCancellable>()
 
     // MARK: - Init
-    init(viewModel: TickersViewModel, router: TickersPresenterRouterInterface) {
+    init(viewModel: TickersFiltersViewModel, router: TickersFiltersPresenterRouterInterface) {
         self.viewModel = viewModel
         self.router = router
 
-        subscribeOnTickersUpdater()
-        subscribeOnMarketUpdater()
         subscribeOnFailuresHandler()
+        subscribeOnExchangesUpdater()
         subscribeOnLoaderUpdater()
         subscribeOnTickersFiltersUpdater()
     }
 
     // MARK: - Private (Interface)
-    private func subscribeOnTickersUpdater() {
-        tickersUpdater.assign(to: \.tickers, on: viewModel, subscriptions: &subscriptions)
-    }
-
-    private func subscribeOnMarketUpdater() {
-        marketUpdater.assign(to: \.currentMarket, on: viewModel, subscriptions: &subscriptions)
-    }
-
     private func subscribeOnFailuresHandler() {
         failuresHandler
             .receive(on: DispatchQueue.main)
@@ -60,6 +49,10 @@ final class TickersPresenter {
                 self?.router.showErrorAlert(failure.description)
             }
             .store(in: &subscriptions)
+    }
+
+    private func subscribeOnExchangesUpdater() {
+        exchangesUpdater.assign(to: \.exchanges, on: viewModel, subscriptions: &subscriptions)
     }
 
     private func subscribeOnLoaderUpdater() {
@@ -71,27 +64,14 @@ final class TickersPresenter {
     }
 }
 
-// MARK: - TickersInteractorPresenterInterface
-extension TickersPresenter: TickersInteractorPresenterInterface {
-    func updateTickers(_ tickers: [Ticker]) {
-        tickersUpdater.send(tickers)
-    }
-
+// MARK: - TickersFiltersInteractorPresenterInterface
+extension TickersFiltersPresenter: TickersFiltersInteractorPresenterInterface {
     func handleFailure(_ failure: Failure) {
         failuresHandler.send(failure)
     }
 
-    func changeMarket(market: MarketType) {
-        marketUpdater.send(market)
-    }
-
-    func filtersTapped(market: MarketType, tickersFiltersModel: TickersFiltersModel) {
-        router.showTickersFiltersScreen(
-            market: market,
-            tickersFiltersModel: tickersFiltersModel
-        ) { [weak self] tickersFiltersModel in
-            self?.viewModel.tickersFiltersModel = tickersFiltersModel
-        }
+    func updateExhanges(_ exhanges: [Exchange]) {
+        exchangesUpdater.send(exhanges)
     }
 
     func startLoading() {
@@ -102,10 +82,14 @@ extension TickersPresenter: TickersInteractorPresenterInterface {
         loaderUpdater.send(false)
     }
 
-    func currentExchangeTapped() {
+    func updateTickersFiltersModel(_ exchange: Exchange) {
         var tickersFiltersModel = viewModel.tickersFiltersModel
-        tickersFiltersModel.exchange = nil
+        tickersFiltersModel.exchange = exchange != tickersFiltersModel.exchange ? exchange : nil
         tickersFiltersUpdater.send(tickersFiltersModel)
+    }
+
+    func dismiss(_ tickersFiltersModel: TickersFiltersModel) {
+        router.dismiss(tickersFiltersModel)
     }
 }
 

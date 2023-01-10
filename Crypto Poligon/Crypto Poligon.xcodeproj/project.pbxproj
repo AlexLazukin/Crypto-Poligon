@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		520EAE1729578D4C007AA40B /* LockedLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520EAE1629578D4C007AA40B /* LockedLoading.swift */; };
+		521F0DE329584E1E00D0FB54 /* ResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521F0DE229584E1E00D0FB54 /* ResponseError.swift */; };
 		52575341294C887700ED075C /* ApiSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52575340294C887700ED075C /* ApiSettings.plist */; };
 		52575347294C895600ED075C /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52575346294C895600ED075C /* RequestManager.swift */; };
 		5257534A294C8D0600ED075C /* Failure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52575349294C8D0600ED075C /* Failure.swift */; };
@@ -16,12 +18,22 @@
 		52575358294CAC1000ED075C /* Ticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52575357294CAC1000ED075C /* Ticker.swift */; };
 		5257535A294CAE5C00ED075C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52575359294CAE5C00ED075C /* NetworkService.swift */; };
 		5257535E294CC42200ED075C /* TickersRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5257535D294CC42200ED075C /* TickersRequestObject.swift */; };
+		52638BBE2958A4C800E51604 /* TickersFiltersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52638BBD2958A4C800E51604 /* TickersFiltersModel.swift */; };
 		52685281294C77D8006FF320 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52685280294C77D8006FF320 /* AppDelegate.swift */; };
 		52685283294C77D8006FF320 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52685282294C77D8006FF320 /* SceneDelegate.swift */; };
 		5268528A294C77DD006FF320 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52685289294C77DD006FF320 /* Assets.xcassets */; };
 		5268528D294C77DD006FF320 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5268528B294C77DD006FF320 /* LaunchScreen.storyboard */; };
 		5285761C29532BED0013E280 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5285761B29532BED0013E280 /* Animations.swift */; };
 		5285761E29532CAA0013E280 /* Transitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5285761D29532CAA0013E280 /* Transitions.swift */; };
+		528576212953367F0013E280 /* TickersFiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528576202953367F0013E280 /* TickersFiltersView.swift */; };
+		52857623295336C30013E280 /* TickersFiltersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52857622295336C30013E280 /* TickersFiltersViewModel.swift */; };
+		52857625295337050013E280 /* TickersFiltersInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52857624295337050013E280 /* TickersFiltersInteractor.swift */; };
+		528576272953381A0013E280 /* TickersFiltersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528576262953381A0013E280 /* TickersFiltersPresenter.swift */; };
+		528576292953394A0013E280 /* TickersFiltersRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52857628295339490013E280 /* TickersFiltersRouter.swift */; };
+		5285762B295339830013E280 /* TickersFiltersAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5285762A295339830013E280 /* TickersFiltersAssembler.swift */; };
+		5285762E29534AF60013E280 /* ExchangesRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5285762D29534AF60013E280 /* ExchangesRequestObject.swift */; };
+		5285763129534C2D0013E280 /* ExchangesResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5285763029534C2D0013E280 /* ExchangesResponseObject.swift */; };
+		5285763329534C560013E280 /* Exchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5285763229534C560013E280 /* Exchange.swift */; };
 		528B340D2951C0760082F73B /* CaseIterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B340C2951C0760082F73B /* CaseIterable.swift */; };
 		528B34102951C33A0082F73B /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B340F2951C33A0082F73B /* Font.swift */; };
 		528B34122951C3C70082F73B /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 528B34112951C3C70082F73B /* Colors.xcassets */; };
@@ -29,6 +41,7 @@
 		52D358F829506E1700509AEF /* TickerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D358F729506E1700509AEF /* TickerType.swift */; };
 		52D358FA29506ECE00509AEF /* MarketType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D358F929506ECE00509AEF /* MarketType.swift */; };
 		52D358FF2950902E00509AEF /* TickersCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D358FE2950902E00509AEF /* TickersCoordinator.swift */; };
+		52E38D2A2955F2D30087908A /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E38D292955F2D30087908A /* ActivityIndicator.swift */; };
 		52F38FB22950B3F700FF17E8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F38FB12950B3F700FF17E8 /* Coordinator.swift */; };
 		52F38FB52950B42E00FF17E8 /* TickersAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F38FB42950B42E00FF17E8 /* TickersAssembler.swift */; };
 		52F38FB72950B44600FF17E8 /* TickersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F38FB62950B44600FF17E8 /* TickersView.swift */; };
@@ -40,6 +53,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		520EAE1629578D4C007AA40B /* LockedLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockedLoading.swift; sourceTree = "<group>"; };
+		521F0DE229584E1E00D0FB54 /* ResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseError.swift; sourceTree = "<group>"; };
 		52575340294C887700ED075C /* ApiSettings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ApiSettings.plist; sourceTree = "<group>"; };
 		52575346294C895600ED075C /* RequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
 		52575349294C8D0600ED075C /* Failure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Failure.swift; sourceTree = "<group>"; };
@@ -49,6 +64,7 @@
 		52575357294CAC1000ED075C /* Ticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ticker.swift; sourceTree = "<group>"; };
 		52575359294CAE5C00ED075C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		5257535D294CC42200ED075C /* TickersRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickersRequestObject.swift; sourceTree = "<group>"; };
+		52638BBD2958A4C800E51604 /* TickersFiltersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickersFiltersModel.swift; sourceTree = "<group>"; };
 		5268527D294C77D8006FF320 /* Crypto Poligon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Crypto Poligon.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		52685280294C77D8006FF320 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52685282294C77D8006FF320 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -57,6 +73,15 @@
 		5268528E294C77DD006FF320 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5285761B29532BED0013E280 /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		5285761D29532CAA0013E280 /* Transitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transitions.swift; sourceTree = "<group>"; };
+		528576202953367F0013E280 /* TickersFiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickersFiltersView.swift; sourceTree = "<group>"; };
+		52857622295336C30013E280 /* TickersFiltersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickersFiltersViewModel.swift; sourceTree = "<group>"; };
+		52857624295337050013E280 /* TickersFiltersInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickersFiltersInteractor.swift; sourceTree = "<group>"; };
+		528576262953381A0013E280 /* TickersFiltersPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickersFiltersPresenter.swift; sourceTree = "<group>"; };
+		52857628295339490013E280 /* TickersFiltersRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickersFiltersRouter.swift; sourceTree = "<group>"; };
+		5285762A295339830013E280 /* TickersFiltersAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickersFiltersAssembler.swift; sourceTree = "<group>"; };
+		5285762D29534AF60013E280 /* ExchangesRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangesRequestObject.swift; sourceTree = "<group>"; };
+		5285763029534C2D0013E280 /* ExchangesResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangesResponseObject.swift; sourceTree = "<group>"; };
+		5285763229534C560013E280 /* Exchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exchange.swift; sourceTree = "<group>"; };
 		528B340C2951C0760082F73B /* CaseIterable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaseIterable.swift; sourceTree = "<group>"; };
 		528B340F2951C33A0082F73B /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		528B34112951C3C70082F73B /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
@@ -64,6 +89,7 @@
 		52D358F729506E1700509AEF /* TickerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerType.swift; sourceTree = "<group>"; };
 		52D358F929506ECE00509AEF /* MarketType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketType.swift; sourceTree = "<group>"; };
 		52D358FE2950902E00509AEF /* TickersCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickersCoordinator.swift; sourceTree = "<group>"; };
+		52E38D292955F2D30087908A /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		52F38FB12950B3F700FF17E8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		52F38FB42950B42E00FF17E8 /* TickersAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickersAssembler.swift; sourceTree = "<group>"; };
 		52F38FB62950B44600FF17E8 /* TickersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickersView.swift; sourceTree = "<group>"; };
@@ -85,6 +111,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		520EAE1529578D0E007AA40B /* Modificators */ = {
+			isa = PBXGroup;
+			children = (
+				520EAE1629578D4C007AA40B /* LockedLoading.swift */,
+			);
+			path = Modificators;
+			sourceTree = "<group>";
+		};
 		52575338294C857800ED075C /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				52F38FB32950B41C00FF17E8 /* Tickers */,
+				5285761F2953365D0013E280 /* TickersFilters */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -186,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				52575349294C8D0600ED075C /* Failure.swift */,
+				521F0DE229584E1E00D0FB54 /* ResponseError.swift */,
 			);
 			path = Failure;
 			sourceTree = "<group>";
@@ -202,6 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				52575354294CABD100ED075C /* Tickers */,
+				5285762F29534C0B0013E280 /* Exchanges */,
 			);
 			path = ResponseObject;
 			sourceTree = "<group>";
@@ -219,6 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				5257535C294CC40900ED075C /* Tickers */,
+				5285762C29534AD50013E280 /* Exchanges */,
 			);
 			path = RequestObject;
 			sourceTree = "<group>";
@@ -253,6 +291,7 @@
 				5257533D294C85E100ED075C /* AppDelegate */,
 				52D358FD2950900700509AEF /* Coordinator */,
 				5257533C294C85CB00ED075C /* Modules */,
+				52E38D282955F2BD0087908A /* UI */,
 				52575342294C88E700ED075C /* Network */,
 				528B340B2951C0570082F73B /* Extensions */,
 				52575338294C857800ED075C /* Configurations */,
@@ -274,6 +313,37 @@
 				5285761B29532BED0013E280 /* Animations.swift */,
 			);
 			path = Animations;
+			sourceTree = "<group>";
+		};
+		5285761F2953365D0013E280 /* TickersFilters */ = {
+			isa = PBXGroup;
+			children = (
+				5285762A295339830013E280 /* TickersFiltersAssembler.swift */,
+				528576202953367F0013E280 /* TickersFiltersView.swift */,
+				52857624295337050013E280 /* TickersFiltersInteractor.swift */,
+				528576262953381A0013E280 /* TickersFiltersPresenter.swift */,
+				52857628295339490013E280 /* TickersFiltersRouter.swift */,
+				52857622295336C30013E280 /* TickersFiltersViewModel.swift */,
+				52638BBD2958A4C800E51604 /* TickersFiltersModel.swift */,
+			);
+			path = TickersFilters;
+			sourceTree = "<group>";
+		};
+		5285762C29534AD50013E280 /* Exchanges */ = {
+			isa = PBXGroup;
+			children = (
+				5285762D29534AF60013E280 /* ExchangesRequestObject.swift */,
+			);
+			path = Exchanges;
+			sourceTree = "<group>";
+		};
+		5285762F29534C0B0013E280 /* Exchanges */ = {
+			isa = PBXGroup;
+			children = (
+				5285763029534C2D0013E280 /* ExchangesResponseObject.swift */,
+				5285763229534C560013E280 /* Exchange.swift */,
+			);
+			path = Exchanges;
 			sourceTree = "<group>";
 		};
 		528B340B2951C0570082F73B /* Extensions */ = {
@@ -316,6 +386,15 @@
 				52D358FE2950902E00509AEF /* TickersCoordinator.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		52E38D282955F2BD0087908A /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				520EAE1529578D0E007AA40B /* Modificators */,
+				52E38D292955F2D30087908A /* ActivityIndicator.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 		52F38FB32950B41C00FF17E8 /* Tickers */ = {
@@ -426,20 +505,32 @@
 			files = (
 				5257535A294CAE5C00ED075C /* NetworkService.swift in Sources */,
 				52F38FBD2950B49100FF17E8 /* TickersRouter.swift in Sources */,
+				528576212953367F0013E280 /* TickersFiltersView.swift in Sources */,
 				52F38FBF2950B4DB00FF17E8 /* TickersViewModel.swift in Sources */,
+				5285762B295339830013E280 /* TickersFiltersAssembler.swift in Sources */,
 				52575356294CABE200ED075C /* TickersResponseObject.swift in Sources */,
 				52F38FB52950B42E00FF17E8 /* TickersAssembler.swift in Sources */,
+				528576272953381A0013E280 /* TickersFiltersPresenter.swift in Sources */,
+				52857625295337050013E280 /* TickersFiltersInteractor.swift in Sources */,
+				52857623295336C30013E280 /* TickersFiltersViewModel.swift in Sources */,
+				5285762E29534AF60013E280 /* ExchangesRequestObject.swift in Sources */,
 				528B34152951C4320082F73B /* Color.swift in Sources */,
 				5285761C29532BED0013E280 /* Animations.swift in Sources */,
+				5285763329534C560013E280 /* Exchange.swift in Sources */,
 				52D358F829506E1700509AEF /* TickerType.swift in Sources */,
+				521F0DE329584E1E00D0FB54 /* ResponseError.swift in Sources */,
 				52685281294C77D8006FF320 /* AppDelegate.swift in Sources */,
+				52E38D2A2955F2D30087908A /* ActivityIndicator.swift in Sources */,
 				52685283294C77D8006FF320 /* SceneDelegate.swift in Sources */,
+				520EAE1729578D4C007AA40B /* LockedLoading.swift in Sources */,
+				52638BBE2958A4C800E51604 /* TickersFiltersModel.swift in Sources */,
 				52F38FBB2950B47700FF17E8 /* TickersPresenter.swift in Sources */,
 				52F38FB92950B45D00FF17E8 /* TickersInteractor.swift in Sources */,
 				528B34102951C33A0082F73B /* Font.swift in Sources */,
 				52575358294CAC1000ED075C /* Ticker.swift in Sources */,
 				5285761E29532CAA0013E280 /* Transitions.swift in Sources */,
 				528B340D2951C0760082F73B /* CaseIterable.swift in Sources */,
+				5285763129534C2D0013E280 /* ExchangesResponseObject.swift in Sources */,
 				52F38FB22950B3F700FF17E8 /* Coordinator.swift in Sources */,
 				5257535E294CC42200ED075C /* TickersRequestObject.swift in Sources */,
 				52F38FC12950B50600FF17E8 /* TickersNetworkService.swift in Sources */,
@@ -449,6 +540,7 @@
 				52F38FB72950B44600FF17E8 /* TickersView.swift in Sources */,
 				52575350294C8FDF00ED075C /* EndPoint.swift in Sources */,
 				52575347294C895600ED075C /* RequestManager.swift in Sources */,
+				528576292953394A0013E280 /* TickersFiltersRouter.swift in Sources */,
 				52D358FA29506ECE00509AEF /* MarketType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,5 +10,5 @@ import SwiftUI
 extension Animation {
 
     // MARK: - Public (Properties)
-    static let general: Animation = .easeOut(duration: 0.1)
+    static let general: Animation = .easeOut(duration: 0.25)
 }

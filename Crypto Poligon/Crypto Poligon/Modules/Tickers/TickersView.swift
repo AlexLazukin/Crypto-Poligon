@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct TickersView: View {
 
@@ -15,11 +16,13 @@ struct TickersView: View {
 
     @State private var isSearchGlassShown = true
     @State private var isEmptyListShown = false
+    @State private var isActiveFiltersShown: Bool
 
     // MARK: - Init
     init(viewModel: TickersViewModel, interactor: TickersViewInteractorInterface) {
         self.viewModel = viewModel
         self.interactor = interactor
+        _isActiveFiltersShown = State(initialValue: viewModel.tickersFiltersModel.exchange != nil)
     }
 
     // MARK: - View
@@ -28,16 +31,25 @@ struct TickersView: View {
             Color.background.edgesIgnoringSafeArea(.all)
 
             scrollContent()
+
+            if viewModel.isLoading {
+                ActivityIndicator()
+                    .frame(width: 50, height: 50)
+            }
         }
         .toolbar {
             centerToolBar()
         }
+        .toolbar {
+            rightToolBar()
+        }
         .onAppear {
-            interactor.reloadTickers(tickersRequestObject())
+            interactor.reloadTickers(viewModel.tickersRequestObject)
+        }
+        .onReceive(viewModel.$tickersRequestObject) { tickersRequestObject in
+            interactor.reloadTickers(tickersRequestObject)
         }
         .onReceive(viewModel.$searchText) { searchText in
-            interactor.reloadTickers(tickersRequestObject())
-
             withAnimation(.general) {
                 isSearchGlassShown = searchText.isEmpty
             }
@@ -45,6 +57,11 @@ struct TickersView: View {
         .onReceive(viewModel.$tickers) { tickers in
             withAnimation(.general) {
                 isEmptyListShown = tickers.isEmpty
+            }
+        }
+        .onReceive(viewModel.$tickersFiltersModel) { tickersFiltersModel in
+            withAnimation(.general) {
+                isActiveFiltersShown = (tickersFiltersModel.exchange != nil)
             }
         }
     }
@@ -55,13 +72,28 @@ struct TickersView: View {
             searchView()
                 .padding(.vertical)
 
-            if isEmptyListShown {
-                emptyList()
-                    .transition(.appear)
-            } else {
-                tickersList()
-                    .transition(.appear)
+            filtersView()
+
+            Group {
+                if isEmptyListShown && !viewModel.isLoading {
+                    emptyList()
+                        .transition(.appear)
+                }
+
+                VStack {
+                    if !isEmptyListShown {
+                        ForEach(viewModel.tickers, id: \.ticker) { ticker in
+                            ticketRow(ticker)
+                                .transition(.appear)
+                        }
+                        .padding(.top, 8)
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .background(Color.row)
+                .cornerRadius(8)
             }
+            .isLoading(viewModel.isLoading)
         }
         .padding(.horizontal)
     }
@@ -85,6 +117,36 @@ struct TickersView: View {
         .cornerRadius(8)
     }
 
+    @ViewBuilder
+    private func filtersView() -> some View {
+        if isActiveFiltersShown {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(alignment: .center, spacing: 10) {
+                    Text(viewModel.tickersFiltersModel.exchange?.name ?? "")
+                        .font(.light)
+                        .foregroundColor(.text)
+
+                    Button(
+                        action: {
+                            interactor.currentExchangeTapped()
+                        },
+                        label: {
+                            Image(systemName: "xmark")
+                                .resizable()
+                                .frame(width: 10, height: 10)
+                                .foregroundColor(.background)
+                        }
+                    )
+                }
+                .padding(.vertical, 5)
+                .padding(.horizontal, 10)
+                .background(Color.accent)
+                .cornerRadius(8)
+            }
+            .transition(.appear)
+        }
+    }
+
     private func emptyList() -> some View {
         Text(Strings.Tickers.notFound)
             .foregroundColor(.placeholder)
@@ -93,42 +155,37 @@ struct TickersView: View {
             .multilineTextAlignment(.center)
     }
 
-    private func tickersList() -> some View {
-        LazyVStack {
-            ForEach(viewModel.tickers, id: \.ticker) { ticker in
-                HStack {
-                    VStack(alignment: .leading, spacing: 5) {
-                        Text(ticker.ticker)
-                            .font(.ordinary)
-                            .foregroundColor(.text)
+    private func ticketRow(_ ticker: Ticker) -> some View {
+        VStack {
+            HStack {
+                VStack(alignment: .leading, spacing: 5) {
+                    Text(ticker.ticker)
+                        .font(.ordinary)
+                        .foregroundColor(.text)
 
-                        Text(ticker.name)
-                            .font(.light)
-                            .foregroundColor(.textSecondary)
-                    }
-                    .multilineTextAlignment(.leading)
-
-                    Spacer()
+                    Text(ticker.name)
+                        .font(.light)
+                        .foregroundColor(.textSecondary)
                 }
-                .padding(.horizontal)
+                .multilineTextAlignment(.leading)
 
-                Divider()
-                    .frame(height: 1)
-                    .background(Color.background)
-                    .padding(.leading)
+                Spacer()
             }
+            .padding(.horizontal)
+
+            Divider()
+                .frame(height: 1)
+                .background(Color.background)
+                .padding(.leading)
         }
-        .background(Color.row)
-        .cornerRadius(8)
     }
 
     private func centerToolBar() -> ToolbarItem<Void, AnyView> {
-        ToolbarItem(placement: .principal) {
+        ToolbarItem(placement: .navigationBarLeading) {
             AnyView(
                 Button(
                     action: {
                         interactor.changeMarket(market: viewModel.currentMarket.next())
-                        interactor.reloadTickers(tickersRequestObject())
                     },
                     label: {
                         HStack(alignment: .center, spacing: 10) {
@@ -146,13 +203,25 @@ struct TickersView: View {
             )
         }
     }
-}
 
-private extension TickersView {
-    func tickersRequestObject() -> TickersRequestObject {
-        TickersRequestObject(
-            ticker: viewModel.searchText,
-            market: viewModel.currentMarket
-        )
+    private func rightToolBar() -> ToolbarItem<Void, AnyView> {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            AnyView(
+                Button(
+                    action: {
+                        interactor.filtersTapped(
+                            market: viewModel.currentMarket,
+                            tickersFiltersModel: viewModel.tickersFiltersModel
+                        )
+                    },
+                    label: {
+                        Image(systemName: "ellipsis")
+                            .resizable()
+                            .frame(width: 16)
+                            .foregroundColor(.accent)
+                    }
+                )
+            )
+        }
     }
 }
