@@ -16,11 +16,13 @@ struct TickersView: View {
 
     @State private var isSearchGlassShown = true
     @State private var isEmptyListShown = false
+    @State private var isActiveFiltersShown: Bool
 
     // MARK: - Init
     init(viewModel: TickersViewModel, interactor: TickersViewInteractorInterface) {
         self.viewModel = viewModel
         self.interactor = interactor
+        _isActiveFiltersShown = State(initialValue: viewModel.tickersFiltersModel.exchange != nil)
     }
 
     // MARK: - View
@@ -57,6 +59,11 @@ struct TickersView: View {
                 isEmptyListShown = tickers.isEmpty
             }
         }
+        .onReceive(viewModel.$tickersFiltersModel) { tickersFiltersModel in
+            withAnimation(.general) {
+                isActiveFiltersShown = (tickersFiltersModel.exchange != nil)
+            }
+        }
     }
 
     // MARK: - Private (Properties)
@@ -64,6 +71,8 @@ struct TickersView: View {
         ScrollView(showsIndicators: false) {
             searchView()
                 .padding(.vertical)
+
+            filtersView()
 
             Group {
                 if isEmptyListShown && !viewModel.isLoading {
@@ -106,6 +115,36 @@ struct TickersView: View {
         .frame(height: 38)
         .background(Color.row)
         .cornerRadius(8)
+    }
+
+    @ViewBuilder
+    private func filtersView() -> some View {
+        if isActiveFiltersShown {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(alignment: .center, spacing: 10) {
+                    Text(viewModel.tickersFiltersModel.exchange?.name ?? "")
+                        .font(.light)
+                        .foregroundColor(.text)
+
+                    Button(
+                        action: {
+                            interactor.currentExchangeTapped()
+                        },
+                        label: {
+                            Image(systemName: "xmark")
+                                .resizable()
+                                .frame(width: 10, height: 10)
+                                .foregroundColor(.background)
+                        }
+                    )
+                }
+                .padding(.vertical, 5)
+                .padding(.horizontal, 10)
+                .background(Color.accent)
+                .cornerRadius(8)
+            }
+            .transition(.appear)
+        }
     }
 
     private func emptyList() -> some View {

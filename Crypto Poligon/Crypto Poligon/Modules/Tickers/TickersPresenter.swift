@@ -16,6 +16,7 @@ protocol TickersInteractorPresenterInterface {
     func filtersTapped(market: MarketType, tickersFiltersModel: TickersFiltersModel)
     func startLoading()
     func stopLoading()
+    func currentExchangeTapped()
 }
 
 // MARK: - TickersPresenter
@@ -28,6 +29,7 @@ final class TickersPresenter {
     private let marketUpdater = PassthroughSubject<MarketType, Never>()
     private let failuresHandler = PassthroughSubject<Failure, Never>()
     private let loaderUpdater = PassthroughSubject<Bool, Never>()
+    private let tickersFiltersUpdater = PassthroughSubject<TickersFiltersModel, Never>()
     private var subscriptions = Set<AnyCancellable>()
 
     // MARK: - Init
@@ -39,6 +41,7 @@ final class TickersPresenter {
         subscribeOnMarketUpdater()
         subscribeOnFailuresHandler()
         subscribeOnLoaderUpdater()
+        subscribeOnTickersFiltersUpdater()
     }
 
     // MARK: - Private (Interface)
@@ -69,6 +72,13 @@ final class TickersPresenter {
         loaderUpdater
             .receive(on: DispatchQueue.main)
             .assign(to: \.isLoading, on: viewModel)
+            .store(in: &subscriptions)
+    }
+
+    private func subscribeOnTickersFiltersUpdater() {
+        tickersFiltersUpdater
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.tickersFiltersModel, on: viewModel)
             .store(in: &subscriptions)
     }
 }
@@ -102,5 +112,11 @@ extension TickersPresenter: TickersInteractorPresenterInterface {
 
     func stopLoading() {
         loaderUpdater.send(false)
+    }
+
+    func currentExchangeTapped() {
+        var tickersFiltersModel = viewModel.tickersFiltersModel
+        tickersFiltersModel.exchange = nil
+        tickersFiltersUpdater.send(tickersFiltersModel)
     }
 }

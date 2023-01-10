@@ -13,6 +13,7 @@ protocol TickersViewInteractorInterface {
     func reloadTickers(_ tickersRequestObject: TickersRequestObject)
     func changeMarket(market: MarketType)
     func filtersTapped(market: MarketType, tickersFiltersModel: TickersFiltersModel)
+    func currentExchangeTapped()
 }
 
 // MARK: - TickersInteractor
@@ -70,5 +71,9 @@ extension TickersInteractor: TickersViewInteractorInterface {
 
     func filtersTapped(market: MarketType, tickersFiltersModel: TickersFiltersModel) {
         presenter.filtersTapped(market: market, tickersFiltersModel: tickersFiltersModel)
+    }
+
+    func currentExchangeTapped() {
+        presenter.currentExchangeTapped()
     }
 }
