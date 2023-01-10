@@ -14,12 +14,14 @@ struct TickersFiltersView: View {
     private var interactor: TickersFiltersViewInteractorInterface
 
     @State private var isExchangesListShown: Bool = false
+    @State private var isCurrentExchangeShown: Bool
     @State private var isSeeMoreExchangesActive: Bool = false
 
     // MARK: - Init
     init(viewModel: TickersFiltersViewModel, interactor: TickersFiltersViewInteractorInterface) {
         self.viewModel = viewModel
         self.interactor = interactor
+        _isCurrentExchangeShown = State(initialValue: viewModel.tickersFiltersModel.exchange != nil)
     }
 
     // MARK: - View
@@ -47,6 +49,11 @@ struct TickersFiltersView: View {
         .onReceive(viewModel.$exchanges) { exchanges in
             withAnimation(.general) {
                 isExchangesListShown = !exchanges.isEmpty
+            }
+        }
+        .onReceive(viewModel.$tickersFiltersModel) { tickersFiltersModel in
+            withAnimation(.general) {
+                isCurrentExchangeShown = (tickersFiltersModel.exchange != nil)
             }
         }
     }
@@ -113,34 +120,43 @@ struct TickersFiltersView: View {
     }
 
     private func exchangesHeader() -> some View {
-        HStack(alignment: .center) {
-            Text(
-                viewModel.exchanges.isEmpty && !viewModel.isLoading
-                ? Strings.Tickers.exchangesNotFound
-                : Strings.Tickers.exchanges + " " + "(\(viewModel.exchanges.count))"
-            )
-            .font(.navigationTitle)
-            .foregroundColor(.text)
-            .padding(.vertical)
-
-            Spacer()
-
-            if viewModel.exchanges.count > 3 {
-                Button(
-                    action: {
-                        withAnimation(.general) {
-                            isSeeMoreExchangesActive.toggle()
-                        }
-                    },
-                    label: {
-                        Text(isSeeMoreExchangesActive ? Strings.Tickers.collapseBack : Strings.Tickers.seeMore)
-                            .multilineTextAlignment(.trailing)
-                            .font(.light)
-                            .foregroundColor(.accent)
-                    }
+        VStack(alignment: .leading, spacing: 5) {
+            HStack(alignment: .center) {
+                Text(
+                    viewModel.exchanges.isEmpty && !viewModel.isLoading
+                    ? Strings.Tickers.exchangesNotFound
+                    : Strings.Tickers.exchanges + " " + "(\(viewModel.exchanges.count))"
                 )
+                .font(.navigationTitle)
+                .foregroundColor(.text)
+
+                Spacer()
+
+                if viewModel.exchanges.count > 3 {
+                    Button(
+                        action: {
+                            withAnimation(.general) {
+                                isSeeMoreExchangesActive.toggle()
+                            }
+                        },
+                        label: {
+                            Text(isSeeMoreExchangesActive ? Strings.Tickers.collapseBack : Strings.Tickers.seeMore)
+                                .multilineTextAlignment(.trailing)
+                                .font(.light)
+                                .foregroundColor(.accent)
+                        }
+                    )
+                }
+            }
+
+            if isCurrentExchangeShown {
+                Text(viewModel.tickersFiltersModel.exchange?.name ?? "")
+                    .font(.light)
+                    .foregroundColor(.textSecondary)
+                    .transition(.appear)
             }
         }
+        .padding(.vertical)
     }
 
     private func exchangeRow(_ exchange: Exchange) -> some View {

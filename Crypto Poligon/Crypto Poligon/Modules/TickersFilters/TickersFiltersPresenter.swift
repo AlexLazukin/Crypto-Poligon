@@ -93,7 +93,7 @@ extension TickersFiltersPresenter: TickersFiltersInteractorPresenterInterface {
 
     func updateTickersFiltersModel(_ exchange: Exchange) {
         var tickersFiltersModel = viewModel.tickersFiltersModel
-        tickersFiltersModel.exchange = exchange
+        tickersFiltersModel.exchange = exchange != tickersFiltersModel.exchange ? exchange : nil
         tickersFiltersUpdater.send(tickersFiltersModel)
     }
 
