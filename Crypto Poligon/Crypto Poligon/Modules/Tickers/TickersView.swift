@@ -86,12 +86,12 @@ struct TickersView: View {
                             ticketRow(ticker)
                                 .transition(.appear)
                         }
-                        .padding(.top, 8)
+                        .padding(.top, smallIndent)
                     }
                 }
                 .frame(maxWidth: .infinity)
                 .background(Color.row)
-                .cornerRadius(8)
+                .cornerRadius(cornerRadius)
             }
             .isLoading(viewModel.isLoading)
         }
@@ -99,7 +99,7 @@ struct TickersView: View {
     }
 
     private func searchView() -> some View {
-        HStack(alignment: .center, spacing: 5) {
+        HStack(alignment: .center, spacing: smallIndent) {
             if isSearchGlassShown {
                 Image(systemName: "magnifyingglass")
                     .resizable()
@@ -114,7 +114,7 @@ struct TickersView: View {
         .padding(.horizontal)
         .frame(height: 38)
         .background(Color.row)
-        .cornerRadius(8)
+        .cornerRadius(cornerRadius)
     }
 
     @ViewBuilder
@@ -138,10 +138,10 @@ struct TickersView: View {
                         }
                     )
                 }
-                .padding(.vertical, 5)
+                .padding(.vertical, smallIndent)
                 .padding(.horizontal, 10)
                 .background(Color.accent)
-                .cornerRadius(8)
+                .cornerRadius(cornerRadius)
             }
             .transition(.appear)
         }
@@ -158,7 +158,7 @@ struct TickersView: View {
     private func ticketRow(_ ticker: Ticker) -> some View {
         VStack {
             HStack {
-                VStack(alignment: .leading, spacing: 5) {
+                VStack(alignment: .leading, spacing: smallIndent) {
                     Text(ticker.ticker)
                         .font(.ordinary)
                         .foregroundColor(.text)
