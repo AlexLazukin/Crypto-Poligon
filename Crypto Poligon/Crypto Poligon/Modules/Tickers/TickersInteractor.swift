@@ -23,6 +23,7 @@ final class TickersInteractor {
     private var presenter: TickersInteractorPresenterInterface
     private let tickersService: TickersNetworkServiceInterface
     private let tickersLoader = PassthroughSubject<TickersRequestObject, Never>()
+    private let aggregatesBarLoader = PassthroughSubject<Ticker, Never>()
     private var subscriptions = Set<AnyCancellable>()
 
     // MARK: - Init
@@ -31,6 +32,7 @@ final class TickersInteractor {
         tickersService = TickersNetworkService()
 
         subscribeOnTickersLoader()
+        subscribeOnAggregatesBarLoader()
     }
 
     // MARK: - Private (Properties)
@@ -54,6 +56,31 @@ final class TickersInteractor {
             .sink { [weak self] tickers in
                 self?.presenter.updateTickers(tickers)
                 self?.presenter.stopLoading()
+                tickers.forEach { [weak self] ticker in
+                    self?.aggregatesBarLoader.send(ticker)
+                }
+            }
+            .store(in: &subscriptions)
+    }
+
+    private func subscribeOnAggregatesBarLoader() {
+        aggregatesBarLoader
+            .removeDuplicates()
+            .flatMap { [weak self] ticker -> AnyPublisher<(String, [BarPoint]), Never> in
+                let aggregatesBarRequestObject = AggregatesBarRequestObject(ticker: ticker.ticker)
+
+                return self?.tickersService.requestAggregatesBar(aggregatesBarRequestObject)
+                    .map {
+                        ($0.ticker, $0.results)
+                    }
+                    .catch { _ -> Just<(String, [BarPoint])> in
+                        Just((ticker.ticker, []))
+                    }
+                    .eraseToAnyPublisher()
+                ?? Just(("", [])).eraseToAnyPublisher()
+            }
+            .sink { [weak self] ticker, barPoints in
+                self?.presenter.updateAggregatesBar(for: ticker, with: barPoints)
             }
             .store(in: &subscriptions)
     }

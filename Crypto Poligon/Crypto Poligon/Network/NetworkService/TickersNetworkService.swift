@@ -11,6 +11,9 @@ import Combine
 protocol TickersNetworkServiceInterface {
     func requestTickers(_ tickersRequestObject: TickersRequestObject) -> AnyPublisher<[Ticker], Failure>
     func requestExchanges(_ exchangeRequestObject: ExchangesRequestObject) -> AnyPublisher<[Exchange], Failure>
+    func requestAggregatesBar(
+        _ aggregatesBarRequestObject: AggregatesBarRequestObject
+    ) -> AnyPublisher<AggregatesBarResponseObject, Failure>
 }
 
 // MARK: - TickersNetworkService
@@ -27,6 +30,13 @@ extension TickersNetworkService: TickersNetworkServiceInterface {
     func requestExchanges(_ exchangeRequestObject: ExchangesRequestObject) -> AnyPublisher<[Exchange], Failure> {
         request(.exchanges(exchangeRequestObject), for: ExchangesResponseObject.self)
             .map { $0.results }
+            .eraseToAnyPublisher()
+    }
+
+    func requestAggregatesBar(
+        _ aggregatesBarRequestObject: AggregatesBarRequestObject
+    ) -> AnyPublisher<AggregatesBarResponseObject, Failure> {
+        request(.aggregatesBar(aggregatesBarRequestObject), for: AggregatesBarResponseObject.self)
             .eraseToAnyPublisher()
     }
 }

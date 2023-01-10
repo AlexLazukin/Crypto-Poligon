@@ -25,7 +25,7 @@ final class TickersViewModel: ObservableObject {
     // MARK: - Init
     init() {
         currentMarket = .stocks
-        searchText = ""
+        searchText = "AAPL"
         tickers = []
         tickersFiltersModel = TickersFiltersModel()
         tickersRequestObject = TickersRequestObject(ticker: "", market: .stocks)

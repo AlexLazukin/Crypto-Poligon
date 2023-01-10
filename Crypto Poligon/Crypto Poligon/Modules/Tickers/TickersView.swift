@@ -159,7 +159,7 @@ struct TickersView: View {
         VStack {
             HStack {
                 VStack(alignment: .leading, spacing: smallIndent) {
-                    Text(ticker.ticker)
+                    Text(ticker.ticker + " \(ticker.barPoints?.count ?? .zero)")
                         .font(.ordinary)
                         .foregroundColor(.text)
 

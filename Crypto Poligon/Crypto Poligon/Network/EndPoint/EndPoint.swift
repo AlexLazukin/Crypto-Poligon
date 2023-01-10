@@ -8,6 +8,7 @@
 enum EndPoint {
     case tickers(TickersRequestObject)
     case exchanges(ExchangesRequestObject)
+    case aggregatesBar(AggregatesBarRequestObject)
 }
 
 extension EndPoint {
@@ -16,6 +17,8 @@ extension EndPoint {
         case .tickers,
                 .exchanges:
             return Version.v3.rawValue
+        case .aggregatesBar:
+            return Version.v2.rawValue
         }
     }
 
@@ -23,13 +26,19 @@ extension EndPoint {
         switch self {
         case .tickers: return "reference/tickers"
         case .exchanges: return "reference/exchanges"
+        case let .aggregatesBar(requestObject):
+            let ticker = requestObject.ticker ?? ""
+            let multiplier = requestObject.multiplier ?? 1
+            let timespan = requestObject.timespan ?? .day
+            return "aggs/ticker/\(ticker)/range/\(multiplier)/\(timespan)/2022-12-01/2023-01-01"
         }
     }
 
     var httpMethod: String {
         switch self {
         case .tickers,
-                .exchanges:
+                .exchanges,
+                .aggregatesBar:
             return HTTPMethod.GET.rawValue
         }
     }
@@ -38,6 +47,7 @@ extension EndPoint {
         switch self {
         case let .tickers(tickersRequestObject): return tickersRequestObject.parameters()
         case let .exchanges(exchangesRequestObject): return exchangesRequestObject.parameters()
+        case let .aggregatesBar(aggregatesBarRequestObject): return aggregatesBarRequestObject.parameters()
         }
     }
 }
