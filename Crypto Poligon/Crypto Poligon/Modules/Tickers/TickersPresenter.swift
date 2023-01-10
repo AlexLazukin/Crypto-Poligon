@@ -46,17 +46,11 @@ final class TickersPresenter {
 
     // MARK: - Private (Interface)
     private func subscribeOnTickersUpdater() {
-        tickersUpdater
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.tickers, on: viewModel)
-            .store(in: &subscriptions)
+        tickersUpdater.assign(to: \.tickers, on: viewModel, subscriptions: &subscriptions)
     }
 
     private func subscribeOnMarketUpdater() {
-        marketUpdater
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.currentMarket, on: viewModel)
-            .store(in: &subscriptions)
+        marketUpdater.assign(to: \.currentMarket, on: viewModel, subscriptions: &subscriptions)
     }
 
     private func subscribeOnFailuresHandler() {
@@ -69,17 +63,11 @@ final class TickersPresenter {
     }
 
     private func subscribeOnLoaderUpdater() {
-        loaderUpdater
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.isLoading, on: viewModel)
-            .store(in: &subscriptions)
+        loaderUpdater.assign(to: \.isLoading, on: viewModel, subscriptions: &subscriptions)
     }
 
     private func subscribeOnTickersFiltersUpdater() {
-        tickersFiltersUpdater
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.tickersFiltersModel, on: viewModel)
-            .store(in: &subscriptions)
+        tickersFiltersUpdater.assign(to: \.tickersFiltersModel, on: viewModel, subscriptions: &subscriptions)
     }
 }
 
@@ -118,5 +106,18 @@ extension TickersPresenter: TickersInteractorPresenterInterface {
         var tickersFiltersModel = viewModel.tickersFiltersModel
         tickersFiltersModel.exchange = nil
         tickersFiltersUpdater.send(tickersFiltersModel)
+    }
+}
+
+private extension PassthroughSubject where Failure == Never {
+    func assign<Root>(
+        to referenceWritableKeyPath: ReferenceWritableKeyPath<Root, Output>,
+        on root: Root,
+        subscriptions: inout Set<AnyCancellable>
+    ) {
+        self
+            .receive(on: DispatchQueue.main)
+            .assign(to: referenceWritableKeyPath, on: root)
+            .store(in: &subscriptions)
     }
 }

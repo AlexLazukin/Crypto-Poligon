@@ -52,24 +52,15 @@ final class TickersFiltersPresenter {
     }
 
     private func subscribeOnExchangesUpdater() {
-        exchangesUpdater
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.exchanges, on: viewModel)
-            .store(in: &subscriptions)
+        exchangesUpdater.assign(to: \.exchanges, on: viewModel, subscriptions: &subscriptions)
     }
 
     private func subscribeOnLoaderUpdater() {
-        loaderUpdater
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.isLoading, on: viewModel)
-            .store(in: &subscriptions)
+        loaderUpdater.assign(to: \.isLoading, on: viewModel, subscriptions: &subscriptions)
     }
 
     private func subscribeOnTickersFiltersUpdater() {
-        tickersFiltersUpdater
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.tickersFiltersModel, on: viewModel)
-            .store(in: &subscriptions)
+        tickersFiltersUpdater.assign(to: \.tickersFiltersModel, on: viewModel, subscriptions: &subscriptions)
     }
 }
 
@@ -99,5 +90,18 @@ extension TickersFiltersPresenter: TickersFiltersInteractorPresenterInterface {
 
     func dismiss(_ tickersFiltersModel: TickersFiltersModel) {
         router.dismiss(tickersFiltersModel)
+    }
+}
+
+private extension PassthroughSubject where Failure == Never {
+    func assign<Root>(
+        to referenceWritableKeyPath: ReferenceWritableKeyPath<Root, Output>,
+        on root: Root,
+        subscriptions: inout Set<AnyCancellable>
+    ) {
+        self
+            .receive(on: DispatchQueue.main)
+            .assign(to: referenceWritableKeyPath, on: root)
+            .store(in: &subscriptions)
     }
 }
