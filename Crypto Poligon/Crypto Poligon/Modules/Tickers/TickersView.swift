@@ -170,6 +170,9 @@ struct TickersView: View {
                 .multilineTextAlignment(.leading)
 
                 Spacer()
+
+                WatchListChart(chartPoints: ticker.barPoints ?? [])
+                    .frame(width: 60, height: 35)
             }
             .padding(.horizontal)
 

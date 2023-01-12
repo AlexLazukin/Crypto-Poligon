@@ -5,6 +5,8 @@
 //  Created by Alexey Lazukin on 10.01.2023.
 //
 
+import UIKit
+
 struct BarPoint: Decodable {
 
     // MARK: - Public (Properties)
@@ -23,5 +25,16 @@ struct BarPoint: Decodable {
         case open = "o"
         case timestamp = "t"
         case volume = "v"
+    }
+}
+
+// MARK: - ChartPoint
+extension BarPoint: ChartPoint {
+    var value: CGFloat {
+        close
+    }
+
+    var date: Date {
+        Date(timeIntervalSince1970: timestamp / 1000)
     }
 }

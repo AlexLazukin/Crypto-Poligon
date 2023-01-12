@@ -27,10 +27,12 @@ extension EndPoint {
         case .tickers: return "reference/tickers"
         case .exchanges: return "reference/exchanges"
         case let .aggregatesBar(requestObject):
-            let ticker = requestObject.ticker ?? ""
-            let multiplier = requestObject.multiplier ?? 1
-            let timespan = requestObject.timespan ?? .day
-            return "aggs/ticker/\(ticker)/range/\(multiplier)/\(timespan)/2022-12-01/2023-01-01"
+            let ticker = requestObject.ticker
+            let multiplier = requestObject.multiplier
+            let timespan = requestObject.timespan
+            let dateFrom = requestObject.dateFrom
+            let dateTo = requestObject.dateTo
+            return "aggs/ticker/\(ticker)/range/\(multiplier)/\(timespan)/\(dateFrom)/\(dateTo)" // YYYY-MM-DD
         }
     }
 

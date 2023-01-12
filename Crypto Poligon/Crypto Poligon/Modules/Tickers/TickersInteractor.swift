@@ -26,6 +26,14 @@ final class TickersInteractor {
     private let aggregatesBarLoader = PassthroughSubject<Ticker, Never>()
     private var subscriptions = Set<AnyCancellable>()
 
+    private let dateFormatter: DateFormatter = {
+        var dateFormatter = DateFormatter()
+        dateFormatter.calendar = .current
+        dateFormatter.timeZone = .current
+        dateFormatter.dateFormat = "YYYY-MM-DD"
+        return dateFormatter
+    }()
+
     // MARK: - Init
     init(presenter: TickersInteractorPresenterInterface) {
         self.presenter = presenter
@@ -67,9 +75,13 @@ final class TickersInteractor {
         aggregatesBarLoader
             .removeDuplicates()
             .flatMap { [weak self] ticker -> AnyPublisher<(String, [BarPoint]), Never> in
-                let aggregatesBarRequestObject = AggregatesBarRequestObject(ticker: ticker.ticker)
+                guard let self = self else {
+                    return Just(("", [])).eraseToAnyPublisher()
+                }
 
-                return self?.tickersService.requestAggregatesBar(aggregatesBarRequestObject)
+                let aggregatesBarRequestObject = self.aggregatesBarRequestObject(ticker: ticker)
+
+                return self.tickersService.requestAggregatesBar(aggregatesBarRequestObject)
                     .map {
                         ($0.ticker, $0.results)
                     }
@@ -77,12 +89,24 @@ final class TickersInteractor {
                         Just((ticker.ticker, []))
                     }
                     .eraseToAnyPublisher()
-                ?? Just(("", [])).eraseToAnyPublisher()
             }
             .sink { [weak self] ticker, barPoints in
                 self?.presenter.updateAggregatesBar(for: ticker, with: barPoints)
             }
             .store(in: &subscriptions)
+    }
+
+    private func aggregatesBarRequestObject(ticker: Ticker) -> AggregatesBarRequestObject {
+        let currentDate = Date()
+        let dateFrom = Calendar.current.date(byAdding: .day, value: -1, to: currentDate) ?? currentDate
+
+        return AggregatesBarRequestObject(
+            ticker: ticker.ticker,
+            multiplier: 10,
+            timespan: .minute,
+            dateFrom: dateFormatter.string(from: dateFrom),
+            dateTo: dateFormatter.string(from: currentDate)
+        )
     }
 }
 

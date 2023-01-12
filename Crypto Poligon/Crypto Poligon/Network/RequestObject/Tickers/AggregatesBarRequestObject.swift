@@ -8,10 +8,12 @@
 struct AggregatesBarRequestObject {
 
     // MARK: - Public (Propeties)
-    var ticker: String?
-    var multiplier: Int? = 1
-    var timespan: Timespan? = .day
-    var limit: String? = "5000"
+    let ticker: String
+    let multiplier: Int
+    let timespan: Timespan
+    let dateFrom: String // YYYY-MM-DD
+    let dateTo: String // YYYY-MM-DD
+    let limit: String = "5000"
 
     // MARK: - Public (Interface)
     func parameters() -> [String: String] {
