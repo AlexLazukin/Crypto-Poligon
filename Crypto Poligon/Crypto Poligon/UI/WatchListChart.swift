@@ -50,7 +50,13 @@ struct WatchListChart: View {
             ZStack {
                 if isGradientShown {
                     gradientPath(frame: frame, coefficient: coefficient)
-                        .fill(LinearGradient(colors: [chartColor, .clear], startPoint: .top, endPoint: .bottom))
+                        .fill(
+                            LinearGradient(
+                                colors: [chartColor.opacity(0.5), chartColor.opacity(0.05)],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        )
                         .transition(.opacity)
                 }
 

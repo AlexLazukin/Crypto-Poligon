@@ -39,6 +39,7 @@
 		528B34122951C3C70082F73B /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 528B34112951C3C70082F73B /* Colors.xcassets */; };
 		528B34152951C4320082F73B /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B34142951C4320082F73B /* Color.swift */; };
 		5293160D2970250D0032B0AF /* WatchListChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5293160C2970250D0032B0AF /* WatchListChart.swift */; };
+		5293160F29702BAA0032B0AF /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5293160E29702BAA0032B0AF /* UIDevice+Extension.swift */; };
 		529D0AC9296D6AD600AC4A05 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529D0AC8296D6AD600AC4A05 /* View+Extension.swift */; };
 		529D0ACB296D7B0000AC4A05 /* AggregatesBarRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529D0ACA296D7B0000AC4A05 /* AggregatesBarRequestObject.swift */; };
 		529D0ACD296D7EB900AC4A05 /* AggregatesBarResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529D0ACC296D7EB900AC4A05 /* AggregatesBarResponseObject.swift */; };
@@ -92,6 +93,7 @@
 		528B34112951C3C70082F73B /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		528B34142951C4320082F73B /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		5293160C2970250D0032B0AF /* WatchListChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListChart.swift; sourceTree = "<group>"; };
+		5293160E29702BAA0032B0AF /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		529D0AC8296D6AD600AC4A05 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		529D0ACA296D7B0000AC4A05 /* AggregatesBarRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregatesBarRequestObject.swift; sourceTree = "<group>"; };
 		529D0ACC296D7EB900AC4A05 /* AggregatesBarResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregatesBarResponseObject.swift; sourceTree = "<group>"; };
@@ -364,6 +366,7 @@
 			children = (
 				528B340C2951C0760082F73B /* CaseIterable.swift */,
 				529D0AC8296D6AD600AC4A05 /* View+Extension.swift */,
+				5293160E29702BAA0032B0AF /* UIDevice+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -531,6 +534,7 @@
 				52F38FB52950B42E00FF17E8 /* TickersAssembler.swift in Sources */,
 				528576272953381A0013E280 /* TickersFiltersPresenter.swift in Sources */,
 				52857625295337050013E280 /* TickersFiltersInteractor.swift in Sources */,
+				5293160F29702BAA0032B0AF /* UIDevice+Extension.swift in Sources */,
 				52857623295336C30013E280 /* TickersFiltersViewModel.swift in Sources */,
 				5285762E29534AF60013E280 /* ExchangesRequestObject.swift in Sources */,
 				528B34152951C4320082F73B /* Color.swift in Sources */,

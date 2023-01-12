@@ -103,7 +103,7 @@ struct TickersView: View {
             if isSearchGlassShown {
                 Image(systemName: "magnifyingglass")
                     .resizable()
-                    .frame(width: 14, height: 14)
+                    .frame(width: iconSize, height: iconSize)
                     .foregroundColor(.placeholder)
             }
 
@@ -133,7 +133,7 @@ struct TickersView: View {
                         label: {
                             Image(systemName: "xmark")
                                 .resizable()
-                                .frame(width: 10, height: 10)
+                                .frame(width: UIDevice.isPad ? 12 : 10, height: UIDevice.isPad ? 12 : 10)
                                 .foregroundColor(.background)
                         }
                     )
@@ -172,7 +172,7 @@ struct TickersView: View {
                 Spacer()
 
                 WatchListChart(chartPoints: ticker.barPoints ?? [])
-                    .frame(width: 60, height: 35)
+                    .frame(width: UIDevice.isPad ? 180 : 60, height: UIDevice.isPad ? 100 : 40)
             }
             .padding(.horizontal)
 
@@ -198,7 +198,7 @@ struct TickersView: View {
 
                             Image(systemName: "rectangle.2.swap")
                                 .resizable()
-                                .frame(width: 14, height: 14)
+                                .frame(width: iconSize, height: iconSize)
                                 .foregroundColor(.text)
                         }
                     }
@@ -220,7 +220,7 @@ struct TickersView: View {
                     label: {
                         Image(systemName: "ellipsis")
                             .resizable()
-                            .frame(width: 16)
+                            .frame(width: iconSize)
                             .foregroundColor(.accent)
                     }
                 )
