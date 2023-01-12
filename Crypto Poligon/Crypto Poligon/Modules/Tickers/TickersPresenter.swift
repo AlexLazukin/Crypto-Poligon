@@ -11,6 +11,7 @@ import Foundation
 // MARK: - TickersInteractorPresenterInterface
 protocol TickersInteractorPresenterInterface {
     func updateTickers(_ tickers: [Ticker])
+    func updateAggregatesBar(for ticker: String, with barPoints: [BarPoint])
     func handleFailure(_ failure: Failure)
     func changeMarket(market: MarketType)
     func filtersTapped(market: MarketType, tickersFiltersModel: TickersFiltersModel)
@@ -30,6 +31,7 @@ final class TickersPresenter {
     private let failuresHandler = PassthroughSubject<Failure, Never>()
     private let loaderUpdater = PassthroughSubject<Bool, Never>()
     private let tickersFiltersUpdater = PassthroughSubject<TickersFiltersModel, Never>()
+    private let barPointsUpdater = PassthroughSubject<(String, [BarPoint]), Never>()
     private var subscriptions = Set<AnyCancellable>()
 
     // MARK: - Init
@@ -42,6 +44,7 @@ final class TickersPresenter {
         subscribeOnFailuresHandler()
         subscribeOnLoaderUpdater()
         subscribeOnTickersFiltersUpdater()
+        subscribeOnBarPointsUpdater()
     }
 
     // MARK: - Private (Interface)
@@ -69,12 +72,28 @@ final class TickersPresenter {
     private func subscribeOnTickersFiltersUpdater() {
         tickersFiltersUpdater.assign(to: \.tickersFiltersModel, on: viewModel, subscriptions: &subscriptions)
     }
+
+    private func subscribeOnBarPointsUpdater() {
+        barPointsUpdater
+            .receive(on: DispatchQueue.main)
+            .sink { [weak viewModel] ticker, barPoints in
+                guard let viewModel = viewModel else { return }
+                viewModel.tickers = viewModel.tickers.map {
+                    $0.ticker == ticker ? $0.update(with: barPoints) : $0
+                }
+            }
+            .store(in: &subscriptions)
+    }
 }
 
 // MARK: - TickersInteractorPresenterInterface
 extension TickersPresenter: TickersInteractorPresenterInterface {
     func updateTickers(_ tickers: [Ticker]) {
         tickersUpdater.send(tickers)
+    }
+
+    func updateAggregatesBar(for ticker: String, with barPoints: [BarPoint]) {
+        barPointsUpdater.send((ticker, barPoints))
     }
 
     func handleFailure(_ failure: Failure) {

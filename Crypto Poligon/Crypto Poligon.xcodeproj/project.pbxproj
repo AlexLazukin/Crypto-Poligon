@@ -38,6 +38,12 @@
 		528B34102951C33A0082F73B /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B340F2951C33A0082F73B /* Font.swift */; };
 		528B34122951C3C70082F73B /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 528B34112951C3C70082F73B /* Colors.xcassets */; };
 		528B34152951C4320082F73B /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B34142951C4320082F73B /* Color.swift */; };
+		5293160D2970250D0032B0AF /* WatchListChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5293160C2970250D0032B0AF /* WatchListChart.swift */; };
+		5293160F29702BAA0032B0AF /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5293160E29702BAA0032B0AF /* UIDevice+Extension.swift */; };
+		529D0AC9296D6AD600AC4A05 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529D0AC8296D6AD600AC4A05 /* View+Extension.swift */; };
+		529D0ACB296D7B0000AC4A05 /* AggregatesBarRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529D0ACA296D7B0000AC4A05 /* AggregatesBarRequestObject.swift */; };
+		529D0ACD296D7EB900AC4A05 /* AggregatesBarResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529D0ACC296D7EB900AC4A05 /* AggregatesBarResponseObject.swift */; };
+		529D0ACF296DB59200AC4A05 /* BarPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529D0ACE296DB59200AC4A05 /* BarPoint.swift */; };
 		52D358F829506E1700509AEF /* TickerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D358F729506E1700509AEF /* TickerType.swift */; };
 		52D358FA29506ECE00509AEF /* MarketType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D358F929506ECE00509AEF /* MarketType.swift */; };
 		52D358FF2950902E00509AEF /* TickersCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D358FE2950902E00509AEF /* TickersCoordinator.swift */; };
@@ -86,6 +92,12 @@
 		528B340F2951C33A0082F73B /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		528B34112951C3C70082F73B /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		528B34142951C4320082F73B /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		5293160C2970250D0032B0AF /* WatchListChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListChart.swift; sourceTree = "<group>"; };
+		5293160E29702BAA0032B0AF /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
+		529D0AC8296D6AD600AC4A05 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
+		529D0ACA296D7B0000AC4A05 /* AggregatesBarRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregatesBarRequestObject.swift; sourceTree = "<group>"; };
+		529D0ACC296D7EB900AC4A05 /* AggregatesBarResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregatesBarResponseObject.swift; sourceTree = "<group>"; };
+		529D0ACE296DB59200AC4A05 /* BarPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarPoint.swift; sourceTree = "<group>"; };
 		52D358F729506E1700509AEF /* TickerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerType.swift; sourceTree = "<group>"; };
 		52D358F929506ECE00509AEF /* MarketType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketType.swift; sourceTree = "<group>"; };
 		52D358FE2950902E00509AEF /* TickersCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickersCoordinator.swift; sourceTree = "<group>"; };
@@ -247,7 +259,9 @@
 			isa = PBXGroup;
 			children = (
 				52575355294CABE200ED075C /* TickersResponseObject.swift */,
+				529D0ACC296D7EB900AC4A05 /* AggregatesBarResponseObject.swift */,
 				52575357294CAC1000ED075C /* Ticker.swift */,
+				529D0ACE296DB59200AC4A05 /* BarPoint.swift */,
 			);
 			path = Tickers;
 			sourceTree = "<group>";
@@ -265,6 +279,7 @@
 			isa = PBXGroup;
 			children = (
 				5257535D294CC42200ED075C /* TickersRequestObject.swift */,
+				529D0ACA296D7B0000AC4A05 /* AggregatesBarRequestObject.swift */,
 			);
 			path = Tickers;
 			sourceTree = "<group>";
@@ -350,6 +365,8 @@
 			isa = PBXGroup;
 			children = (
 				528B340C2951C0760082F73B /* CaseIterable.swift */,
+				529D0AC8296D6AD600AC4A05 /* View+Extension.swift */,
+				5293160E29702BAA0032B0AF /* UIDevice+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -393,6 +410,7 @@
 			children = (
 				520EAE1529578D0E007AA40B /* Modificators */,
 				52E38D292955F2D30087908A /* ActivityIndicator.swift */,
+				5293160C2970250D0032B0AF /* WatchListChart.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -505,6 +523,10 @@
 			files = (
 				5257535A294CAE5C00ED075C /* NetworkService.swift in Sources */,
 				52F38FBD2950B49100FF17E8 /* TickersRouter.swift in Sources */,
+				529D0ACB296D7B0000AC4A05 /* AggregatesBarRequestObject.swift in Sources */,
+				529D0AC9296D6AD600AC4A05 /* View+Extension.swift in Sources */,
+				5293160D2970250D0032B0AF /* WatchListChart.swift in Sources */,
+				529D0ACF296DB59200AC4A05 /* BarPoint.swift in Sources */,
 				528576212953367F0013E280 /* TickersFiltersView.swift in Sources */,
 				52F38FBF2950B4DB00FF17E8 /* TickersViewModel.swift in Sources */,
 				5285762B295339830013E280 /* TickersFiltersAssembler.swift in Sources */,
@@ -512,10 +534,12 @@
 				52F38FB52950B42E00FF17E8 /* TickersAssembler.swift in Sources */,
 				528576272953381A0013E280 /* TickersFiltersPresenter.swift in Sources */,
 				52857625295337050013E280 /* TickersFiltersInteractor.swift in Sources */,
+				5293160F29702BAA0032B0AF /* UIDevice+Extension.swift in Sources */,
 				52857623295336C30013E280 /* TickersFiltersViewModel.swift in Sources */,
 				5285762E29534AF60013E280 /* ExchangesRequestObject.swift in Sources */,
 				528B34152951C4320082F73B /* Color.swift in Sources */,
 				5285761C29532BED0013E280 /* Animations.swift in Sources */,
+				529D0ACD296D7EB900AC4A05 /* AggregatesBarResponseObject.swift in Sources */,
 				5285763329534C560013E280 /* Exchange.swift in Sources */,
 				52D358F829506E1700509AEF /* TickerType.swift in Sources */,
 				521F0DE329584E1E00D0FB54 /* ResponseError.swift in Sources */,

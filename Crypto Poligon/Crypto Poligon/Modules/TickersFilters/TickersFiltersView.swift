@@ -114,13 +114,13 @@ struct TickersFiltersView: View {
             }
             .frame(maxWidth: .infinity)
             .background(Color.row)
-            .cornerRadius(8)
+            .cornerRadius(cornerRadius)
         }
         .padding(.horizontal)
     }
 
     private func exchangesHeader() -> some View {
-        VStack(alignment: .leading, spacing: 5) {
+        VStack(alignment: .leading, spacing: smallIndent) {
             HStack(alignment: .center) {
                 Text(
                     viewModel.exchanges.isEmpty && !viewModel.isLoading
@@ -162,7 +162,7 @@ struct TickersFiltersView: View {
     private func exchangeRow(_ exchange: Exchange) -> some View {
         VStack {
             HStack {
-                VStack(alignment: .leading, spacing: 5) {
+                VStack(alignment: .leading, spacing: smallIndent) {
                     Text(exchange.name)
                         .font(.ordinary)
                         .foregroundColor(.text)

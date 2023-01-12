@@ -23,7 +23,16 @@ final class TickersInteractor {
     private var presenter: TickersInteractorPresenterInterface
     private let tickersService: TickersNetworkServiceInterface
     private let tickersLoader = PassthroughSubject<TickersRequestObject, Never>()
+    private let aggregatesBarLoader = PassthroughSubject<Ticker, Never>()
     private var subscriptions = Set<AnyCancellable>()
+
+    private let dateFormatter: DateFormatter = {
+        var dateFormatter = DateFormatter()
+        dateFormatter.calendar = .current
+        dateFormatter.timeZone = .current
+        dateFormatter.dateFormat = "YYYY-MM-DD"
+        return dateFormatter
+    }()
 
     // MARK: - Init
     init(presenter: TickersInteractorPresenterInterface) {
@@ -31,6 +40,7 @@ final class TickersInteractor {
         tickersService = TickersNetworkService()
 
         subscribeOnTickersLoader()
+        subscribeOnAggregatesBarLoader()
     }
 
     // MARK: - Private (Properties)
@@ -54,8 +64,49 @@ final class TickersInteractor {
             .sink { [weak self] tickers in
                 self?.presenter.updateTickers(tickers)
                 self?.presenter.stopLoading()
+                tickers.forEach { [weak self] ticker in
+                    self?.aggregatesBarLoader.send(ticker)
+                }
             }
             .store(in: &subscriptions)
+    }
+
+    private func subscribeOnAggregatesBarLoader() {
+        aggregatesBarLoader
+            .removeDuplicates()
+            .flatMap { [weak self] ticker -> AnyPublisher<(String, [BarPoint]), Never> in
+                guard let self = self else {
+                    return Just(("", [])).eraseToAnyPublisher()
+                }
+
+                let aggregatesBarRequestObject = self.aggregatesBarRequestObject(ticker: ticker)
+
+                return self.tickersService.requestAggregatesBar(aggregatesBarRequestObject)
+                    .map {
+                        ($0.ticker, $0.results)
+                    }
+                    .catch { _ -> Just<(String, [BarPoint])> in
+                        Just((ticker.ticker, []))
+                    }
+                    .eraseToAnyPublisher()
+            }
+            .sink { [weak self] ticker, barPoints in
+                self?.presenter.updateAggregatesBar(for: ticker, with: barPoints)
+            }
+            .store(in: &subscriptions)
+    }
+
+    private func aggregatesBarRequestObject(ticker: Ticker) -> AggregatesBarRequestObject {
+        let currentDate = Date()
+        let dateFrom = Calendar.current.date(byAdding: .day, value: -1, to: currentDate) ?? currentDate
+
+        return AggregatesBarRequestObject(
+            ticker: ticker.ticker,
+            multiplier: 10,
+            timespan: .minute,
+            dateFrom: dateFormatter.string(from: dateFrom),
+            dateTo: dateFormatter.string(from: currentDate)
+        )
     }
 }
 
