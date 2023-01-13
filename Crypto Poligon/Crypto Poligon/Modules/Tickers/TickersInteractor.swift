@@ -82,12 +82,8 @@ final class TickersInteractor {
         currenciesCodesLoader
             .compactMap { [weak self] _ in
                 self?.currenciesNetworkService.requestCurrenciesCodes()
-                    .catch { _ -> Just<CurrenciesCodesResponseObject> in
-                        Just(CurrenciesCodesResponseObject(supportedCodes: []))
-                    }
             }
             .switchToLatest()
-            .map { $0.supportedCodes }
             .sink { [weak self] supportedCodes in
                 self?.presenter.updateCurrenciesCodes(supportedCodes)
             }

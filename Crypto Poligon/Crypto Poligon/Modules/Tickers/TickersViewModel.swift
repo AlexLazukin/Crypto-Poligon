@@ -16,6 +16,7 @@ final class TickersViewModel: ObservableObject {
     @Published var searchText: String
     @Published var tickersFiltersModel: TickersFiltersModel
     @Published var tickers: [Ticker]
+    @Published var currenciesCodes: [String: String]
 
     @Published var tickersRequestObject: TickersRequestObject
 
@@ -27,6 +28,7 @@ final class TickersViewModel: ObservableObject {
         currentMarket = .stocks
         searchText = ""
         tickers = []
+        currenciesCodes = [:]
         tickersFiltersModel = TickersFiltersModel()
         tickersRequestObject = TickersRequestObject(ticker: "", market: .stocks)
 

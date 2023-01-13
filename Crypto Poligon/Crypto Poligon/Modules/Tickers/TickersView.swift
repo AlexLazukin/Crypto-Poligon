@@ -165,7 +165,7 @@ struct TickersView: View {
 
                     Spacer()
 
-                    Text(ticker.currencyCodes?.first ?? "")
+                    Text(viewModel.currenciesCodes[ticker.currencyName.lowercased()] ?? ticker.currencyName)
                         .multilineTextAlignment(.trailing)
                 }
                 .font(.ordinary)

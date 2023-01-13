@@ -13,7 +13,6 @@ struct Ticker: Decodable {
     let name: String
     let currencyName: String
 
-    var currencyCodes: [String]? = [] // ["NZD", "New Zealand Dollar"], ["OMR", "Omani Rial"]
     var barPoints: [BarPoint]? = []
 
     // MARK: - Public (Interface)
@@ -23,18 +22,6 @@ struct Ticker: Decodable {
             type: type,
             name: name,
             currencyName: currencyName,
-            currencyCodes: currencyCodes,
-            barPoints: barPoints
-        )
-    }
-
-    func update(with currencyCode: [String]) -> Self {
-        Ticker(
-            ticker: ticker,
-            type: type,
-            name: name,
-            currencyName: currencyName,
-            currencyCodes: currencyCode,
             barPoints: barPoints
         )
     }
