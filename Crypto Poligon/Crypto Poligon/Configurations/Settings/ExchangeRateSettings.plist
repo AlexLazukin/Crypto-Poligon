@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+   ExchangeRateSettings.plist
+   Crypto Poligon
+
+   Created by Alexey Lazukin on 13.01.2023.
+   Copyright (c) 2023 ___ORGANIZATIONNAME___. All rights reserved.
+-->
+<plist version="1.0">
+    <dict>
+        <key>scheme</key>
+        <string>https</string>
+        <key>host</key>
+        <string>v6.exchangerate-api.com</string>
+        <key>apiKey</key>
+        <string>7b72dc96a00a7222e8476406</string>
+    </dict>
+</plist>

@@ -157,22 +157,32 @@ struct TickersView: View {
 
     private func ticketRow(_ ticker: Ticker) -> some View {
         VStack {
-            HStack {
-                VStack(alignment: .leading, spacing: smallIndent) {
-                    Text(ticker.ticker + " \(ticker.barPoints?.count ?? .zero)")
-                        .font(.ordinary)
-                        .foregroundColor(.text)
+            VStack(spacing: smallIndent) {
+                HStack(alignment: .top) {
+                    Text(ticker.ticker)
+                        .multilineTextAlignment(.leading)
+                        .padding(.trailing)
 
+                    Spacer()
+
+                    Text(ticker.currencyCodes?.first ?? "")
+                        .multilineTextAlignment(.trailing)
+                }
+                .font(.ordinary)
+                .foregroundColor(.text)
+
+                HStack(alignment: .top) {
                     Text(ticker.name)
                         .font(.light)
                         .foregroundColor(.textSecondary)
+                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
+
+                    Spacer()
+
+                    WatchListChart(chartPoints: ticker.barPoints ?? [])
+                        .frame(width: UIDevice.isPad ? 180 : 80, height: UIDevice.isPad ? 100 : 45)
                 }
-                .multilineTextAlignment(.leading)
-
-                Spacer()
-
-                WatchListChart(chartPoints: ticker.barPoints ?? [])
-                    .frame(width: UIDevice.isPad ? 180 : 60, height: UIDevice.isPad ? 100 : 40)
             }
             .padding(.horizontal)
 

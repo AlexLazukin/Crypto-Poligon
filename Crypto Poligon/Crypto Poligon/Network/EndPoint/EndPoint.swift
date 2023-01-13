@@ -6,12 +6,20 @@
 //
 
 enum EndPoint {
+    case currenciesCodes
     case tickers(TickersRequestObject)
     case exchanges(ExchangesRequestObject)
     case aggregatesBar(AggregatesBarRequestObject)
 }
 
 extension EndPoint {
+    var provider: Provider {
+        switch self {
+        case .currenciesCodes: return .exchangeRate
+        default: return .polygon
+        }
+    }
+
     var version: String {
         switch self {
         case .tickers,
@@ -19,11 +27,14 @@ extension EndPoint {
             return Version.v3.rawValue
         case .aggregatesBar:
             return Version.v2.rawValue
+        case .currenciesCodes:
+            return Version.v6.rawValue
         }
     }
 
     var path: String {
         switch self {
+        case .currenciesCodes: return "codes"
         case .tickers: return "reference/tickers"
         case .exchanges: return "reference/exchanges"
         case let .aggregatesBar(requestObject):
@@ -38,7 +49,8 @@ extension EndPoint {
 
     var httpMethod: String {
         switch self {
-        case .tickers,
+        case .currenciesCodes,
+                .tickers,
                 .exchanges,
                 .aggregatesBar:
             return HTTPMethod.GET.rawValue
@@ -47,10 +59,18 @@ extension EndPoint {
 
     var parameters: [String: String]? {
         switch self {
+        case .currenciesCodes: return nil
         case let .tickers(tickersRequestObject): return tickersRequestObject.parameters()
         case let .exchanges(exchangesRequestObject): return exchangesRequestObject.parameters()
         case let .aggregatesBar(aggregatesBarRequestObject): return aggregatesBarRequestObject.parameters()
         }
+    }
+}
+
+// MARK: - Provider
+extension EndPoint {
+    enum Provider {
+        case polygon, exchangeRate
     }
 }
 
@@ -64,6 +84,6 @@ private extension EndPoint {
 // MARK: - Version
 private extension EndPoint {
     enum Version: String {
-        case v1, v2, v3
+        case v1, v2, v3, v6
     }
 }

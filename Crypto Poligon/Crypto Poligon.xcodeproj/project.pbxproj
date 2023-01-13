@@ -9,7 +9,10 @@
 /* Begin PBXBuildFile section */
 		520EAE1729578D4C007AA40B /* LockedLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520EAE1629578D4C007AA40B /* LockedLoading.swift */; };
 		521F0DE329584E1E00D0FB54 /* ResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521F0DE229584E1E00D0FB54 /* ResponseError.swift */; };
-		52575341294C887700ED075C /* ApiSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52575340294C887700ED075C /* ApiSettings.plist */; };
+		52241BB029713D8F002B3AAD /* ExchangeRateSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52241BAF29713D8F002B3AAD /* ExchangeRateSettings.plist */; };
+		52241BB2297140BB002B3AAD /* CurrenciesNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52241BB1297140BB002B3AAD /* CurrenciesNetworkService.swift */; };
+		52241BB52971416C002B3AAD /* CurrenciesCodesResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52241BB42971416C002B3AAD /* CurrenciesCodesResponseObject.swift */; };
+		52575341294C887700ED075C /* PolygonSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52575340294C887700ED075C /* PolygonSettings.plist */; };
 		52575347294C895600ED075C /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52575346294C895600ED075C /* RequestManager.swift */; };
 		5257534A294C8D0600ED075C /* Failure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52575349294C8D0600ED075C /* Failure.swift */; };
 		5257534E294C8E1400ED075C /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5257534D294C8E1400ED075C /* Strings.swift */; };
@@ -61,7 +64,10 @@
 /* Begin PBXFileReference section */
 		520EAE1629578D4C007AA40B /* LockedLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockedLoading.swift; sourceTree = "<group>"; };
 		521F0DE229584E1E00D0FB54 /* ResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseError.swift; sourceTree = "<group>"; };
-		52575340294C887700ED075C /* ApiSettings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ApiSettings.plist; sourceTree = "<group>"; };
+		52241BAF29713D8F002B3AAD /* ExchangeRateSettings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExchangeRateSettings.plist; sourceTree = "<group>"; };
+		52241BB1297140BB002B3AAD /* CurrenciesNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesNetworkService.swift; sourceTree = "<group>"; };
+		52241BB42971416C002B3AAD /* CurrenciesCodesResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesCodesResponseObject.swift; sourceTree = "<group>"; };
+		52575340294C887700ED075C /* PolygonSettings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PolygonSettings.plist; sourceTree = "<group>"; };
 		52575346294C895600ED075C /* RequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
 		52575349294C8D0600ED075C /* Failure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Failure.swift; sourceTree = "<group>"; };
 		5257534D294C8E1400ED075C /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
@@ -131,6 +137,14 @@
 			path = Modificators;
 			sourceTree = "<group>";
 		};
+		52241BB329714158002B3AAD /* Currencies */ = {
+			isa = PBXGroup;
+			children = (
+				52241BB42971416C002B3AAD /* CurrenciesCodesResponseObject.swift */,
+			);
+			path = Currencies;
+			sourceTree = "<group>";
+		};
 		52575338294C857800ED075C /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
@@ -167,7 +181,8 @@
 			isa = PBXGroup;
 			children = (
 				5268528E294C77DD006FF320 /* Info.plist */,
-				52575340294C887700ED075C /* ApiSettings.plist */,
+				52575340294C887700ED075C /* PolygonSettings.plist */,
+				52241BAF29713D8F002B3AAD /* ExchangeRateSettings.plist */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -225,6 +240,7 @@
 			children = (
 				52575359294CAE5C00ED075C /* NetworkService.swift */,
 				52F38FC02950B50600FF17E8 /* TickersNetworkService.swift */,
+				52241BB1297140BB002B3AAD /* CurrenciesNetworkService.swift */,
 			);
 			path = NetworkService;
 			sourceTree = "<group>";
@@ -249,6 +265,7 @@
 		52575351294CABA500ED075C /* ResponseObject */ = {
 			isa = PBXGroup;
 			children = (
+				52241BB329714158002B3AAD /* Currencies */,
 				52575354294CABD100ED075C /* Tickers */,
 				5285762F29534C0B0013E280 /* Exchanges */,
 			);
@@ -487,9 +504,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52575341294C887700ED075C /* ApiSettings.plist in Resources */,
+				52575341294C887700ED075C /* PolygonSettings.plist in Resources */,
 				528B34122951C3C70082F73B /* Colors.xcassets in Resources */,
 				5268528D294C77DD006FF320 /* LaunchScreen.storyboard in Resources */,
+				52241BB029713D8F002B3AAD /* ExchangeRateSettings.plist in Resources */,
 				5268528A294C77DD006FF320 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -558,10 +576,12 @@
 				52F38FB22950B3F700FF17E8 /* Coordinator.swift in Sources */,
 				5257535E294CC42200ED075C /* TickersRequestObject.swift in Sources */,
 				52F38FC12950B50600FF17E8 /* TickersNetworkService.swift in Sources */,
+				52241BB2297140BB002B3AAD /* CurrenciesNetworkService.swift in Sources */,
 				52D358FF2950902E00509AEF /* TickersCoordinator.swift in Sources */,
 				5257534A294C8D0600ED075C /* Failure.swift in Sources */,
 				5257534E294C8E1400ED075C /* Strings.swift in Sources */,
 				52F38FB72950B44600FF17E8 /* TickersView.swift in Sources */,
+				52241BB52971416C002B3AAD /* CurrenciesCodesResponseObject.swift in Sources */,
 				52575350294C8FDF00ED075C /* EndPoint.swift in Sources */,
 				52575347294C895600ED075C /* RequestManager.swift in Sources */,
 				528576292953394A0013E280 /* TickersFiltersRouter.swift in Sources */,
