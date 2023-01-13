@@ -23,6 +23,16 @@ final class TickersViewModel: ObservableObject {
     // MARK: - Private (Properties)
     private var subscriptions = Set<AnyCancellable>()
 
+    private lazy var currencyFormatter: NumberFormatter = {
+        var formatter = NumberFormatter()
+        formatter.locale = Locale.current
+        formatter.usesGroupingSeparator = true
+        formatter.numberStyle = .currency
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 6
+        return formatter
+    }()
+
     // MARK: - Init
     init() {
         currentMarket = .stocks
@@ -34,6 +44,13 @@ final class TickersViewModel: ObservableObject {
 
         subscriptionOnChanges()
         subscriptionOnMarketChanges()
+    }
+
+    // MARK: - Public (Interface)
+    func convert(position: Double, currencyName: String) -> String {
+        guard position != .zero else { return "" }
+        currencyFormatter.currencyCode = currenciesCodes[currencyName.lowercased()] ?? currencyName
+        return (currencyFormatter.string(from: NSNumber(value: position)) ?? "")
     }
 
     // MARK: - Private (Interfaces)

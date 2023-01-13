@@ -38,6 +38,10 @@ extension CurrenciesNetworkService: CurrenciesNetworkServiceInterface {
                     dictionary[codes[1].lowercased()] = codes[0]
                 }
 
+                dictionary["usd"] = "USD"
+                dictionary["bitcoin"] = "BTC"
+                dictionary["etherium"] = "ETH"
+
                 return dictionary
             }
             .handleEvents(

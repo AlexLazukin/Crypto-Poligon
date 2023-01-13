@@ -165,8 +165,13 @@ struct TickersView: View {
 
                     Spacer()
 
-                    Text(viewModel.currenciesCodes[ticker.currencyName.lowercased()] ?? ticker.currencyName)
-                        .multilineTextAlignment(.trailing)
+                    Text(
+                        viewModel.convert(
+                            position: ticker.barPoints?.last?.close ?? .zero,
+                            currencyName: ticker.currencyName
+                        )
+                    )
+                    .multilineTextAlignment(.trailing)
                 }
                 .font(.ordinary)
                 .foregroundColor(.text)
