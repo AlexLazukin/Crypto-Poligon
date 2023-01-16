@@ -56,10 +56,11 @@ final class TickersViewModel: ObservableObject {
     }
 
     // MARK: - Public (Interface)
-    func convert(position: Double, currencyName: String) -> String {
+    func convert(position: Decimal, currencyName: String) -> String {
         guard position != .zero else { return "" }
         currencyFormatter.currencyCode = currenciesCodes[currencyName.lowercased()] ?? currencyName
-        return currencyFormatter.string(from: NSNumber(value: position)) ?? ""
+        let value = NSNumber(value: NSDecimalNumber(decimal: position).doubleValue)
+        return currencyFormatter.string(from: value) ?? ""
     }
 
     func changeValue(barPoints: [BarPoint]?) -> String {
