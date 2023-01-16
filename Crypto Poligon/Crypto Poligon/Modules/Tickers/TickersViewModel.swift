@@ -6,7 +6,7 @@
 //
 
 import Combine
-import Foundation
+import SwiftUI
 
 final class TickersViewModel: ObservableObject {
 
@@ -33,9 +33,18 @@ final class TickersViewModel: ObservableObject {
         return formatter
     }()
 
+    private lazy var changesFormatter: NumberFormatter = {
+        var formatter = NumberFormatter()
+        formatter.locale = Locale.current
+        formatter.usesGroupingSeparator = true
+        formatter.numberStyle = .percent
+        formatter.maximumFractionDigits = 2
+        return formatter
+    }()
+
     // MARK: - Init
     init() {
-        currentMarket = .stocks
+        currentMarket = .stocks // TODO: other types of markets require a special subscription to https://polygon.io
         searchText = ""
         tickers = []
         currenciesCodes = [:]
@@ -50,7 +59,34 @@ final class TickersViewModel: ObservableObject {
     func convert(position: Double, currencyName: String) -> String {
         guard position != .zero else { return "" }
         currencyFormatter.currencyCode = currenciesCodes[currencyName.lowercased()] ?? currencyName
-        return (currencyFormatter.string(from: NSNumber(value: position)) ?? "")
+        return currencyFormatter.string(from: NSNumber(value: position)) ?? ""
+    }
+
+    func changeValue(barPoints: [BarPoint]?) -> String {
+        let first = barPoints?.first?.value ?? .zero
+        let last = barPoints?.last?.value ?? .zero
+
+        guard last != .zero else {
+            return changesFormatter.string(from: 0) ?? ""
+        }
+
+        let change = (last - first) / last
+
+        return changesFormatter.string(from: NSNumber(value: change)) ?? ""
+    }
+
+    func changeColor(barPoints: [BarPoint]?) -> Color {
+        guard
+            let barPoints = barPoints,
+            barPoints.isEmpty == false,
+            let first = barPoints.first?.value,
+            let last = barPoints.last?.value,
+            first != last
+        else {
+            return .textSecondary
+        }
+
+        return first < last ? .green : .red
     }
 
     // MARK: - Private (Interfaces)

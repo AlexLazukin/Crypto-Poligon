@@ -187,14 +187,19 @@ struct TickersView: View {
 
                     WatchListChart(chartPoints: ticker.barPoints ?? [])
                         .frame(width: UIDevice.isPad ? 180 : 80, height: UIDevice.isPad ? 100 : 45)
+
+                    Text(viewModel.changeValue(barPoints: ticker.barPoints))
+                        .font(.light)
+                        .foregroundColor(viewModel.changeColor(barPoints: ticker.barPoints))
+                        .multilineTextAlignment(.trailing)
+                        .frame(width: 70, alignment: .trailing)
                 }
             }
             .padding(.horizontal)
 
             Divider()
-                .frame(height: 1)
+                .frame(height: 1.5)
                 .background(Color.background)
-                .padding(.leading)
         }
     }
 
@@ -203,7 +208,8 @@ struct TickersView: View {
             AnyView(
                 Button(
                     action: {
-                        interactor.changeMarket(market: viewModel.currentMarket.next())
+//                        TODO: other types of markets require a special subscription to https://polygon.io
+//                        interactor.changeMarket(market: viewModel.currentMarket.next())
                     },
                     label: {
                         HStack(alignment: .center, spacing: 10) {
@@ -211,10 +217,10 @@ struct TickersView: View {
                                 .font(.navigationTitle)
                                 .foregroundColor(.text)
 
-                            Image(systemName: "rectangle.2.swap")
-                                .resizable()
-                                .frame(width: iconSize, height: iconSize)
-                                .foregroundColor(.text)
+//                            Image(systemName: "rectangle.2.swap")
+//                                .resizable()
+//                                .frame(width: iconSize, height: iconSize)
+//                                .foregroundColor(.text)
                         }
                     }
                 )

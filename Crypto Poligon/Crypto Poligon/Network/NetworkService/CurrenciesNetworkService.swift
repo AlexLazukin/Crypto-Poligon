@@ -38,6 +38,7 @@ extension CurrenciesNetworkService: CurrenciesNetworkServiceInterface {
                     dictionary[codes[1].lowercased()] = codes[0]
                 }
 
+                // TODO: Try to find a complete list of currencies codes
                 dictionary["usd"] = "USD"
                 dictionary["bitcoin"] = "BTC"
                 dictionary["etherium"] = "ETH"
