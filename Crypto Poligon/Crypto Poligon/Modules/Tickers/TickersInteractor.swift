@@ -117,7 +117,7 @@ final class TickersInteractor {
 
     private func aggregatesBarRequestObject(ticker: Ticker) -> AggregatesBarRequestObject {
         let currentDate = Date()
-        let dateFrom = Calendar.current.date(byAdding: .day, value: -1, to: currentDate) ?? currentDate
+        let dateFrom = Calendar.current.date(byAdding: .day, value: -3, to: currentDate) ?? currentDate
 
         return AggregatesBarRequestObject(
             ticker: ticker.ticker,

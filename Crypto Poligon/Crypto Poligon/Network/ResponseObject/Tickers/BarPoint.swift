@@ -10,12 +10,12 @@ import UIKit
 struct BarPoint: Decodable {
 
     // MARK: - Public (Properties)
-    let close: Double
-    let highest: Double
-    let lowest: Double
-    let open: Double
+    let close: Decimal
+    let highest: Decimal
+    let lowest: Decimal
+    let open: Decimal
     let timestamp: Double
-    let volume: Double
+    let volume: Decimal
 
     // MARK: - CodingKeys
     enum CodingKeys: String, CodingKey {
@@ -31,10 +31,10 @@ struct BarPoint: Decodable {
 // MARK: - ChartPoint
 extension BarPoint: ChartPoint {
     var value: CGFloat {
-        close
+        CGFloat(NSDecimalNumber(decimal: close).floatValue)
     }
 
     var date: Date {
-        Date(timeIntervalSince1970: timestamp / 1000)
+        Date(timeIntervalSince1970: Double(timestamp) / 1000)
     }
 }
