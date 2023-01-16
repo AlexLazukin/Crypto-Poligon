@@ -22,7 +22,10 @@ final class TickersInteractor {
     // MARK: - Private (Properties)
     private var presenter: TickersInteractorPresenterInterface
     private let tickersService: TickersNetworkServiceInterface
+    private let currenciesNetworkService: CurrenciesNetworkServiceInterface
+
     private let tickersLoader = PassthroughSubject<TickersRequestObject, Never>()
+    private let currenciesCodesLoader = PassthroughSubject<Void, Never>()
     private let aggregatesBarLoader = PassthroughSubject<Ticker, Never>()
     private var subscriptions = Set<AnyCancellable>()
 
@@ -38,9 +41,11 @@ final class TickersInteractor {
     init(presenter: TickersInteractorPresenterInterface) {
         self.presenter = presenter
         tickersService = TickersNetworkService()
+        currenciesNetworkService = CurrenciesNetworkService()
 
         subscribeOnTickersLoader()
         subscribeOnAggregatesBarLoader()
+        subscribeOnCurrenciesCodesLoader()
     }
 
     // MARK: - Private (Properties)
@@ -64,9 +69,23 @@ final class TickersInteractor {
             .sink { [weak self] tickers in
                 self?.presenter.updateTickers(tickers)
                 self?.presenter.stopLoading()
+
+                self?.currenciesCodesLoader.send()
                 tickers.forEach { [weak self] ticker in
                     self?.aggregatesBarLoader.send(ticker)
                 }
+            }
+            .store(in: &subscriptions)
+    }
+
+    private func subscribeOnCurrenciesCodesLoader() {
+        currenciesCodesLoader
+            .compactMap { [weak self] _ in
+                self?.currenciesNetworkService.requestCurrenciesCodes()
+            }
+            .switchToLatest()
+            .sink { [weak self] supportedCodes in
+                self?.presenter.updateCurrenciesCodes(supportedCodes)
             }
             .store(in: &subscriptions)
     }

@@ -37,6 +37,5 @@ extension TickersNetworkService: TickersNetworkServiceInterface {
         _ aggregatesBarRequestObject: AggregatesBarRequestObject
     ) -> AnyPublisher<AggregatesBarResponseObject, Failure> {
         request(.aggregatesBar(aggregatesBarRequestObject), for: AggregatesBarResponseObject.self)
-            .eraseToAnyPublisher()
     }
 }

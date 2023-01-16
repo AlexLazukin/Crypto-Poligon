@@ -11,11 +11,19 @@ struct Ticker: Decodable {
     let ticker: String
     let type: TickerType?
     let name: String
+    let currencyName: String
+
     var barPoints: [BarPoint]? = []
 
     // MARK: - Public (Interface)
     func update(with barPoints: [BarPoint]) -> Self {
-        Ticker(ticker: ticker, type: type, name: name, barPoints: barPoints)
+        Ticker(
+            ticker: ticker,
+            type: type,
+            name: name,
+            currencyName: currencyName,
+            barPoints: barPoints
+        )
     }
 }
 

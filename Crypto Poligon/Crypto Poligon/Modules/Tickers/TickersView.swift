@@ -157,29 +157,49 @@ struct TickersView: View {
 
     private func ticketRow(_ ticker: Ticker) -> some View {
         VStack {
-            HStack {
-                VStack(alignment: .leading, spacing: smallIndent) {
-                    Text(ticker.ticker + " \(ticker.barPoints?.count ?? .zero)")
-                        .font(.ordinary)
-                        .foregroundColor(.text)
+            VStack(spacing: smallIndent) {
+                HStack(alignment: .top) {
+                    Text(ticker.ticker)
+                        .multilineTextAlignment(.leading)
+                        .padding(.trailing)
 
+                    Spacer()
+
+                    Text(
+                        viewModel.convert(
+                            position: ticker.barPoints?.last?.close ?? .zero,
+                            currencyName: ticker.currencyName
+                        )
+                    )
+                    .multilineTextAlignment(.trailing)
+                }
+                .font(.ordinary)
+                .foregroundColor(.text)
+
+                HStack(alignment: .top) {
                     Text(ticker.name)
                         .font(.light)
                         .foregroundColor(.textSecondary)
+                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
+
+                    Spacer()
+
+                    WatchListChart(chartPoints: ticker.barPoints ?? [])
+                        .frame(width: UIDevice.isPad ? 180 : 80, height: UIDevice.isPad ? 100 : 45)
+
+                    Text(viewModel.changeValue(barPoints: ticker.barPoints))
+                        .font(.light)
+                        .foregroundColor(viewModel.changeColor(barPoints: ticker.barPoints))
+                        .multilineTextAlignment(.trailing)
+                        .frame(width: 70, alignment: .trailing)
                 }
-                .multilineTextAlignment(.leading)
-
-                Spacer()
-
-                WatchListChart(chartPoints: ticker.barPoints ?? [])
-                    .frame(width: UIDevice.isPad ? 180 : 60, height: UIDevice.isPad ? 100 : 40)
             }
             .padding(.horizontal)
 
             Divider()
-                .frame(height: 1)
+                .frame(height: 1.5)
                 .background(Color.background)
-                .padding(.leading)
         }
     }
 
@@ -188,7 +208,8 @@ struct TickersView: View {
             AnyView(
                 Button(
                     action: {
-                        interactor.changeMarket(market: viewModel.currentMarket.next())
+//                        TODO: other types of markets require a special subscription to https://polygon.io
+//                        interactor.changeMarket(market: viewModel.currentMarket.next())
                     },
                     label: {
                         HStack(alignment: .center, spacing: 10) {
@@ -196,10 +217,10 @@ struct TickersView: View {
                                 .font(.navigationTitle)
                                 .foregroundColor(.text)
 
-                            Image(systemName: "rectangle.2.swap")
-                                .resizable()
-                                .frame(width: iconSize, height: iconSize)
-                                .foregroundColor(.text)
+//                            Image(systemName: "rectangle.2.swap")
+//                                .resizable()
+//                                .frame(width: iconSize, height: iconSize)
+//                                .foregroundColor(.text)
                         }
                     }
                 )

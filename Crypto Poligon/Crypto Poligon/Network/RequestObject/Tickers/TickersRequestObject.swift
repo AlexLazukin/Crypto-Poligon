@@ -17,7 +17,7 @@ struct TickersRequestObject {
     var date: String?
     var search: String?
     let active: Bool = true
-    let limit: Int = 20
+    let limit: Int = 50
     var order: Order?
     var sort: Sort?
 

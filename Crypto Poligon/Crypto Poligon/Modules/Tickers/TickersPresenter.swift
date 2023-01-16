@@ -12,6 +12,7 @@ import Foundation
 protocol TickersInteractorPresenterInterface {
     func updateTickers(_ tickers: [Ticker])
     func updateAggregatesBar(for ticker: String, with barPoints: [BarPoint])
+    func updateCurrenciesCodes(_ codes: [String: String])
     func handleFailure(_ failure: Failure)
     func changeMarket(market: MarketType)
     func filtersTapped(market: MarketType, tickersFiltersModel: TickersFiltersModel)
@@ -32,6 +33,7 @@ final class TickersPresenter {
     private let loaderUpdater = PassthroughSubject<Bool, Never>()
     private let tickersFiltersUpdater = PassthroughSubject<TickersFiltersModel, Never>()
     private let barPointsUpdater = PassthroughSubject<(String, [BarPoint]), Never>()
+    private let currenciesCodesUpdater = PassthroughSubject<[String: String], Never>()
     private var subscriptions = Set<AnyCancellable>()
 
     // MARK: - Init
@@ -45,6 +47,7 @@ final class TickersPresenter {
         subscribeOnLoaderUpdater()
         subscribeOnTickersFiltersUpdater()
         subscribeOnBarPointsUpdater()
+        subscribeOnCurrenciesCodesUpdater()
     }
 
     // MARK: - Private (Interface)
@@ -84,6 +87,10 @@ final class TickersPresenter {
             }
             .store(in: &subscriptions)
     }
+
+    private func subscribeOnCurrenciesCodesUpdater() {
+        currenciesCodesUpdater.assign(to: \.currenciesCodes, on: viewModel, subscriptions: &subscriptions)
+    }
 }
 
 // MARK: - TickersInteractorPresenterInterface
@@ -94,6 +101,10 @@ extension TickersPresenter: TickersInteractorPresenterInterface {
 
     func updateAggregatesBar(for ticker: String, with barPoints: [BarPoint]) {
         barPointsUpdater.send((ticker, barPoints))
+    }
+
+    func updateCurrenciesCodes(_ codes: [String: String]) {
+        currenciesCodesUpdater.send(codes)
     }
 
     func handleFailure(_ failure: Failure) {

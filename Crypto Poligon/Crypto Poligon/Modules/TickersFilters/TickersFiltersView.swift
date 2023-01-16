@@ -181,7 +181,7 @@ struct TickersFiltersView: View {
             .padding(.horizontal)
 
             Divider()
-                .frame(height: 1)
+                .frame(height: 1.5)
                 .background(Color.background)
         }
     }
