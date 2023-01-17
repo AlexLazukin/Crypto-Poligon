@@ -12,24 +12,4 @@ struct Ticker: Decodable {
     let type: TickerType?
     let name: String
     let currencyName: String
-
-    var barPoints: [BarPoint]? = []
-
-    // MARK: - Public (Interface)
-    func update(with barPoints: [BarPoint]) -> Self {
-        Ticker(
-            ticker: ticker,
-            type: type,
-            name: name,
-            currencyName: currencyName,
-            barPoints: barPoints
-        )
-    }
-}
-
-// MARK: - Equatable
-extension Ticker: Equatable {
-    static func == (lhs: Ticker, rhs: Ticker) -> Bool {
-        lhs.ticker == rhs.ticker && lhs.barPoints?.count == rhs.barPoints?.count
-    }
 }

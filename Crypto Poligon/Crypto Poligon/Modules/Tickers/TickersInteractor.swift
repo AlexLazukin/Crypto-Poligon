@@ -87,7 +87,7 @@ final class TickersInteractor {
 
     private func subscribeOnAggregatesBarLoader() {
         aggregatesBarLoader
-            .flatMap { [weak self] ticker, dateFrom, dateTo -> AnyPublisher<(String, [BarPoint]), Never> in
+            .flatMap { [weak self] ticker, dateFrom, dateTo -> AnyPublisher<AggregatesBarResponseObject, Never> in
                 let aggregatesBarRequestObject = AggregatesBarRequestObject(
                     ticker: ticker.ticker,
                     multiplier: 10,
@@ -97,17 +97,14 @@ final class TickersInteractor {
                 )
 
                 return self?.tickersService.requestAggregatesBar(aggregatesBarRequestObject)
-                    .map {
-                        ($0.ticker, $0.results)
-                    }
-                    .catch { _ -> Just<(String, [BarPoint])> in
-                        Just((ticker.ticker, []))
+                    .catch { _ -> Just<AggregatesBarResponseObject> in
+                        Just(.empty)
                     }
                     .eraseToAnyPublisher()
-                ?? Just(("", [])).eraseToAnyPublisher()
+                ?? Just(.empty).eraseToAnyPublisher()
             }
-            .sink { [weak self] ticker, barPoints in
-                self?.presenter.updateAggregatesBar(for: ticker, with: barPoints)
+            .sink { [weak self] aggregatesBarResponseObject in
+                self?.presenter.updateAggregatesBar(with: aggregatesBarResponseObject)
             }
             .store(in: &subscriptions)
     }

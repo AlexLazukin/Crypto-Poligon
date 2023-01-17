@@ -11,7 +11,7 @@ import Foundation
 // MARK: - TickersInteractorPresenterInterface
 protocol TickersInteractorPresenterInterface {
     func updateTickers(_ tickers: [Ticker])
-    func updateAggregatesBar(for ticker: String, with barPoints: [BarPoint])
+    func updateAggregatesBar(with aggregatesBarResponseObject: AggregatesBarResponseObject)
     func updateCurrenciesCodes(_ codes: [String: String])
     func handleFailure(_ failure: Failure)
     func changeMarket(market: MarketType)
@@ -32,14 +32,20 @@ final class TickersPresenter {
     private let failuresHandler = PassthroughSubject<Failure, Never>()
     private let loaderUpdater = PassthroughSubject<Bool, Never>()
     private let tickersFiltersUpdater = PassthroughSubject<TickersFiltersModel, Never>()
-    private let barPointsUpdater = PassthroughSubject<(String, [BarPoint]), Never>()
+    private let barPointsUpdater = PassthroughSubject<AggregatesBarResponseObject, Never>()
     private let currenciesCodesUpdater = PassthroughSubject<[String: String], Never>()
     private var subscriptions = Set<AnyCancellable>()
+
+    private let numberFormatterHub: NumberFormatterHub
+    private var currenciesCodes: [String: String]
 
     // MARK: - Init
     init(viewModel: TickersViewModel, router: TickersPresenterRouterInterface) {
         self.viewModel = viewModel
         self.router = router
+
+        currenciesCodes = [:]
+        numberFormatterHub = NumberFormatterHub.shared
 
         subscribeOnTickersUpdater()
         subscribeOnMarketUpdater()
@@ -52,7 +58,17 @@ final class TickersPresenter {
 
     // MARK: - Private (Interface)
     private func subscribeOnTickersUpdater() {
-        tickersUpdater.assign(to: \.tickers, on: viewModel, subscriptions: &subscriptions)
+        tickersUpdater
+            .map {
+                $0.map { ticker in
+                    TickerRowModel(
+                        ticker: ticker.ticker,
+                        name: ticker.name,
+                        currencyName: ticker.currencyName
+                    )
+                }
+            }
+            .assign(to: \.tickersModels, on: viewModel, subscriptions: &subscriptions)
     }
 
     private func subscribeOnMarketUpdater() {
@@ -79,17 +95,55 @@ final class TickersPresenter {
     private func subscribeOnBarPointsUpdater() {
         barPointsUpdater
             .receive(on: DispatchQueue.main)
-            .sink { [weak viewModel] ticker, barPoints in
-                guard let viewModel = viewModel else { return }
-                viewModel.tickers = viewModel.tickers.map {
-                    $0.ticker == ticker ? $0.update(with: barPoints) : $0
+            .sink { [weak self] aggregatesBarResponseObject in
+                guard let self = self else { return }
+
+                let barPoints = aggregatesBarResponseObject.results
+
+                self.viewModel.tickersModels = self.viewModel.tickersModels.map {
+                    $0.ticker == aggregatesBarResponseObject.ticker
+                    ? TickerRowModel(
+                        ticker: $0.ticker,
+                        name: $0.name,
+                        currencyName: $0.currencyName,
+                        status: aggregatesBarResponseObject.status,
+                        barPoints: barPoints,
+                        position: self.convert(
+                            position: barPoints?.last?.close ?? .zero,
+                            currencyName: $0.currencyName
+                        ),
+                        changeValue: self.calculateChangeValue(by: barPoints)
+                    )
+                    : $0
                 }
             }
             .store(in: &subscriptions)
     }
 
     private func subscribeOnCurrenciesCodesUpdater() {
-        currenciesCodesUpdater.assign(to: \.currenciesCodes, on: viewModel, subscriptions: &subscriptions)
+        currenciesCodesUpdater.assign(to: \.currenciesCodes, on: self, subscriptions: &subscriptions)
+    }
+}
+
+private extension TickersPresenter {
+    func calculateChangeValue(by barPoints: [BarPoint]?) -> String {
+        let first = barPoints?.first?.value ?? .zero
+        let last = barPoints?.last?.value ?? .zero
+
+        guard last != .zero else {
+            return numberFormatterHub.changesFormatter.string(from: 0) ?? ""
+        }
+
+        let change = (last - first) / last
+
+        return numberFormatterHub.changesFormatter.string(from: NSNumber(value: change)) ?? ""
+    }
+
+    func convert(position: Decimal, currencyName: String) -> String {
+        guard position != .zero else { return "" }
+        numberFormatterHub.currencyFormatter.currencyCode = currenciesCodes[currencyName.lowercased()] ?? currencyName
+        let value = NSNumber(value: NSDecimalNumber(decimal: position).doubleValue)
+        return numberFormatterHub.currencyFormatter.string(from: value) ?? ""
     }
 }
 
@@ -99,8 +153,8 @@ extension TickersPresenter: TickersInteractorPresenterInterface {
         tickersUpdater.send(tickers)
     }
 
-    func updateAggregatesBar(for ticker: String, with barPoints: [BarPoint]) {
-        barPointsUpdater.send((ticker, barPoints))
+    func updateAggregatesBar(with aggregatesBarResponseObject: AggregatesBarResponseObject) {
+        barPointsUpdater.send(aggregatesBarResponseObject)
     }
 
     func updateCurrenciesCodes(_ codes: [String: String]) {
@@ -139,7 +193,7 @@ extension TickersPresenter: TickersInteractorPresenterInterface {
     }
 }
 
-private extension PassthroughSubject where Failure == Never {
+private extension Publisher where Failure == Never {
     func assign<Root>(
         to referenceWritableKeyPath: ReferenceWritableKeyPath<Root, Output>,
         on root: Root,

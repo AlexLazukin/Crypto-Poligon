@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		520EAE1729578D4C007AA40B /* LockedLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520EAE1629578D4C007AA40B /* LockedLoading.swift */; };
 		521B3CD92975AB5E00F197B5 /* DateFormatterHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521B3CD82975AB5E00F197B5 /* DateFormatterHub.swift */; };
+		521D70E72976CC1E00F8122A /* TickerRowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521D70E62976CC1E00F8122A /* TickerRowModel.swift */; };
+		521D70E92976D49100F8122A /* NumberFormatterHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521D70E82976D49100F8122A /* NumberFormatterHub.swift */; };
 		521F0DE329584E1E00D0FB54 /* ResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521F0DE229584E1E00D0FB54 /* ResponseError.swift */; };
 		52241BB029713D8F002B3AAD /* ExchangeRateSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52241BAF29713D8F002B3AAD /* ExchangeRateSettings.plist */; };
 		52241BB2297140BB002B3AAD /* CurrenciesNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52241BB1297140BB002B3AAD /* CurrenciesNetworkService.swift */; };
@@ -65,6 +67,8 @@
 /* Begin PBXFileReference section */
 		520EAE1629578D4C007AA40B /* LockedLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockedLoading.swift; sourceTree = "<group>"; };
 		521B3CD82975AB5E00F197B5 /* DateFormatterHub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterHub.swift; sourceTree = "<group>"; };
+		521D70E62976CC1E00F8122A /* TickerRowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerRowModel.swift; sourceTree = "<group>"; };
+		521D70E82976D49100F8122A /* NumberFormatterHub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatterHub.swift; sourceTree = "<group>"; };
 		521F0DE229584E1E00D0FB54 /* ResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseError.swift; sourceTree = "<group>"; };
 		52241BAF29713D8F002B3AAD /* ExchangeRateSettings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExchangeRateSettings.plist; sourceTree = "<group>"; };
 		52241BB1297140BB002B3AAD /* CurrenciesNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesNetworkService.swift; sourceTree = "<group>"; };
@@ -143,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				521B3CD82975AB5E00F197B5 /* DateFormatterHub.swift */,
+				521D70E82976D49100F8122A /* NumberFormatterHub.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -452,6 +457,7 @@
 				52F38FBA2950B47700FF17E8 /* TickersPresenter.swift */,
 				52F38FBC2950B49100FF17E8 /* TickersRouter.swift */,
 				52F38FBE2950B4DB00FF17E8 /* TickersViewModel.swift */,
+				521D70E62976CC1E00F8122A /* TickerRowModel.swift */,
 			);
 			path = Tickers;
 			sourceTree = "<group>";
@@ -561,12 +567,14 @@
 				52F38FBF2950B4DB00FF17E8 /* TickersViewModel.swift in Sources */,
 				5285762B295339830013E280 /* TickersFiltersAssembler.swift in Sources */,
 				52575356294CABE200ED075C /* TickersResponseObject.swift in Sources */,
+				521D70E92976D49100F8122A /* NumberFormatterHub.swift in Sources */,
 				52F38FB52950B42E00FF17E8 /* TickersAssembler.swift in Sources */,
 				528576272953381A0013E280 /* TickersFiltersPresenter.swift in Sources */,
 				52857625295337050013E280 /* TickersFiltersInteractor.swift in Sources */,
 				5293160F29702BAA0032B0AF /* UIDevice+Extension.swift in Sources */,
 				52857623295336C30013E280 /* TickersFiltersViewModel.swift in Sources */,
 				5285762E29534AF60013E280 /* ExchangesRequestObject.swift in Sources */,
+				521D70E72976CC1E00F8122A /* TickerRowModel.swift in Sources */,
 				528B34152951C4320082F73B /* Color.swift in Sources */,
 				5285761C29532BED0013E280 /* Animations.swift in Sources */,
 				529D0ACD296D7EB900AC4A05 /* AggregatesBarResponseObject.swift in Sources */,
