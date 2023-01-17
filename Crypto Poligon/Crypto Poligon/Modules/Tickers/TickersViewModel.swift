@@ -22,6 +22,7 @@ final class TickersViewModel: ObservableObject {
 
     // MARK: - Private (Properties)
     private var subscriptions = Set<AnyCancellable>()
+    private let dateFormatter: DateFormatter
 
     private lazy var currencyFormatter: NumberFormatter = {
         var formatter = NumberFormatter()
@@ -48,14 +49,31 @@ final class TickersViewModel: ObservableObject {
         searchText = ""
         tickers = []
         currenciesCodes = [:]
-        tickersFiltersModel = TickersFiltersModel()
-        tickersRequestObject = TickersRequestObject(ticker: "", market: .stocks)
+        dateFormatter = DateFormatterHub.shared.simpleFormatter
+
+        let dateTo = Date()
+        let dateFrom = Calendar.current.date(byAdding: .day, value: -1, to: dateTo) ?? dateTo
+
+        tickersFiltersModel = TickersFiltersModel(dateTo: dateTo)
+        tickersRequestObject = TickersRequestObject(
+            ticker: "",
+            market: .stocks,
+            dateFrom: dateFormatter.string(from: dateFrom),
+            dateTo: dateFormatter.string(from: dateTo)
+        )
 
         subscriptionOnChanges()
         subscriptionOnMarketChanges()
     }
 
     // MARK: - Public (Interface)
+    func closedRange() -> ClosedRange<Date> {
+        let calendar = Calendar.current
+        let today = Date()
+        let fiveYearsAgo = calendar.date(byAdding: .year, value: -5, to: today)!
+        return fiveYearsAgo...today
+    }
+
     func convert(position: Decimal, currencyName: String) -> String {
         guard position != .zero else { return "" }
         currencyFormatter.currencyCode = currenciesCodes[currencyName.lowercased()] ?? currencyName
@@ -93,10 +111,17 @@ final class TickersViewModel: ObservableObject {
     // MARK: - Private (Interfaces)
     private func subscriptionOnChanges() {
         Publishers.CombineLatest3($searchText, $currentMarket, $tickersFiltersModel)
-            .map { searchText, currentMarket, tickersFiltersModel in
-                TickersRequestObject(
+            .compactMap { [weak self] searchText, currentMarket, tickersFiltersModel in
+                guard let self = self else { return nil }
+
+                let dateTo = tickersFiltersModel.dateTo
+                let dateFrom = Calendar.current.date(byAdding: .day, value: -1, to: dateTo) ?? dateTo
+
+                return TickersRequestObject(
                     market: currentMarket,
                     exchange: tickersFiltersModel.exchange?.operatingMic,
+                    dateFrom: self.dateFormatter.string(from: dateFrom),
+                    dateTo: self.dateFormatter.string(from: dateTo),
                     search: searchText
                 )
             }
@@ -108,7 +133,7 @@ final class TickersViewModel: ObservableObject {
         $currentMarket
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
-                self?.tickersFiltersModel = TickersFiltersModel()
+                self?.tickersFiltersModel.exchange = nil
             }
             .store(in: &subscriptions)
     }

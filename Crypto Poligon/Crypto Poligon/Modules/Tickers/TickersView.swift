@@ -38,7 +38,7 @@ struct TickersView: View {
             }
         }
         .toolbar {
-            centerToolBar()
+            leadingToolBar()
         }
         .toolbar {
             rightToolBar()
@@ -119,6 +119,18 @@ struct TickersView: View {
 
     @ViewBuilder
     private func filtersView() -> some View {
+        DatePicker(
+            selection: $viewModel.tickersFiltersModel.dateTo,
+            in: viewModel.closedRange(),
+            displayedComponents: .date
+        ) {
+            Text(Strings.Tickers.tickersDate)
+                .font(.ordinary)
+                .foregroundColor(.textSecondary)
+                .padding([.trailing, .bottom])
+        }
+        .accentColor(.accent)
+
         if isActiveFiltersShown {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .center, spacing: 10) {
@@ -203,7 +215,7 @@ struct TickersView: View {
         }
     }
 
-    private func centerToolBar() -> ToolbarItem<Void, AnyView> {
+    private func leadingToolBar() -> ToolbarItem<Void, AnyView> {
         ToolbarItem(placement: .navigationBarLeading) {
             AnyView(
                 Button(
@@ -213,7 +225,7 @@ struct TickersView: View {
                     },
                     label: {
                         HStack(alignment: .center, spacing: 10) {
-                            Text(viewModel.currentMarket.rawValue.capitalized)
+                            Text(viewModel.currentMarket.rawValue.uppercased())
                                 .font(.navigationTitle)
                                 .foregroundColor(.text)
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		520EAE1729578D4C007AA40B /* LockedLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520EAE1629578D4C007AA40B /* LockedLoading.swift */; };
+		521B3CD92975AB5E00F197B5 /* DateFormatterHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521B3CD82975AB5E00F197B5 /* DateFormatterHub.swift */; };
 		521F0DE329584E1E00D0FB54 /* ResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521F0DE229584E1E00D0FB54 /* ResponseError.swift */; };
 		52241BB029713D8F002B3AAD /* ExchangeRateSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52241BAF29713D8F002B3AAD /* ExchangeRateSettings.plist */; };
 		52241BB2297140BB002B3AAD /* CurrenciesNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52241BB1297140BB002B3AAD /* CurrenciesNetworkService.swift */; };
@@ -63,6 +64,7 @@
 
 /* Begin PBXFileReference section */
 		520EAE1629578D4C007AA40B /* LockedLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockedLoading.swift; sourceTree = "<group>"; };
+		521B3CD82975AB5E00F197B5 /* DateFormatterHub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterHub.swift; sourceTree = "<group>"; };
 		521F0DE229584E1E00D0FB54 /* ResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseError.swift; sourceTree = "<group>"; };
 		52241BAF29713D8F002B3AAD /* ExchangeRateSettings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExchangeRateSettings.plist; sourceTree = "<group>"; };
 		52241BB1297140BB002B3AAD /* CurrenciesNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesNetworkService.swift; sourceTree = "<group>"; };
@@ -135,6 +137,14 @@
 				520EAE1629578D4C007AA40B /* LockedLoading.swift */,
 			);
 			path = Modificators;
+			sourceTree = "<group>";
+		};
+		521B3CD72975AB4800F197B5 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				521B3CD82975AB5E00F197B5 /* DateFormatterHub.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		52241BB329714158002B3AAD /* Currencies */ = {
@@ -325,6 +335,7 @@
 				5257533C294C85CB00ED075C /* Modules */,
 				52E38D282955F2BD0087908A /* UI */,
 				52575342294C88E700ED075C /* Network */,
+				521B3CD72975AB4800F197B5 /* Utilities */,
 				528B340B2951C0570082F73B /* Extensions */,
 				52575338294C857800ED075C /* Configurations */,
 			);
@@ -541,6 +552,7 @@
 			files = (
 				5257535A294CAE5C00ED075C /* NetworkService.swift in Sources */,
 				52F38FBD2950B49100FF17E8 /* TickersRouter.swift in Sources */,
+				521B3CD92975AB5E00F197B5 /* DateFormatterHub.swift in Sources */,
 				529D0ACB296D7B0000AC4A05 /* AggregatesBarRequestObject.swift in Sources */,
 				529D0AC9296D6AD600AC4A05 /* View+Extension.swift in Sources */,
 				5293160D2970250D0032B0AF /* WatchListChart.swift in Sources */,
