@@ -43,7 +43,7 @@ extension EndPoint {
             let timespan = requestObject.timespan
             let dateFrom = requestObject.dateFrom
             let dateTo = requestObject.dateTo
-            return "aggs/ticker/\(ticker)/range/\(multiplier)/\(timespan)/\(dateFrom)/\(dateTo)" // YYYY-MM-DD
+            return "aggs/ticker/\(ticker)/range/\(multiplier)/\(timespan)/\(dateFrom)/\(dateTo)" // yyyy-MM-dd
         }
     }
 

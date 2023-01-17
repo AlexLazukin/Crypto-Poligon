@@ -25,5 +25,6 @@ extension AggregatesBarResponseObject {
     enum Status: String, Decodable {
         case OK
         case DELAYED
+        case ERROR
     }
 }

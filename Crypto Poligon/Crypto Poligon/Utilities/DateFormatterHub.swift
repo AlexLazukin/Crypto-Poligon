@@ -12,12 +12,12 @@ final class DateFormatterHub {
     // MARK: - Public (Properties)
     static let shared = DateFormatterHub()
 
-    /// YYYY-MM-DD
+    /// yyyy-MM-dd
     let simpleFormatter: DateFormatter = {
         var dateFormatter = DateFormatter()
         dateFormatter.calendar = .current
         dateFormatter.timeZone = .current
-        dateFormatter.dateFormat = "YYYY-MM-DD"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         return dateFormatter
     }()
 
