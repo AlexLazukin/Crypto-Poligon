@@ -15,40 +15,18 @@ final class TickersViewModel: ObservableObject {
     @Published var currentMarket: MarketType
     @Published var searchText: String
     @Published var tickersFiltersModel: TickersFiltersModel
-    @Published var tickers: [Ticker]
-    @Published var currenciesCodes: [String: String]
-
+    @Published var tickersModels: [TickerRowModel]
     @Published var tickersRequestObject: TickersRequestObject
 
     // MARK: - Private (Properties)
     private var subscriptions = Set<AnyCancellable>()
     private let dateFormatter: DateFormatter
 
-    private lazy var currencyFormatter: NumberFormatter = {
-        var formatter = NumberFormatter()
-        formatter.locale = Locale.current
-        formatter.usesGroupingSeparator = true
-        formatter.numberStyle = .currency
-        formatter.minimumFractionDigits = 2
-        formatter.maximumFractionDigits = 6
-        return formatter
-    }()
-
-    private lazy var changesFormatter: NumberFormatter = {
-        var formatter = NumberFormatter()
-        formatter.locale = Locale.current
-        formatter.usesGroupingSeparator = true
-        formatter.numberStyle = .percent
-        formatter.maximumFractionDigits = 2
-        return formatter
-    }()
-
     // MARK: - Init
     init() {
         currentMarket = .stocks // TODO: other types of markets require a special subscription to https://polygon.io
         searchText = ""
-        tickers = []
-        currenciesCodes = [:]
+        tickersModels = []
         dateFormatter = DateFormatterHub.shared.simpleFormatter
 
         let dateTo = Date()
@@ -72,40 +50,6 @@ final class TickersViewModel: ObservableObject {
         let today = Date()
         let fiveYearsAgo = calendar.date(byAdding: .year, value: -5, to: today)!
         return fiveYearsAgo...today
-    }
-
-    func convert(position: Decimal, currencyName: String) -> String {
-        guard position != .zero else { return "" }
-        currencyFormatter.currencyCode = currenciesCodes[currencyName.lowercased()] ?? currencyName
-        let value = NSNumber(value: NSDecimalNumber(decimal: position).doubleValue)
-        return currencyFormatter.string(from: value) ?? ""
-    }
-
-    func changeValue(barPoints: [BarPoint]?) -> String {
-        let first = barPoints?.first?.value ?? .zero
-        let last = barPoints?.last?.value ?? .zero
-
-        guard last != .zero else {
-            return changesFormatter.string(from: 0) ?? ""
-        }
-
-        let change = (last - first) / last
-
-        return changesFormatter.string(from: NSNumber(value: change)) ?? ""
-    }
-
-    func changeColor(barPoints: [BarPoint]?) -> Color {
-        guard
-            let barPoints = barPoints,
-            barPoints.isEmpty == false,
-            let first = barPoints.first?.value,
-            let last = barPoints.last?.value,
-            first != last
-        else {
-            return .textSecondary
-        }
-
-        return first < last ? .green : .red
     }
 
     // MARK: - Private (Interfaces)

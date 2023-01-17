@@ -11,8 +11,8 @@ struct AggregatesBarRequestObject {
     let ticker: String
     let multiplier: Int
     let timespan: Timespan
-    let dateFrom: String // YYYY-MM-DD
-    let dateTo: String // YYYY-MM-DD
+    let dateFrom: String // yyyy-MM-dd
+    let dateTo: String // yyyy-MM-dd
     let limit: String = "5000"
 
     // MARK: - Public (Interface)

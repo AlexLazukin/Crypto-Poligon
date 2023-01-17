@@ -54,9 +54,9 @@ struct TickersView: View {
                 isSearchGlassShown = searchText.isEmpty
             }
         }
-        .onReceive(viewModel.$tickers) { tickers in
+        .onReceive(viewModel.$tickersModels) { tickersModels in
             withAnimation(.general) {
-                isEmptyListShown = tickers.isEmpty
+                isEmptyListShown = tickersModels.isEmpty
             }
         }
         .onReceive(viewModel.$tickersFiltersModel) { tickersFiltersModel in
@@ -82,8 +82,8 @@ struct TickersView: View {
 
                 VStack {
                     if !isEmptyListShown {
-                        ForEach(viewModel.tickers, id: \.ticker) { ticker in
-                            ticketRow(ticker)
+                        ForEach(viewModel.tickersModels, id: \.ticker) { tickerModel in
+                            ticketRow(tickerModel)
                                 .transition(.appear)
                         }
                         .padding(.top, smallIndent)
@@ -167,29 +167,24 @@ struct TickersView: View {
             .multilineTextAlignment(.center)
     }
 
-    private func ticketRow(_ ticker: Ticker) -> some View {
+    private func ticketRow(_ tickerModel: TickerRowModel) -> some View {
         VStack {
             VStack(spacing: smallIndent) {
                 HStack(alignment: .top) {
-                    Text(ticker.ticker)
+                    Text(tickerModel.ticker)
                         .multilineTextAlignment(.leading)
                         .padding(.trailing)
 
                     Spacer()
 
-                    Text(
-                        viewModel.convert(
-                            position: ticker.barPoints?.last?.close ?? .zero,
-                            currencyName: ticker.currencyName
-                        )
-                    )
-                    .multilineTextAlignment(.trailing)
+                    Text(tickerModel.position)
+                        .multilineTextAlignment(.trailing)
                 }
                 .font(.ordinary)
                 .foregroundColor(.text)
 
                 HStack(alignment: .top) {
-                    Text(ticker.name)
+                    Text(tickerModel.name)
                         .font(.light)
                         .foregroundColor(.textSecondary)
                         .multilineTextAlignment(.leading)
@@ -197,14 +192,21 @@ struct TickersView: View {
 
                     Spacer()
 
-                    WatchListChart(chartPoints: ticker.barPoints ?? [])
+                    WatchListChart(chartPoints: tickerModel.barPoints ?? [])
                         .frame(width: UIDevice.isPad ? 180 : 80, height: UIDevice.isPad ? 100 : 45)
 
-                    Text(viewModel.changeValue(barPoints: ticker.barPoints))
-                        .font(.light)
-                        .foregroundColor(viewModel.changeColor(barPoints: ticker.barPoints))
-                        .multilineTextAlignment(.trailing)
-                        .frame(width: 70, alignment: .trailing)
+                    VStack(alignment: .trailing, spacing: smallIndent) {
+                        Text(tickerModel.changeValue)
+                            .font(.light)
+                            .foregroundColor(tickerModel.changeValueColor)
+                            .frame(width: 70, alignment: .trailing)
+
+                        if let statusImageName = tickerModel.statusImageName {
+                            Image(systemName: statusImageName)
+                                .font(.light)
+                                .foregroundColor(tickerModel.statusImageColor)
+                        }
+                    }
                 }
             }
             .padding(.horizontal)
