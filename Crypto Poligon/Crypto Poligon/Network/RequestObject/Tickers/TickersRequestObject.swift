@@ -14,7 +14,8 @@ struct TickersRequestObject {
     var exchange: String?
     // let cusip: String // The list of possible cusip code can't be received due to legal reasons
     var cik: String?
-    var date: String?
+    var dateFrom: String
+    var dateTo: String
     var search: String?
     let active: Bool = true
     let limit: Int = 50
@@ -30,7 +31,7 @@ struct TickersRequestObject {
         parameters["market"] = market?.rawValue
         parameters["exchange"] = exchange
         parameters["cik"] = cik
-        parameters["date"] = date
+        parameters["date"] = dateTo
         parameters["search"] = search
         parameters["active"] = String(active)
         parameters["limit"] = String(limit)

@@ -50,5 +50,6 @@ extension Strings {
         static let exchangesNotFound = "Exchanges not found"
         static let seeMore = "See more"
         static let collapseBack = "Collapse back"
+        static let tickersDate = "Tickers available for this date:"
     }
 }

@@ -26,16 +26,8 @@ final class TickersInteractor {
 
     private let tickersLoader = PassthroughSubject<TickersRequestObject, Never>()
     private let currenciesCodesLoader = PassthroughSubject<Void, Never>()
-    private let aggregatesBarLoader = PassthroughSubject<Ticker, Never>()
+    private let aggregatesBarLoader = PassthroughSubject<(Ticker, dateFrom: String, dateTo: String), Never>()
     private var subscriptions = Set<AnyCancellable>()
-
-    private let dateFormatter: DateFormatter = {
-        var dateFormatter = DateFormatter()
-        dateFormatter.calendar = .current
-        dateFormatter.timeZone = .current
-        dateFormatter.dateFormat = "YYYY-MM-DD"
-        return dateFormatter
-    }()
 
     // MARK: - Init
     init(presenter: TickersInteractorPresenterInterface) {
@@ -64,15 +56,18 @@ final class TickersInteractor {
                         self?.presenter.handleFailure(failure)
                         return Just([])
                     }
+                    .map {
+                        ($0, tickersRequestObject.dateFrom, tickersRequestObject.dateTo)
+                    }
             }
             .switchToLatest()
-            .sink { [weak self] tickers in
+            .sink { [weak self] tickers, dateFrom, dateTo in
                 self?.presenter.updateTickers(tickers)
                 self?.presenter.stopLoading()
 
                 self?.currenciesCodesLoader.send()
                 tickers.forEach { [weak self] ticker in
-                    self?.aggregatesBarLoader.send(ticker)
+                    self?.aggregatesBarLoader.send((ticker, dateFrom, dateTo))
                 }
             }
             .store(in: &subscriptions)
@@ -92,15 +87,16 @@ final class TickersInteractor {
 
     private func subscribeOnAggregatesBarLoader() {
         aggregatesBarLoader
-            .removeDuplicates()
-            .flatMap { [weak self] ticker -> AnyPublisher<(String, [BarPoint]), Never> in
-                guard let self = self else {
-                    return Just(("", [])).eraseToAnyPublisher()
-                }
+            .flatMap { [weak self] ticker, dateFrom, dateTo -> AnyPublisher<(String, [BarPoint]), Never> in
+                let aggregatesBarRequestObject = AggregatesBarRequestObject(
+                    ticker: ticker.ticker,
+                    multiplier: 10,
+                    timespan: .minute,
+                    dateFrom: dateFrom,
+                    dateTo: dateTo
+                )
 
-                let aggregatesBarRequestObject = self.aggregatesBarRequestObject(ticker: ticker)
-
-                return self.tickersService.requestAggregatesBar(aggregatesBarRequestObject)
+                return self?.tickersService.requestAggregatesBar(aggregatesBarRequestObject)
                     .map {
                         ($0.ticker, $0.results)
                     }
@@ -108,24 +104,12 @@ final class TickersInteractor {
                         Just((ticker.ticker, []))
                     }
                     .eraseToAnyPublisher()
+                ?? Just(("", [])).eraseToAnyPublisher()
             }
             .sink { [weak self] ticker, barPoints in
                 self?.presenter.updateAggregatesBar(for: ticker, with: barPoints)
             }
             .store(in: &subscriptions)
-    }
-
-    private func aggregatesBarRequestObject(ticker: Ticker) -> AggregatesBarRequestObject {
-        let currentDate = Date()
-        let dateFrom = Calendar.current.date(byAdding: .day, value: -3, to: currentDate) ?? currentDate
-
-        return AggregatesBarRequestObject(
-            ticker: ticker.ticker,
-            multiplier: 10,
-            timespan: .minute,
-            dateFrom: dateFormatter.string(from: dateFrom),
-            dateTo: dateFormatter.string(from: currentDate)
-        )
     }
 }
 
